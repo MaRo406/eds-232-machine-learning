@@ -81,13 +81,13 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 ## Tentative topics
 
 | Week \# | Dates            | Lecture                                                        |
-|--------------|--------------|---------------------------------------------|
+|---------|------------------|----------------------------------------------------------------|
 | 1       | 1/9, 1/11        | Introduction, Linear Regression and ML Modeling Fundamentals I |
 | 2       | MLK, 1/18        | Linear Regression and ML Modeling Fundamentals II              |
 | 3       | 1/23, 1/25       | Regularized Regression                                         |
 | 4       | 1/30, 2/1        | Logistic Regression, Classification                            |
-| 5       | 2/6, 2/8         | Random Forests, Decision Trees                                 |
-| 6       | 2/13, 2/15       | Gradient Boosting                                              |
+| 5       | 2/6, 2/8         | K-nearest Neighbors, Decision Trees                            |
+| 6       | 2/13, 2/15       | Random Forests, Gradient Boosting                              |
 | 7       | Presidents, 2/22 | Ethics, Justice, Bias                                          |
 | 8       | 2/27, 3/1        | K-Means and Hierarchical Clustering                            |
 | 9       | 3/6, 3/8         | Deep Learning and Support Vectors                              |
