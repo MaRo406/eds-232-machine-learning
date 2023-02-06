@@ -93,7 +93,7 @@ These will help you with Lab 4.
 
 ###  Slides:
 
--   Lecture:
+-   Lecture: [k-Nearest Neighbors and Decision Trees](https://ucsb.box.com/s/ghfshuqf4isbu4kswigi3gtoehzszb30)
 
 ### Assigned Reading:
 
