@@ -107,6 +107,8 @@ These will help you with Lab 4.
 
 -   [Link to the Lab 5 Demo](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_Demo.Rmd)
 
+-   [Lab 5](https://github.com/MaRo406/eds-232-machine-learning/commit/944478ebad02534a4c36cf68ec598c7b4eef27dc)
+
 <!-- \### Assignment materials and dates -->
 
 <!-- | Assignment materials | Assigned | Due date | -->
