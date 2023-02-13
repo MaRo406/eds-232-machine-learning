@@ -111,7 +111,9 @@ These will help you with Lab 4.
 
 ### Week 6
 
-### Slides:
+### Slides: 
+
+-   Lecture: [Bagging and Random Forests](https://ucsb.box.com/s/j6oxm4gct9uy1xxhv0zk42tzeqod456i)
 
 ### Assigned Reading:
 
@@ -119,7 +121,7 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
-### Lab:  
+### Lab:
 
 <!-- \### Assignment materials and dates -->
 
