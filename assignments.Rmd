@@ -123,7 +123,7 @@ These will help you with Lab 4.
 
 ### Lab: 
 
--   Demo
+-   [Lab 5 Demo part 2](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_Demo2.Rmd)
 
 <!-- \### Assignment materials and dates -->
 
