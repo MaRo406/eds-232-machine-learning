@@ -121,9 +121,25 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
-### Lab: 
+### Lab:
 
 -   [Lab 5 Demo part 2](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_Demo2.Rmd)
+
+### Week 7
+
+### Slides:
+
+-   Guest Lecture
+
+### Assigned Reading:
+
+-   [McGovern et al. (2022)](https://www.cambridge.org/core/journals/environmental-data-science/article/why-we-need-to-focus-on-developing-ethical-responsible-and-trustworthy-artificial-intelligence-approaches-for-environmental-science/8A32BECCE5FBB518F982855FAB6553D4)
+
+### Supplementary Reading:
+
+### Lab: 
+
+-   No lab this week
 
 <!-- \### Assignment materials and dates -->
 
