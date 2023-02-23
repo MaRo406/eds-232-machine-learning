@@ -141,6 +141,22 @@ These will help you with Lab 4.
 
 -   No lab this week
 
+### Week 8
+
+### Slides:
+
+-   
+
+### Assigned Reading:
+
+-   [HOML Ch. 12 - Gradient Boosting](https://bradleyboehmke.github.io/HOML/gbm.html#how-boosting-works)
+
+### Supplementary Reading:
+
+### Lab: 
+
+-   
+
 <!-- \### Assignment materials and dates -->
 
 <!-- | Assignment materials | Assigned | Due date | -->
