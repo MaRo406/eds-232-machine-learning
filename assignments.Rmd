@@ -137,7 +137,7 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
-### Lab: 
+### Lab:
 
 -   No lab this week
 
@@ -145,7 +145,7 @@ These will help you with Lab 4.
 
 ### Slides:
 
--   
+-   [Boosted Trees](https://ucsb.box.com/s/mh4h340psket990lhhlla9bgsj8dd9ld)
 
 ### Assigned Reading:
 
@@ -153,7 +153,7 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
-### Lab: 
+### Lab:
 
 -   
 
