@@ -11,9 +11,9 @@ This week's lab follows a modeling project described by Elith et al. (2008) (Sup
 
 ## Data
 
-Grab the model traning data set from Git Hub:
+Grab the model training data set from the class Git:
 
-eel.model.data.csv
+data/eel.model.data.csv
 
 ### Split and Resample
 
@@ -63,7 +63,7 @@ Following the XGBoost tuning strategy outlined on Monday, first we conduct tunin
 
 ## Fit your model the evaluation data and compare performance
 
-1.  Now fit your final model to the big dataset: eval.data.csv
+1.  Now fit your final model to the big dataset: data/eval.data.csv
 
 2.  How does your model perform on this data?
 
