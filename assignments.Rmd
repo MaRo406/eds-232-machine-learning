@@ -153,9 +153,11 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
+-   [Elith et al. (2008)](https://ucsb.box.com/s/05wbobx731r6tq0yvsqbtd6l3769sdvr)
+
 ### Lab:
 
--   
+-   [Lab 6](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab6.Rmd)
 
 <!-- \### Assignment materials and dates -->
 
