@@ -7,11 +7,11 @@ output: html_document
 
 ## Case Study Eel Species Distribution Modeling
 
-This week's lab follows a modeling project described by
+This week's lab follows a modeling project described by Elith et al. (2008) (Supplementary Reading)
 
 ## Data
 
-Grab the model traning data set from Git
+Grab the model traning data set from Git Hub:
 
 eel.model.data.csv
 
@@ -21,7 +21,7 @@ Split the joined data from above into a training and test set, stratified by out
 
 ### Preprocess
 
-Create a recipe to prepare your data for the XGBoost model
+Create a recipe to prepare your data for the XGBoost model.  We are interested in predicting the binary outcome variable Angaus which indicates presence or absence of the eel species Anguilla australis
 
 ## Tuning XGBoost
 
@@ -57,7 +57,9 @@ Following the XGBoost tuning strategy outlined on Monday, first we conduct tunin
 
 ## Finalize workflow and make final prediction
 
-1.  How well did your model perform? What types of errors did it make?
+1.  Assemble your final workflow will all of your optimized parameters and do a final fit.
+
+2. How well did your model perform? What types of errors did it make?
 
 ## Fit your model the evaluation data and compare performance
 
