@@ -153,7 +153,7 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
--   [Elith et al. (2008)](https://ucsb.box.com/s/05wbobx731r6tq0yvsqbtd6l3769sdvr)
+-   [Elith et al. (2008)](https://ucsb.box.com/s/05wbobx731r6tq0yvsqbtd6l3769sdvr) - Eel Paper
 
 ### Lab:
 
