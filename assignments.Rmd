@@ -89,7 +89,7 @@ These will help you with Lab 4.
 
 -   [Link to Lab 4 Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab4.Rmd)
 
-### Week 5
+## Week 5
 
 ### Slides:
 
@@ -109,7 +109,7 @@ These will help you with Lab 4.
 
 -   [Lab 5 -- Updated](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_update.Rmd)
 
-### Week 6
+## Week 6
 
 ### Slides:
 
@@ -125,7 +125,7 @@ These will help you with Lab 4.
 
 -   [Lab 5 Demo part 2](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_Demo2.Rmd)
 
-### Week 7
+## Week 7
 
 ### Slides:
 
@@ -141,7 +141,7 @@ These will help you with Lab 4.
 
 -   No lab this week
 
-### Week 8
+## Week 8
 
 ### Slides:
 
@@ -160,12 +160,16 @@ These will help you with Lab 4.
 
 -   [Lab 6](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab6.Rmd)
 
-<!-- \### Assignment materials and dates -->
+## Week 9
 
-<!-- | Assignment materials | Assigned | Due date | -->
+### Slides: 
 
-<!-- |----------------------|----------|----------| -->
+-   [Clustering](https://ucsb.box.com/s/u6fnivhlnkospx7ir7l82eftuvxqwlr3)
 
-<!-- | Link                 |          |          | -->
+### Assigned Reading:
 
-<!-- ###  -->
+-   [HOML Ch. 20 & 21](https://bradleyboehmke.github.io/HOML/kmeans.html)
+
+### Supplementary Reading:
+
+### Lab:
