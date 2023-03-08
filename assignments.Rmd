@@ -162,7 +162,7 @@ These will help you with Lab 4.
 
 ## Week 9
 
-### Slides: 
+### Slides:
 
 -   [Clustering](https://ucsb.box.com/s/u6fnivhlnkospx7ir7l82eftuvxqwlr3)
 
