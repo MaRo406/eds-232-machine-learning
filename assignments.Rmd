@@ -172,4 +172,6 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
-### Lab:
+### Lab: 
+
+-   [Lab 7 In class](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab7_InClass.Rmd)
