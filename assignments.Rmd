@@ -172,6 +172,20 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
-### Lab: 
+### Lab:
 
 -   [Lab 7 In class](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab7_InClass.Rmd)
+
+## Week 10: 
+
+### Slides:
+
+-   
+
+### Assigned Reading:
+
+-   [HOML Ch. 14](https://bradleyboehmke.github.io/HOML/svm.html)
+
+### Supplementary Reading:
+
+### Lab:
