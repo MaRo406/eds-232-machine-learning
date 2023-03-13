@@ -176,11 +176,11 @@ These will help you with Lab 4.
 
 -   [Lab 7 In class](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab7_InClass.Rmd)
 
-## Week 10: 
+## Week 10:
 
 ### Slides:
 
--   
+-   [Support Vector Machines](https://ucsb.box.com/s/hr4927ezsfolqmta2qb1tu0p7od071sg)
 
 ### Assigned Reading:
 
