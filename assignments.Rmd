@@ -188,4 +188,14 @@ These will help you with Lab 4.
 
 ### Supplementary Reading:
 
+-   [CalCOFI bottle sampling database description](https://calcofi.org/data/oceanographic-data/bottle-database/)
+
 ### Lab:
+
+-   [Class Kaggle Competition](https://www.kaggle.com/t/a0968391f25a46199b15519a2e1beba0)
+
+    -   You'll need to create a free Kaggle account
+
+    -   Create and submit your completed lab using a Kaggle Notebook
+
+        -   [Submission instructions](https://www.kaggle.com/docs/competitions#making-a-submission)
