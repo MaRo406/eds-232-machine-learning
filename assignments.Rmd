@@ -181,6 +181,7 @@ These will help you with Lab 4.
 ### Slides:
 
 -   [Support Vector Machines](https://ucsb.box.com/s/hr4927ezsfolqmta2qb1tu0p7od071sg)
+-   [Guest Lecture](https://ucsb.box.com/s/q2aimxztyha9404vtteqpcwswoje8ouf)
 
 ### Assigned Reading:
 
@@ -192,7 +193,7 @@ These will help you with Lab 4.
 
 ### Lab:
 
--   [Class Kaggle Competition](https://www.kaggle.com/t/a0968391f25a46199b15519a2e1beba0)
+-   [Class Kaggle Competition](https://www.kaggle.com/t/fdaf177fad664e8da8dcaa4c3e050e82)
 
     -   You'll need to create a free Kaggle account
 
