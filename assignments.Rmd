@@ -193,7 +193,7 @@ These will help you with Lab 4.
 
 ### Lab:
 
--   [Class Kaggle Competition](https://www.kaggle.com/t/fdaf177fad664e8da8dcaa4c3e050e82)
+-   [Class Kaggle Competition](https://www.kaggle.com/competitions/eds-232-ocean-chemistry-prediction-for-calcofi/overview)
 
     -   You'll need to create a free Kaggle account
 
