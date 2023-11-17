@@ -32,21 +32,21 @@ Machine learning is a field of inquiry devoted to understanding and building met
 
 **Instructor:** Mateo Robbins (mjrobbins\@ucsb.edu)
 
--   **Office:** NCEAS Group Office
--   **Office hours:** Monday 11:00-12:00
+-   **Office:**
+-   **Office hours:** TBD
 
-**Teaching assistant:** Brian Lee (brianlee52\@bren.ucsb.edu)
+**Teaching assistant:**
 
--   **Office:** Bren Hall Room 1001
--   **Office hours:** Thursday 11:00-12:00
+-   **Office:**
+-   **Office hours:**
 
 ## Important links
 
--   [Link to full course syllabus](https://docs.google.com/document/d/1VYZQ6cZq4jL8bdFtronp3Qf1BgTOBpXD2BIG5OSK7eM/edit?usp=sharing)
+-   Link to full course syllabus
 
 ## Weekly course schedule
 
--   **Lectures:** M, W 9:30 - 10:45am PST (NCEAS)
+-   **Lectures:** T, Th 9:30 - 10:45am PST (BREN)
 
 ## Learning objectives
 
@@ -80,15 +80,26 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 
 ## Tentative topics
 
-| Week \# | Dates            | Lecture                                                        |
-|--------------|--------------|---------------------------------------------|
-| 1       | 1/9, 1/11        | Introduction, Linear Regression and ML Modeling Fundamentals I |
-| 2       | MLK, 1/18        | Linear Regression and ML Modeling Fundamentals II              |
-| 3       | 1/23, 1/25       | Regularized Regression                                         |
-| 4       | 1/30, 2/1        | Logistic Regression, Classification                            |
-| 5       | 2/6, 2/8         | K-nearest Neighbors, Decision Trees                            |
-| 6       | 2/13, 2/15       | Random Forests                                                 |
-| 7       | Presidents, 2/22 | Ethics, Justice, Bias -- Guest Speaker                         |
-| 8       | 2/27, 3/1        | Gradient Boosting                                              |
-| 9       | 3/6, 3/8         | Clustering                                                     |
-| 10      | 3/13, 3/15       | Kaggle                                                         |
+<!-- | Week \# | Dates            | Lecture                                                        | -->
+
+<!-- |--------------|--------------|---------------------------------------------| -->
+
+<!-- | 1       | 1/9, 1/11        | Introduction, Linear Regression and ML Modeling Fundamentals I | -->
+
+<!-- | 2       | MLK, 1/18        | Linear Regression and ML Modeling Fundamentals II              | -->
+
+<!-- | 3       | 1/23, 1/25       | Regularized Regression                                         | -->
+
+<!-- | 4       | 1/30, 2/1        | Logistic Regression, Classification                            | -->
+
+<!-- | 5       | 2/6, 2/8         | K-nearest Neighbors, Decision Trees                            | -->
+
+<!-- | 6       | 2/13, 2/15       | Random Forests                                                 | -->
+
+<!-- | 7       | Presidents, 2/22 | Ethics, Justice, Bias -- Guest Speaker                         | -->
+
+<!-- | 8       | 2/27, 3/1        | Gradient Boosting                                              | -->
+
+<!-- | 9       | 3/6, 3/8         | Clustering                                                     | -->
+
+<!-- | 10      | 3/13, 3/15       | Kaggle                                                         | -->
