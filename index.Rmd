@@ -32,13 +32,13 @@ Machine learning is a field of inquiry devoted to understanding and building met
 
 **Instructor:** Mateo Robbins (mjrobbins\@ucsb.edu)
 
--   **Office:**
--   **Office hours:** TBD
+-   **Office: Bren**
+-   **Office hours:** **Tuesday 10:45-11:45pm**
 
-**Teaching assistant:**
+**Teaching assistant: Allie Coughman**
 
--   **Office:**
--   **Office hours:**
+-   **Office: TBD**
+-   **Office hours: TBD**
 
 ## Important links
 
@@ -46,7 +46,13 @@ Machine learning is a field of inquiry devoted to understanding and building met
 
 ## Weekly course schedule
 
--   **Lectures:** T, Th 9:30 - 10:45am PST (BREN)
+-   **Lecture:** TTh 9:30am - 10:45am PST (Bren 1424)
+
+-   **Section:**
+
+    -   First 5 weeks:Th 2:00pm - 2:50pm, 3:00 - 3:50pm
+
+    -   2/15 onward: Th 12:30 - 1:20pm, 1:30 - 2:20pm
 
 ## Learning objectives
 
@@ -60,7 +66,7 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 
 -   Build and use decision trees and tree ensemble methods, including random forests and boosted trees.
 
--   Use unsupervised learning techniques for unsupervised learning: including clustering.
+-   Use unsupervised learning techniques including clustering.
 
 ## Course requirements
 
