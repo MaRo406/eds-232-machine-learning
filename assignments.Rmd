@@ -12,7 +12,191 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 ### Slides:
 
--   Lecture 1: Course Welcome and Intro
--   Lecture 2: Linear regression I
+-   Lecture 1: [Course Welcome and Intro](https://docs.google.com/presentation/d/19t56kmk_K23At31wD8-u_MRKOtari-qHw5b3KCD4ReU/edit?usp=sharing)
+-   Lecture 2: [Linear regression I](https://github.com/MaRo406/eds-232-machine-learning/blob/main/slides/Week1_slides_Regression%20I%20.pdf)
 
-### 
+### Assigned Reading:
+
+-   [HOML Ch. 1 (1.1 - 1.4)](https://bradleyboehmke.github.io/HOML/intro.html)
+
+### Supplementary Reading:
+
+-   [Statistical Modeling: The Two Cultures](https://projecteuclid.org/journals/statistical-science/volume-16/issue-3/Statistical-Modeling--The-Two-Cultures-with-comments-and-a/10.1214/ss/1009213726.full)
+
+### Lab:
+
+-   [Link to .Rmd](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab1.Rmd)
+
+## Week 2
+
+### Slides:
+
+-   Lecture: [Linear Regression II](https://github.com/MaRo406/eds-232-machine-learning/blob/main/docs/slides/Week2_slides_Regression%20II.pdf)
+
+### Assigned Reading:
+
+-   [HOML Ch. 2 (4.2-4.5)](https://bradleyboehmke.github.io/HOML/linear-regression.html#simple-linear-regression)
+    -   Review of basic regression. Feel free to skim this a bit if you feel good about your understanding of linear regression.
+-   [Tidy Models in R Ch. 3 (3.3-3.5)](https://www.tmwr.org/base-r.html#tidiness-modeling)
+    -   Intro to Tidy Modeling. Provides some context for Lab 1 and beyond.
+
+### Lab:
+
+-   [Link to .Rmd](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab2.Rmd)
+
+## Week 3
+
+### Slides:
+
+-   Lecture: [Model Process and Regularized Regression](https://ucsb.box.com/s/qepqy1ndet8x51ym6rrv51y09k6qbug1)
+
+### Assigned Reading:
+
+-   [HOML Ch. 6](https://bradleyboehmke.github.io/HOML/regularized-regression.html)
+
+### Supplementary Reading:
+
+-   [Bias-Variance Scrollytelling](https://mlu-explain.github.io/bias-variance/)
+-   [Gagne et al. (2018)](https://ucsb.box.com/s/w92iwiyspdjnuoam4yjzvkzbg6qi0t4q)
+
+### Lab:
+
+-   [Link to the Lab 3 Demo](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab3_Demo.Rmd)
+
+-   [Link to the Lab 3 Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab3.Rmd)
+
+## Week 4
+
+### Slides:
+
+-   Lecture: [Classification and Logistic Regression](https://ucsb.box.com/s/k9vnorvgepeny78ulvku6tjqxrw8djkt)
+
+### Assigned Reading:
+
+-   [HOML Ch. 5](https://bradleyboehmke.github.io/HOML/logistic-regression.html)
+
+### Supplementary Reading:
+
+These will help you with Lab 4.
+
+-   [HOML Ch. 2.6](https://bradleyboehmke.github.io/HOML/process.html#model-eval)
+
+-   [Cansler et al. 2020: Fire Tree Mortality Database paper](https://www.nature.com/articles/s41597-020-0522-7)
+
+### Lab:
+
+-   [Link to the Lab 4 Demo](https://raw.githubusercontent.com/MaRo406/eds-232-machine-learning/44053f8cfa4392d0a10edad2b4b3c1df83e7106e/Lab4_Demo.Rmd)
+
+-   [Link to Lab 4 Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab4.Rmd)
+
+## Week 5
+
+### Slides:
+
+-   Lecture: [k-Nearest Neighbors and Decision Trees](https://ucsb.box.com/s/ghfshuqf4isbu4kswigi3gtoehzszb30)
+
+### Assigned Reading:
+
+-   [HOML Ch. 8,9,10](https://bradleyboehmke.github.io/HOML/knn.html)
+
+### Supplementary Reading:
+
+-   [Decision tree scrollytelling](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/) - cool visualization of decision trees -- check it out!
+
+### Lab:
+
+-   [Link to the Lab 5 Demo](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_Demo.Rmd)
+
+-   [Lab 5 -- Updated](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_update.Rmd)
+
+## Week 6
+
+### Slides:
+
+-   Lecture: [Bagging and Random Forests](https://ucsb.box.com/s/j6oxm4gct9uy1xxhv0zk42tzeqod456i)
+
+### Assigned Reading:
+
+-   [HOML Ch. 11](https://bradleyboehmke.github.io/HOML/random-forest.html)
+
+### Supplementary Reading:
+
+### Lab:
+
+-   [Lab 5 Demo part 2](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab5_Demo2.Rmd)
+
+## Week 7
+
+### Slides:
+
+-   Guest Lecture
+
+### Assigned Reading:
+
+-   [McGovern et al. (2022)](https://www.cambridge.org/core/journals/environmental-data-science/article/why-we-need-to-focus-on-developing-ethical-responsible-and-trustworthy-artificial-intelligence-approaches-for-environmental-science/8A32BECCE5FBB518F982855FAB6553D4)
+
+### Supplementary Reading:
+
+### Lab:
+
+-   No lab this week
+
+## Week 8
+
+### Slides:
+
+-   [Boosted Trees](https://ucsb.box.com/s/mh4h340psket990lhhlla9bgsj8dd9ld)
+-   [Lab 6 In Class](https://ucsb.box.com/s/5p37wn84qhqxig5sabs6zxh9kga3wiva)
+
+### Assigned Reading:
+
+-   [HOML Ch. 12 - Gradient Boosting](https://bradleyboehmke.github.io/HOML/gbm.html#how-boosting-works)
+
+### Supplementary Reading:
+
+-   [Elith et al. (2008)](https://ucsb.box.com/s/05wbobx731r6tq0yvsqbtd6l3769sdvr) - Eel Paper
+
+### Lab:
+
+-   [Lab 6](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab6.Rmd)
+
+## Week 9
+
+### Slides:
+
+-   [Clustering](https://ucsb.box.com/s/u6fnivhlnkospx7ir7l82eftuvxqwlr3)
+
+### Assigned Reading:
+
+-   [HOML Ch. 20 & 21](https://bradleyboehmke.github.io/HOML/kmeans.html)
+
+### Supplementary Reading:
+
+### Lab:
+
+-   [Lab 7 In class](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab7_InClass.Rmd)
+
+## Week 10:
+
+### Slides:
+
+-   [Support Vector Machines](https://ucsb.box.com/s/hr4927ezsfolqmta2qb1tu0p7od071sg)
+-   [Guest Lecture](https://ucsb.box.com/s/q2aimxztyha9404vtteqpcwswoje8ouf)
+
+### Assigned Reading:
+
+-   [HOML Ch. 14](https://bradleyboehmke.github.io/HOML/svm.html)
+
+### Supplementary Reading:
+
+-   [CalCOFI bottle sampling database description](https://calcofi.org/data/oceanographic-data/bottle-database/)
+
+### Lab:
+
+-   [Class Kaggle Competition](https://www.kaggle.com/competitions/eds-232-ocean-chemistry-prediction-for-calcofi/overview)
+
+    -   You'll need to create a free Kaggle account
+
+    -   Create and submit your completed lab using a Kaggle Notebook
+
+        -   [Submission instructions](https://www.kaggle.com/docs/competitions#making-a-submission)
