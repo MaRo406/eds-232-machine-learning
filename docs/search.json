@@ -5,22 +5,22 @@
       "title": "Assignments",
       "author": [],
       "contents": "\n\nContents\nWeek 1\n\n\n\n\nAssigned readings and labs will be posted to this page on a weekly\nbasis.\n\nWeek 1\n\n\n\n\n",
-      "last_modified": "2024-01-08T21:23:10+10:00"
+      "last_modified": "2024-01-08T03:23:10-08:00"
     },
     {
       "path": "index.html",
       "title": "EDS 232: Machine Learning in Environmental Science",
       "description": "",
       "author": [],
-      "contents": "\n\nContents\nWelcome to the EDS 232\nwebsite\nCourse\ndescription\nTeaching\nteam\nImportant\nlinks\nWeekly course schedule\nLearning\nobjectives\nCourse\nrequirements\nComputing\nTextbook\n\n\nTentative\ntopics\n\n\n\n\nFigure 1: Image created using the Midjourney image\ngeneration tool\n\n\n\nWelcome to the EDS 232\nwebsite\nCourse description\nMachine learning is a field of inquiry devoted to understanding and\nbuilding methods that ‘learn’, that is, methods that leverage data to\nimprove performance on some set of tasks. In this course, we focus on\nthe core concepts of machine learning that beginning ML researchers must\nknow. We cover ‘classical machine learning’ primarily using R, and\nexplore applications to environmental science. To understand broader\nconcepts of artificial intelligence or deep learning, a strong\nfundamental knowledge of machine learning is indispensable.\nTeaching team\nInstructor: Mateo Robbins (mjrobbins@ucsb.edu)\nOffice: Bren\nOffice hours: Tuesday\n10:45-11:45pm\nTeaching assistant: Allie Coughman\nOffice: TBD\nOffice hours: TBD\nImportant links\nLink to full course syllabus\nWeekly course schedule\nLecture: TTh 9:30am - 10:45am PST (Bren\n1424)\nSection:\nFirst 5 weeks:Th 2:00pm - 2:50pm, 3:00 - 3:50pm\n2/15 onward: Th 12:30 - 1:20pm, 1:30 - 2:20pm\n\nLearning objectives\nThe goal of EDS 232 is to equip students with a strong foundation in\nthe core concepts of machine learning. By the end of the course,\nstudents should be able to: \nBuild machine learning models in R using popular machine learning\npackages\nBuild and train supervised machine learning models for prediction\nand binary classification tasks, including linear and logistic\nregression.\nApply best practices for machine learning development so that\nyour models generalize to data and tasks in the real world.\nBuild and use decision trees and tree ensemble methods, including\nrandom forests and boosted trees.\nUse unsupervised learning techniques including\nclustering.\nCourse requirements\nComputing\nMinimum\nMEDS device requirements\nR version 4.0.2 (or higher)\nRStudio version 1.4.1103 (or higher)\nTextbook\nHands-On Machine\nLearning with R, by Bradley Boehmke and Brandon Greenwell\n\nTentative topics\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-      "last_modified": "2024-01-08T21:15:16+10:00"
+      "contents": "\n\nContents\nWelcome to the EDS 232\nwebsite\nCourse\ndescription\nTeaching\nteam\nImportant\nlinks\nWeekly course schedule\nLearning\nobjectives\nCourse\nrequirements\nComputing\nTextbook\n\n\nTentative\ntopics\n\n\n\n\nFigure 1: Image created using the Midjourney image\ngeneration tool\n\n\n\nWelcome to the EDS 232\nwebsite\nCourse description\nMachine learning is a field of inquiry devoted to understanding and\nbuilding methods that ‘learn’, that is, methods that leverage data to\nimprove performance on some set of tasks. In this course, we focus on\nthe core concepts of machine learning that beginning ML researchers must\nknow. We cover ‘classical machine learning’ primarily using R, and\nexplore applications to environmental science. To understand broader\nconcepts of artificial intelligence or deep learning, a strong\nfundamental knowledge of machine learning is indispensable.\nTeaching team\nInstructor: Mateo Robbins (mjrobbins@ucsb.edu)\nStudent hours: Thursday 10:45-11:45pm (Location:\nBren 1424)\nTeaching assistant: Allie Caughman\n(acaughman@bren.ucsb.edu)\nStudent hours: Tuesday 3:00-4:00pm (Location: Bren\n4328)\nImportant links\nLink to full course syllabus\nWeekly course schedule\nLecture: TTh 9:30am - 10:45am PST (Bren\n1424)\nSection:\nFirst 5 weeks: Th 2:00pm - 2:50pm, 3:00 - 3:50pm\n2/15 and onward: Th 12:30 - 1:20pm, 1:30 - 2:20pm\n\nLearning objectives\nThe goal of EDS 232 is to equip students with a strong foundation in\nthe core concepts of machine learning. By the end of the course,\nstudents should be able to: \nBuild machine learning models in R using popular machine learning\npackages\nBuild and train supervised machine learning models for prediction\nand binary classification tasks, including linear and logistic\nregression.\nApply best practices for machine learning development so that\nyour models generalize to data and tasks in the real world.\nBuild and use decision trees and tree ensemble methods, including\nrandom forests and boosted trees.\nUse unsupervised learning techniques including\nclustering.\nCourse requirements\nComputing\nMinimum\nMEDS device requirements\nR version 4.0.2 (or higher)\nRStudio version 1.4.1103 (or higher)\nTextbook\nHands-On Machine\nLearning with R, by Bradley Boehmke and Brandon Greenwell\n\nTentative topics\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "last_modified": "2024-01-08T18:15:33-08:00"
     },
     {
       "path": "resources.html",
       "title": "Course resources",
       "author": [],
       "contents": "\n\nContents\nWeek 1\n\n\nTO UPDATE THIS PAGE: Open and edit the resources.Rmd file,\nin the project root, to delete this placeholder text and customize with\nyour own!\n\nWeek 1\nLecture slides: Assignment:\n\n\n\n",
-      "last_modified": "2023-01-13T05:43:33+10:00"
+      "last_modified": "2023-01-12T11:43:33-08:00"
     },
     {
       "path": "topic_1.html",
@@ -28,7 +28,7 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\n\nContents\nWeek 1\n\nWeek 1\nSlides\nRegression I\n\nAssigned Reading\nHOML Ch.\n1\n\nLab\nSupplementary Reading\n\n\n\n",
-      "last_modified": "2023-01-18T18:39:06+10:00"
+      "last_modified": "2023-01-18T00:39:06-08:00"
     }
   ],
   "collections": []
