@@ -40,7 +40,7 @@ Machine learning is a field of inquiry devoted to understanding and building met
 
 ## Important links
 
--   Link to full course syllabus
+-   [Link to full course syllabus](https://docs.google.com/document/d/1VYZQ6cZq4jL8bdFtronp3Qf1BgTOBpXD2BIG5OSK7eM/edit?usp=sharing)
 
 ## Weekly course schedule
 
