@@ -10,4 +10,12 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 ## Week 1
 
+### Slides:
+
+-   Lecture 1: [Course Welcome and Intro](https://ucsb.app.box.com/file/1409385618047)
+
+### Assigned Reading:
+
+-   [HOML Ch. 1 (1.1 - 1.4)](https://bradleyboehmke.github.io/HOML/intro.html)
+
 ### 
