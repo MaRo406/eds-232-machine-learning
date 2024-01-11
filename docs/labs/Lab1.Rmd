@@ -16,7 +16,7 @@ library("corrplot")
 dat <- read_csv(file = "https://raw.githubusercontent.com/MaRo406/eds-232-machine-learning/main/data/pumpkin-data.csv")
 ```
 
-##Case Study: The Pumpkin Market
+# Case Study: The Pumpkin Market
 
 The data you just loaded includes 1757 lines of data about the market for pumpkins, sorted into groupings by city. This is raw data extracted from the Specialty Crops Terminal Markets Standard Reports distributed by the United States Department of Agriculture.
 
@@ -172,7 +172,7 @@ How do we make it more useful? To get charts to display useful data, you usually
 
 *Question 4:* Group the pumpkins into groups based on the month column and then find the mean price for each month. Plot the results with a bar plot.
 
-Hint: use dplyr::group_by() %>% summarize()
+Hint: use dplyr::group_by() %\>% summarize()
 
 ```{r}
 # Find the average price of pumpkins per month
@@ -277,11 +277,11 @@ corrplot(corr_mat, method = "shade", shade.col = NA, tl.col = "black", tl.srt = 
 
 ```
 
-##Build a linear regression model
+## Build a linear regression model
 
 Now that we have build a recipe, and actually confirmed that the data will be pre-processed appropriately, let's now build a regression model to answer the question: What price can I expect of a given pumpkin package?
 
-##Train a linear regression modelusing the training set 
+## Train the model using the training set
 
 As you may have already figured out, the column price is the outcome variable while the package column is the predictor variable.
 

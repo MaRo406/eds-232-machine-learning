@@ -23,4 +23,8 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 -   [*Get Started with TidyModels - Section 2.*](https://www.tidymodels.org/start/recipes/)
 
+### Lab:
+
+-   [Link to .Rmd](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab1.Rmd)
+
 ### 
