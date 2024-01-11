@@ -13,7 +13,7 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 ### Slides:
 
 -   Lecture 1: [Course Welcome and Intro](https://ucsb.app.box.com/file/1409385618047)
--   Lecture 2: [Linear Regression I](https://ucsb.box.com/s/b2jc24p3lwfcize0a288it9yavfi0h05)
+-   Lecture 2: [Linear Regression I](https://ucsb.box.com/s/vdazgd97wgadhmd8wouwb4ktborcced3)
 
 ### Assigned Reading:
 
