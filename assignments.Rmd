@@ -35,5 +35,8 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 -   [HOML Ch. 2 (4.2-4.5)](https://bradleyboehmke.github.io/HOML/linear-regression.html#simple-linear-regression)
     -   Review of basic regression. Feel free to skim this a bit if you feel good about your understanding of linear regression.
+
+*Supplementary Reading*
+
 -   [Tidy Models in R Ch. 3 (3.3-3.5)](https://www.tmwr.org/base-r.html#tidiness-modeling)
     -   Intro to Tidy Modeling. Provides some context for Lab 1 and beyond.
