@@ -29,11 +29,14 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 ## Week 2
 
-### Slides:
+### Slides: 
+
+Lecture 1: [Model Process and Ridge Regression](https://ucsb.box.com/s/ec2qc93xmctyqqp3g1p7kokcieqobguj)
 
 ### Assigned Reading:
 
--   [HOML Ch. 2 (4.2-4.5)](https://bradleyboehmke.github.io/HOML/linear-regression.html#simple-linear-regression)
+-   [HOML Ch. 2](https://bradleyboehmke.github.io/HOML/process.html#resampling)
+-   [HOML Ch. 4 (4.2-4.5)](https://bradleyboehmke.github.io/HOML/linear-regression.html#simple-linear-regression)
     -   Review of basic regression. Feel free to skim this a bit if you feel good about your understanding of linear regression.
 
 *Supplementary Reading*
@@ -45,4 +48,4 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 ### Slides:
 
-### Assigned Reading:
+### Assigned Reading: 

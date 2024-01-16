@@ -175,11 +175,6 @@ How do we make it more useful? To get charts to display useful data, you usually
 Hint: use dplyr::group_by() %\>% summarize()
 
 ```{r}
-# Find the average price of pumpkins per month
-
-```
-
-```{r}
 # Find the average price of pumpkins per month then plot a bar chart
 pumpkins %>%
   group_by(month) %>% 
