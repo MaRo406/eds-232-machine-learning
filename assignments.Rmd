@@ -48,7 +48,7 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Lab:
 
--   Link to .Rmd
+-   [Link to .Rmd](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab2.Rmd)
 
 ## Week 3
 
