@@ -1,0 +1,215 @@
+---
+title: 'Week 2: Introduction to Models with Tidy Models'
+author: "Allie Caughman"
+date: "2024-01-11"
+output: html_document
+---
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(here) #easy file paths
+library(corrplot) #correlation plots
+library(tidyverse) #data wrangling
+library(tidymodels) #modeling
+
+set.seed(42) #set random seed
+```
+
+### Data Introduction
+
+This data was acquired form FishBase (Froese and Pauley 2000) using the rfishbase package (Boettiger et al., 2012; see data_acquisition.R for data retrieval). 
+
+The data set includes the following variables:
+
+* `species`: the scientific name of fish 
+* `genus`: the scientific genus of fish
+* `common_name`: common name used for fish
+* `body_shape`**: shape of fish body (elongated, fusiform/normal, eel-like, short and/or deep, other)**
+* `habitat`**: area of the ocean that fish typically resides in **
+* `depth_range_shallow`**: minimum depth fish is found**
+* `depth_range_deep`**: maximum depth fish is found**
+* `vulnerability`**: metric for how at risk a fish is to over fishing based on other life history and ecological traits**
+* `length`**: total length, fork length, or standard length of fish**
+* `trophic_level`**: trophic level that the fish occupies based on position in food web **
+* `food_troph`: trophic level that fish's food source occupies
+* `food`**: type of food source fish consumes **
+* `family`: the scientific family of fish
+
+*Bold variables are included in the models. A full copy of the codebook is included in the data/raw folder*
+
+#### Habitat Types 
+
+This project attempts to predict 8 different habitat types. These habitats are described below to note differences.
+
+1. pelagic: living within several regions of the pelagic zone, through both shallower pelagic-oceanic and deeper bathypelagic
+2. pelagic-neritic: relating to upper layers of the ocean on the continental shelf. Waters here are not as deep as the pelagic zone
+3. reef-associated: living in association with a coral reef. This habitat is the most diverse, offering an array of food types and shelters
+4. demersal: relating to living on or near the ocean floor, whether in the pelagic-neritic, pelagic, or bathypelagic zones   
+5. benthopelagic: relating specifically to the ocean floor in the pelagic zone, but not at the deepest depths
+6. bathydemersal: relating to the ocean floor at depths greater than 200 meters
+7. pelagic-oceanic: relating specifically to the upper layers of the open ocean. Food is scarce
+8. bathypelagic: relating to deeper layers of the open ocean at the continental slope. Limited sunlight reaches this zone
+
+While there is some possible overlap in these categories, they are kept separate as specifically defined in FishBase. Data has already been pre-processed for you. 
+
+#### Data Cleaning
+
+We are going to load the data and only use two categories (demersal - i.e., bottom dwelling species - and reef-associated).
+
+Additionally, we are going to binary encode these values. This means turning them into a 0 and 1. 
+
+```{r}
+
+fish_clean = read_csv(here("discussion", "data", "fish_clean.csv")) %>% 
+  filter(habitat == "demersal" | habitat == "reef-associated") %>% 
+  mutate(habitat = case_when(
+    habitat == "demersal" ~ 0,
+    habitat == "reef-associated" ~ 1,
+  ))
+
+```
+
+### Exploratory Data Analysis 
+
+Now I will look at the distribution of variables that did not have missing values, look at correlations between variables, and visualize the relationship between predictor variables and habitat type.
+
+##### Habitat Counts
+
+```{r, fig.cap="Figure 10. counts of each habitat type represented in the fish dataset"}
+
+ggplot(fish_clean, aes(habitat)) + #order by count
+  geom_bar() + #get counts
+  theme_bw() + #bw theme
+  labs(x = "Habitat",
+       y = "Count") + #change labels
+  theme(axis.text.x = element_text(angle = 30, hjust=1)) #rotate x axis labels
+```
+
+#### Correlations
+
+Next, I will look at the correlation between numerical predictor values used in the model.
+
+```{r, fig.cap="Figure 11. numerical correlations between continous predictor variables"}
+
+fish_clean %>% 
+  dplyr::select(shallow_impute, deep_impute, vulnerability, length_impute, trophic_level_impute) %>%  #get numeric columns
+  cor() %>% #calcuate correlations
+  corrplot(type = 'lower', diag = TRUE, 
+           method = 'number') #plot correlations
+```
+
+```{r, fig.cap="Figure 12. scatter plots representing relationships between predictor variables"}
+
+fish_clean %>% 
+  dplyr::select(shallow_impute, deep_impute, vulnerability, length_impute, trophic_level_impute) %>%  #get numeric columns
+  pairs(upper.panel = NULL,
+        lower.panel = panel.smooth) #use pairs to plot scatter plots of variable swith smoothed regression lines
+```
+
+### Modeling
+
+Today, we will look at preforming linear regression on this data set. We will continue to come back to this data set as we learn more models in this section.
+
+#### Training and Testing Data Creation
+
+Here, we will use functions from the `rsample` package within `TidyModels`
+
+```{r}
+?initial_split
+```
+
+```{r}
+data_split = initial_split(fish_clean, prop = .8, strata = habitat) #split data stratified by survived
+
+train = training(data_split) #get training data
+test = testing(data_split) #get testing data
+
+head(train)
+head(test)
+```
+
+#### Recipe Creation
+
+After splitting my data, the first step is to create a recipe indicating the formula for the model and any pre-processing steps I want to preform on my data. Here we will use the `recipes` package.
+
+```{r}
+?recipe
+
+?prep
+?bake
+```
+
+I will be predicted habitat based on trophic level, length, minimum depth, maximum depth, vulnerability, body shape, and food source type. We will be normalizing all numeric predictors
+
+```{r}
+fish_recipe = recipe(habitat ~ shape_impute + food_impute + shallow_impute + deep_impute + vulnerability + length_impute + trophic_level_impute, data = train) %>% #create model recipe
+  step_normalize(all_numeric_predictors()) #normalize all numeric predictors
+```
+
+#### Model 1: Linear Regression
+
+```{r}
+?linear_reg
+```
+
+```{r}
+lm_model = linear_reg() %>% #set linear regression model
+  set_engine("lm") %>% #use lm engine
+  set_mode("regression") #set regression as mode
+```
+
+
+```{r}
+lm_workflow = workflow() %>% #create workflow
+  add_model(lm_model) %>% #add knn model
+  add_recipe(fish_recipe) #add recipe
+
+lm_workflow
+```
+
+#### Model Fitting
+
+```{r, eval = FALSE}
+train_fit = fit(lm_workflow, train) #fit the boosted tree model to the training set
+
+train_fit
+```
+
+```{r}
+train_predict = predict(object = train_fit, new_data = train) %>% #predict the training set
+  bind_cols(train)  %>% #bind training set column to prediction
+  mutate(pred = case_when(
+    .pred >= 0.5 ~ 1, 
+    .pred < 0.5 ~ 0
+  ))
+```
+
+```{r}
+test_predict = predict(train_fit, test) %>% #get prediction probabilities for test 
+  bind_cols(test) %>%  #bind to testing column
+  mutate(pred = case_when(
+    .pred >= 0.5 ~ 1, 
+    .pred < 0.5 ~ 0
+  ))
+
+head(test_predict)
+```
+
+#### Model Metrics and Evaluation
+
+```{r}
+train_metrics <- train_predict %>%
+  metrics(habitat, pred) # get testing data metrics
+train_metrics
+
+test_metrics <- test_predict %>%
+  metrics(habitat, pred) # get testing data metrics
+test_metrics
+```
+
+```{r}
+ggplot(test_predict) +
+  geom_jitter(aes(habitat, pred)) +
+  theme_bw()
+```
