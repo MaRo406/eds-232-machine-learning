@@ -29,9 +29,11 @@ Assigned readings and labs will be posted to this page on a weekly basis.
 
 ## Week 2
 
-### Slides: 
+### Slides:
 
 Lecture 1: [Model Process and Ridge Regression](https://ucsb.box.com/s/ec2qc93xmctyqqp3g1p7kokcieqobguj)
+
+Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk0jnz9wow1x18x5anc)
 
 ### Assigned Reading:
 
@@ -43,14 +45,13 @@ Lecture 1: [Model Process and Ridge Regression](https://ucsb.box.com/s/ec2qc93xm
 
 -   [Tidy Models in R Ch. 3 (3.3-3.5)](https://www.tmwr.org/base-r.html#tidiness-modeling)
     -   Intro to Tidy Modeling. Provides some context for Lab 1 and beyond.
-    
-### Discussion
 
--   Download discussion template [here](discussion/week2_skeleton.Rmd)
--   Download discussion data [here](https://drive.google.com/drive/folders/1hvGcwg3ELv-Hp14pjefCeEjTIWg-4Odv?usp=drive_link)
+### Lab:
+
+-   Link to .Rmd
 
 ## Week 3
 
 ### Slides:
 
-### Assigned Reading: 
+### Assigned Reading:
