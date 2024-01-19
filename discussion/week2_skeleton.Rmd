@@ -61,7 +61,7 @@ Additionally, we are going to binary encode these values. This means turning the
 
 ```{r}
 
-fish_clean = read_csv(here("discussion", "data", "fish_clean.csv")) %>% 
+fish_clean = read_csv(here( "data", "fish_clean.csv")) %>% 
   filter(habitat == "demersal" | habitat == "reef-associated") %>% 
   mutate(habitat = case_when(
     habitat == "demersal" ~ 0,
@@ -116,15 +116,18 @@ Today, we will look at preforming linear regression on this data set. We will co
 Here, we will use functions from the `rsample` package within `TidyModels`
 
 ```{r}
-
+?initial_split
 ```
 
 
 ```{r}
- #split data stratified by survived
+ #split data stratified by habitat
+data_split = initial_split(fish_clean, prop = .8, strata = habitat)
 
  #get training data
+train = training(data_split)
  #get testing data
+test = testing(data_split)
 
 head(train)
 head(test)
@@ -134,15 +137,15 @@ head(test)
 
 After splitting my data, the first step is to create a recipe indicating the formula for the model and any pre-processing steps I want to preform on my data. Here we will use the `recipes` package.
 
-```{r}
-
-```
-
 
 I will be predicted habitat based on trophic level, length, minimum depth, maximum depth, vulnerability, body shape, and food source type. We will be normalizing all numeric predictors
 
 ```{r}
+fish_recipe = recipe(habitat ~ shape_impute + food_impute + shallow_impute +  deep_impute + vulnerability +length_impute + trophic_level_impute, data = train) %>% 
+  step_normalize(all_numeric_predictors()) 
 
+?prep
+?bake
 ```
 
 #### Model 1: Linear Regression
@@ -150,26 +153,26 @@ I will be predicted habitat based on trophic level, length, minimum depth, maxim
 The model specifications in `TidyModels` are within the `parsnip` package
 
 ```{r}
-
+?linear_reg
 ```
 
 
 ```{r}
-
+lm = linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
 ```
 
 After specifiying the model, we can create a workflow from the `workflows` package
 
 ```{r}
-
-```
-
-
-```{r}
-
+lm_workflow = workflow() %>% 
+  add_model(lm) %>% 
+  add_recipe(fish_recipe)
 
 lm_workflow
 ```
+
 
 #### Model Fitting
 
@@ -180,17 +183,19 @@ Now we will "fit" the model, again using `parsnip`.
 ```
 
 ```{r, eval = FALSE}
-
+train_fit = fit(lm_workflow, train)
 
 train_fit
 ```
 
 ```{r}
-
+train_predict = predict(train_fit, train) %>% 
+  bind_cols(train)
 ```
 
 ```{r}
-
+test_predict = predict(train_fit, test) %>% 
+  bind_cols(test)
 
 head(test_predict)
 ```
@@ -200,9 +205,15 @@ head(test_predict)
 Finally, we will calulate some metrics for preformance, using the `yardstick` package.
 
 ```{r}
+train_metrics = train_predict %>% 
+  metrics(habitat, .pred)
 
+train_metrics
 ```
 
+$$
+\sqrt{\frac{1}{n} \Sigma (obs - pred)^2}
+$$
 
 ```{r}
 
@@ -215,7 +226,9 @@ test_metrics
 ```
 
 ```{r}
-
+ggplot(test_predict) +
+  geom_jitter(aes(habitat, .pred)) +
+  theme_bw()
 ```
 
 ### Future 

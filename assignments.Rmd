@@ -54,6 +54,7 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 -   Download discussion template [here](discussion/week2_skeleton.Rmd)
 -   Download discussion data [here](https://drive.google.com/file/d/1ZqxTMwyDz910ryBY4OwrLmUy7Cgtljm5/view?usp=drive_link)
+-   Download completed discussion [here](discussion/week2.Rmd)
 
 ## Week 3
 

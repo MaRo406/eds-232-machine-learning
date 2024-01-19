@@ -36,8 +36,6 @@ The data set includes the following variables:
 * `food`**: type of food source fish consumes **
 * `family`: the scientific family of fish
 
-*Bold variables are included in the models. A full copy of the codebook is included in the data/raw folder*
-
 #### Habitat Types 
 
 This project attempts to predict 8 different habitat types. These habitats are described below to note differences.
@@ -120,7 +118,7 @@ Here, we will use functions from the `rsample` package within `TidyModels`
 ```
 
 ```{r}
-data_split = initial_split(fish_clean, prop = .8, strata = habitat) #split data stratified by survived
+data_split = initial_split(fish_clean, prop = .8, strata = habitat)
 
 train = training(data_split) #get training data
 test = testing(data_split) #get testing data
@@ -162,7 +160,7 @@ lm_model = linear_reg() %>% #set linear regression model
 
 ```{r}
 lm_workflow = workflow() %>% #create workflow
-  add_model(lm_model) %>% #add knn model
+  add_model(lm_model) %>% #add lm model
   add_recipe(fish_recipe) #add recipe
 
 lm_workflow
@@ -171,27 +169,20 @@ lm_workflow
 #### Model Fitting
 
 ```{r, eval = FALSE}
-train_fit = fit(lm_workflow, train) #fit the boosted tree model to the training set
+train_fit = fit(lm_workflow, train) #fit the lm model to the training set
 
 train_fit
 ```
 
 ```{r}
 train_predict = predict(object = train_fit, new_data = train) %>% #predict the training set
-  bind_cols(train)  %>% #bind training set column to prediction
-  mutate(pred = case_when(
-    .pred >= 0.5 ~ 1, 
-    .pred < 0.5 ~ 0
-  )) 
+  bind_cols(train) #bind training set column to prediction
 ```
 
 ```{r}
 test_predict = predict(train_fit, test) %>% #get prediction probabilities for test 
-  bind_cols(test) %>%  #bind to testing column
-  mutate(pred = case_when(
-    .pred >= 0.5 ~ 1, 
-    .pred < 0.5 ~ 0
-  ))
+  bind_cols(test)  #bind to testing column
+
 
 head(test_predict)
 ```
@@ -200,17 +191,17 @@ head(test_predict)
 
 ```{r}
 train_metrics <- train_predict %>%
-  metrics(habitat, pred) # get testing data metrics
+  metrics(habitat, .pred) # get testing data metrics
 train_metrics
 
 test_metrics <- test_predict %>%
-  metrics(habitat, pred) # get testing data metrics
+  metrics(habitat, .pred) # get testing data metrics
 test_metrics
 ```
 
 ```{r}
 ggplot(test_predict) +
-  geom_jitter(aes(habitat, pred)) +
+  geom_jitter(aes(habitat, .pred)) +
   theme_bw()
 ```
 
