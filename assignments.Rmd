@@ -60,4 +60,10 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Slides:
 
+-   Lecture: [Classification and Logistic Regression](https://ucsb.box.com/s/9hpdbhrwu8wxvhg1uf9r9qwdmhtzkztr)
+
 ### Assigned Reading:
+
+-   [HOML Ch. 5](https://bradleyboehmke.github.io/HOML/logistic-regression.html), [HOML Ch. 6](https://bradleyboehmke.github.io/HOML/regularized-regression.html)
+
+### Lab:
