@@ -67,3 +67,8 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 -   [HOML Ch. 5](https://bradleyboehmke.github.io/HOML/logistic-regression.html), [HOML Ch. 6](https://bradleyboehmke.github.io/HOML/regularized-regression.html)
 
 ### Lab:
+
+
+### Discussion:
+
+-   Download completed discussion [here](discussion/week3.Rmd)
