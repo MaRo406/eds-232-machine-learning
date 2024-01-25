@@ -1,0 +1,127 @@
+---
+title: "Lab 3 Demo"
+author: "Mateo Robbins"
+date: "2023-01-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rsample)
+library(skimr)
+library(glmnet)
+```
+
+## Data Wrangling and Exploration
+```{r data}
+#load and inspect the data
+dat <- AmesHousing::make_ames()
+
+```
+
+##Train a model
+```{r intial_split}
+# Data splitting with {rsample} 
+set.seed(123) #set a seed for reproducibility
+split <- 
+
+ames_train <-  
+ames_test  <- 
+
+```
+
+```{r model_data}
+#Create training feature matrices using model.matrix() (auto encoding of categorical variables)
+
+X <- 
+
+# transform y with log() transformation
+Y <- 
+
+```
+
+```{r glmnet}
+#fit a ridge model, passing X,Y,alpha to glmnet()
+ridge <- 
+
+#plot() the glmnet model object
+
+plot()  
+```
+
+```{r}
+# lambdas applied to penalty parameter.  Examine the first few
+
+
+
+# small lambda results in large coefficients
+
+# what about for small coefficients?
+
+  
+```
+How much improvement to our loss function as lambda changes?
+
+##Tuning
+```{r cv.glmnet}
+# Apply CV ridge regression to Ames data.  Same arguments as before to glmnet()
+ridge <- 
+
+# Apply CV lasso regression to Ames data
+lasso <- 
+  
+# plot results
+par(mfrow = c(1, 2))
+plot(ridge, main = "Ridge penalty\n\n")
+plot(lasso, main = "Lasso penalty\n\n")
+```
+
+10-fold CV MSE for a ridge and lasso model. What's the "rule of 1 standard deviation"?
+
+In both models we see a slight improvement in the MSE as our penalty log(λ) gets larger, suggesting that a regular OLS model likely overfits the training data. But as we constrain it further (i.e., continue to increase the penalty), our MSE starts to increase. 
+
+Let's examine the important parameter values apparent in the plots.
+```{r}
+# Ridge model
+# minimum MSE
+
+# lambda for this min MSE
+
+# 1-SE rule
+
+# lambda for this MSE
+
+# Lasso model
+
+# minimum MSE
+
+# lambda for this min MSE
+
+# 1-SE rule
+
+# lambda for this MSE
+
+# No. of coef | 1-SE MSE
+```
+
+```{r}
+# Ridge model
+ridge_min 
+
+# Lasso model
+lasso_min
+
+
+par(mfrow = c(1, 2))
+# plot ridge model
+plot(ridge_min, xvar = "lambda", main = "Ridge penalty\n\n")
+abline(v = log(ridge$lambda.min), col = "red", lty = "dashed")
+abline(v = log(ridge$lambda.1se), col = "blue", lty = "dashed")
+
+# plot lasso model
+plot(lasso_min, xvar = "lambda", main = "Lasso penalty\n\n")
+abline(v = log(lasso$lambda.min), col = "red", lty = "dashed")
+abline(v = log(lasso$lambda.1se), col = "blue", lty = "dashed")
+```
+

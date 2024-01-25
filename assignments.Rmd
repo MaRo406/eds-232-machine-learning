@@ -68,6 +68,9 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Lab:
 
+-   Demo
+
+-   Assignment
 
 ### Discussion:
 
