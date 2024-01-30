@@ -77,3 +77,17 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 ### Discussion:
 
 -   Download completed discussion [here](discussion/week3.Rmd)
+
+## Week 3
+
+### Slides:
+
+-   Lecture: [KNN and Decision Trees](https://ucsb.box.com/s/426snv5kax3npymzafbib3cjug4sdnky)
+
+### Assigned Reading:
+
+-   [HOML Ch. 8](https://bradleyboehmke.github.io/HOML/knn.html), [HOML Ch. 9](https://bradleyboehmke.github.io/HOML/DT.html)
+
+### Lab:
+
+### Discussion:
