@@ -84,16 +84,16 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 
 ## Tentative topics
 
-|         |            |                                                                |
-|-------------|-------------|-----------------------------------------------|
-| Week \# | Dates      | Lecture                                                        |
-| 1       | 1/9, 1/11  | Introduction, Linear Regression and ML Modeling Fundamentals I |
-| 2       | 1/16, 1/18 | Regularized Regression and ML Modeling Fundamentals II         |
-| 3       | 1/23, 1/25 | Logistic Regression, Classification                            |
-| 4       | 1/30, 2/1  | K-nearest neighbors, Decision Trees                            |
-| 5       | 2/6, 2/8   | Ethics and Bias in ML                                          |
-| 6       | 2/13, 2/15 | Bagging, Random Forest                                         |
-| 7       | 2/20, 2/22 | Gradient Boosting                                              |
-| 8       | 2/27, 3/1  | Clustering                                                     |
-| 9       | 3/6, 3/8   | TBD                                                            |
-| 10      | 3/13, 3/15 | Kaggle                                                         |
+|         |            |                                                                |                                     |
+|-------------|--------------|-----------------------------------------|-----------------------------|
+| Week \# | Dates      | Lecture                                                        | Lab                                 |
+| 1       | 1/9, 1/11  | Introduction, Linear Regression and ML Modeling Fundamentals I | 1.Regression I (Pumpkins)           |
+| 2       | 1/16, 1/18 | Regularized Regression and ML Modeling Fundamentals II         | 2.Regression II (Pumpkins)          |
+| 3       | 1/23, 1/25 | Logistic Regression, Classification                            | 3.Regularized Regression (Abalone)  |
+| 4       | 1/30, 2/1  | K-nearest neighbors, Decision Trees                            | 4.Classification (Wildfire)         |
+| 5       | 2/6, 2/8   | Ethics and Bias in ML                                          | 5.Classification (Spotify)          |
+| 6       | 2/13, 2/15 | Bagging, Random Forest                                         | 5.Classification (Spotify)          |
+| 7       | 2/20, 2/22 | Gradient Boosting                                              | 6.Boosting                          |
+| 8       | 2/27, 3/1  | Clustering                                                     | 7.Clustering                        |
+| 9       | 3/6, 3/8   | TBD                                                            | TBD                                 |
+| 10      | 3/13, 3/15 | TBD                                                            | Kaggle                              |

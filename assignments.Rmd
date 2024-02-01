@@ -78,7 +78,7 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 -   Download completed discussion [here](discussion/week3.Rmd)
 
-## Week 3
+## Week 4
 
 ### Slides:
 
@@ -88,6 +88,6 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 -   [HOML Ch. 8](https://bradleyboehmke.github.io/HOML/knn.html), [HOML Ch. 9](https://bradleyboehmke.github.io/HOML/DT.html)
 
-### Lab:
+### Lab: 
 
 ### Discussion:
