@@ -1,0 +1,248 @@
+---
+title: 'Week 7: Random Forest Regression'
+author: "Allie Caughman"
+date: "2024-01-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(tidymodels)
+library(ranger)
+library(spData)
+library(ggpmisc)
+library(vip)
+
+set.seed(5)
+```
+
+```{r}
+redlining = read_csv(here::here("discussion", "data", "redlining.csv")) %>% 
+  left_join(us_states_df %>% rename(name = state)) %>% 
+  janitor::clean_names()
+```
+
+### Data Splitting
+
+```{r}
+split <- initial_split(redlining, prop = .7)
+
+train <- training(split)
+test <- testing(split)
+
+folds <- vfold_cv(train, v = 5, repeats = 2)
+```
+
+### Recipe Specification
+
+```{r}
+recipe <- recipe(percent ~ region + area + total_pop_10 + median_income_10 + poverty_level_10, data = train)%>%
+  step_normalize(all_numeric_predictors()) %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  step_interact(terms = ~total_pop_10:median_income_10) %>% 
+  step_interact(terms = ~total_pop_10:poverty_level_10) %>% 
+  step_interact(terms = ~poverty_level_10:median_income_10) 
+```
+
+### Model: Random forest Regression
+
+```{r}
+rf_model <- rand_forest(mtry = tune(), trees = tune()) %>%
+  set_engine("ranger", verbose = TRUE, importance = "impurity") %>% 
+  set_mode("regression")
+```
+
+```{r}
+rf_wflw <- workflow() %>%
+  add_model(rf_model) %>%
+  add_recipe(recipe)
+
+rf_wflw
+```
+
+### Cross Validation
+
+```{r}
+rf_cv = rf_wflw %>%
+  tune_grid(resamples = folds, grid = 5)
+```
+
+```{r}
+autoplot(rf_cv)
+```
+
+```{r}
+rf_final = finalize_workflow(rf_wflw, select_best(rf_cv, metric = "rmse"))
+
+rf_final
+```
+
+### Model Fitting
+
+```{r, include=FALSE}
+rf_fit <- fit(rf_final, train) # fit the data to the training data
+```
+
+```{r, include=FALSE}
+train_predict <- predict(object = rf_fit, new_data = train) %>% # predict the training set
+  bind_cols(train) # bind training set column to prediction
+
+test_predict <- predict(object = rf_fit, new_data = test) %>% # predict the training set
+  bind_cols(test) # bind prediction to testing data column
+```
+
+```{r}
+train_metrics <- train_predict %>%
+  metrics(percent, .pred) # get testing data metrics
+train_metrics
+
+test_metrics <- test_predict %>%
+  metrics(percent, .pred) # get testing data metrics
+test_metrics
+```
+
+### Visualization
+
+```{r}
+ggplot(train_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+  geom_point() +
+  stat_poly_line() +
+  stat_poly_eq(use_label("eq")) +
+  stat_poly_eq(label.y = 0.9) +
+  theme_bw() +
+  labs(
+    x = "Observed",
+    y = "Predicted"
+  ) +
+  theme(text = element_text(size = 10))
+
+ggplot(test_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+  geom_point() +
+  stat_poly_line() +
+  stat_poly_eq(use_label("eq")) +
+  stat_poly_eq(label.y = 0.9) +
+  theme_bw() +
+  labs(
+    x = "Observed",
+    y = "Predicted"
+  ) +
+  theme(text = element_text(size = 10))
+```
+
+```{r}
+rf_fit %>%
+  extract_fit_parsnip() %>%
+  vip() +
+  theme_bw()
+```
+
+### Recipe Re-Specification
+
+```{r}
+recipe <- recipe(percent ~ area + total_pop_10 + median_income_10 + poverty_level_10, data = train)%>%
+  step_normalize(all_numeric_predictors()) %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  step_interact(terms = ~total_pop_10:median_income_10) %>% 
+  step_interact(terms = ~poverty_level_10:median_income_10) 
+```
+
+### Model: Random forest Regression
+
+```{r}
+rf_model <- rand_forest(mtry = tune(), trees = tune()) %>%
+  set_engine("ranger", verbose = TRUE, importance = "impurity") %>% 
+  set_mode("regression")
+```
+
+```{r}
+rf_wflw <- workflow() %>%
+  add_model(rf_model) %>%
+  add_recipe(recipe)
+
+rf_wflw
+```
+
+### Cross Validation
+
+```{r}
+mtry() %>% range_get()
+trees() %>% range_get()
+
+my_grid = expand.grid(mtry = seq(2, 6, length.out = 5), trees = round(seq(50, 2000, length.out = 10)))
+
+rf_cv = rf_wflw %>%
+  tune_grid(resamples = folds, grid = my_grid)
+```
+
+```{r}
+autoplot(rf_cv)
+```
+
+```{r}
+rf_final = finalize_workflow(rf_wflw, select_best(rf_cv, metric = "rmse"))
+
+rf_final
+```
+
+### Model Fitting
+
+```{r, include=FALSE}
+rf_fit <- fit(rf_final, train) # fit the data to the training data
+```
+
+```{r, include=FALSE}
+train_predict <- predict(object = rf_fit, new_data = train) %>% # predict the training set
+  bind_cols(train) # bind training set column to prediction
+
+test_predict <- predict(object = rf_fit, new_data = test) %>% # predict the training set
+  bind_cols(test) # bind prediction to testing data column
+```
+
+```{r}
+train_metrics <- train_predict %>%
+  metrics(percent, .pred) # get testing data metrics
+train_metrics
+
+test_metrics <- test_predict %>%
+  metrics(percent, .pred) # get testing data metrics
+test_metrics
+```
+
+### Visualization
+
+```{r}
+ggplot(train_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+  geom_point() +
+  stat_poly_line() +
+  stat_poly_eq(use_label("eq")) +
+  stat_poly_eq(label.y = 0.9) +
+  theme_bw() +
+  labs(
+    x = "Observed",
+    y = "Predicted"
+  ) +
+  theme(text = element_text(size = 10))
+
+ggplot(test_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+  geom_point() +
+  stat_poly_line() +
+  stat_poly_eq(use_label("eq")) +
+  stat_poly_eq(label.y = 0.9) +
+  theme_bw() +
+  labs(
+    x = "Observed",
+    y = "Predicted"
+  ) +
+  theme(text = element_text(size = 10))
+```
+
+```{r}
+rf_fit %>%
+  extract_fit_parsnip() %>%
+  vip() +
+  theme_bw()
+```
+
+

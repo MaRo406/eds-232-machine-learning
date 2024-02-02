@@ -1,0 +1,129 @@
+---
+title: 'Week 6: Random Forest and Boosted Trees with Tidy Models'
+author: "Allie Caughman"
+date: "2024-01-11"
+output: html_document
+---
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(here) #easy file paths
+library(tidyverse) #data wrangling
+library(tidymodels) #modeling
+library(tidyclust)
+library(patchwork)
+
+set.seed(42) #set random seed
+```
+
+#### Data Cleaning
+
+Today, we are going to use the top 3 habitats and take a random sample of 500, then select trophic level and length for clustering
+
+```{r}
+
+fish_clean = read_csv(here("discussion", "data", "fish_clean.csv")) %>% 
+  mutate(habitat = as.factor(habitat)) %>% 
+  filter(habitat %in% c("reef-associated", "demersal", "benthopelagic")) %>% 
+  sample_n(500)
+
+fish_clust = fish_clean %>% 
+  select(trophic_level_impute, length_impute) 
+
+lapply(fish_clust, class)
+
+```
+
+### Clustering
+
+```{r}
+
+```
+
+#### KMeans
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+res <- tune_cluster(
+  kmeans_wflow,
+  resamples = folds,
+  grid = clust_num_grid,
+  control = control_grid(save_pred = TRUE, extract = identity),
+  metrics = cluster_metric_set(sse_within_total, sse_total, sse_ratio)
+)
+```
+
+```{r}
+
+```
+
+```{r}
+res_metrics %>%
+  filter(.metric == "sse_ratio") %>%
+  ggplot(aes(x = num_clusters, y = mean)) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  ylab("mean WSS/TSS ratio, over 5 folds") +
+  xlab("Number of clusters") +
+  scale_x_continuous(breaks = 1:10)
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+#### Heirarchical Clustering
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+

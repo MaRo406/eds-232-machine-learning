@@ -1,0 +1,228 @@
+---
+title: 'Week 5: KNN with Tidy Models'
+author: "Allie Caughman"
+date: "2024-01-11"
+output: html_document
+---
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(here) #easy file paths
+library(tidyverse) #data wrangling
+library(tidymodels) #modeling
+
+set.seed(42) #set random seed
+```
+
+### Data Introduction
+
+This data was acquired form FishBase (Froese and Pauley 2000) using the rfishbase package (Boettiger et al., 2012; see data_acquisition.R for data retrieval). 
+
+The data set includes the following variables:
+
+* `species`: the scientific name of fish 
+* `genus`: the scientific genus of fish
+* `common_name`: common name used for fish
+* `body_shape`**: shape of fish body (elongated, fusiform/normal, eel-like, short and/or deep, other)**
+* `habitat`**: area of the ocean that fish typically resides in **
+* `depth_range_shallow`**: minimum depth fish is found**
+* `depth_range_deep`**: maximum depth fish is found**
+* `vulnerability`**: metric for how at risk a fish is to over fishing based on other life history and ecological traits**
+* `length`**: total length, fork length, or standard length of fish**
+* `trophic_level`**: trophic level that the fish occupies based on position in food web **
+* `food_troph`: trophic level that fish's food source occupies
+* `food`**: type of food source fish consumes **
+* `family`: the scientific family of fish
+
+*Bold variables are included in the models. A full copy of the codebook is included in the data/raw folder*
+
+#### Habitat Types 
+
+This project attempts to predict 8 different habitat types. These habitats are described below to note differences.
+
+1. pelagic: living within several regions of the pelagic zone, through both shallower pelagic-oceanic and deeper bathypelagic
+2. pelagic-neritic: relating to upper layers of the ocean on the continental shelf. Waters here are not as deep as the pelagic zone
+3. reef-associated: living in association with a coral reef. This habitat is the most diverse, offering an array of food types and shelters
+4. demersal: relating to living on or near the ocean floor, whether in the pelagic-neritic, pelagic, or bathypelagic zones   
+5. benthopelagic: relating specifically to the ocean floor in the pelagic zone, but not at the deepest depths
+6. bathydemersal: relating to the ocean floor at depths greater than 200 meters
+7. pelagic-oceanic: relating specifically to the upper layers of the open ocean. Food is scarce
+8. bathypelagic: relating to deeper layers of the open ocean at the continental slope. Limited sunlight reaches this zone
+
+While there is some possible overlap in these categories, they are kept separate as specifically defined in FishBase. Data has already been pre-processed for you. 
+
+#### Data Cleaning
+
+Today, we are going to use all habitats!
+
+```{r}
+
+fish_clean = read_csv(here("discussion", "data", "fish_clean.csv")) %>% 
+  mutate(habitat = as.factor(habitat))
+
+```
+
+### Modeling
+
+Today, we will look at preforming K-nearest neighbors on this data set. We will continue to come back to this data set as we learn more models in this section.
+
+##### Habitat Counts
+
+```{r}
+
+ggplot(fish_clean, aes(habitat)) + #order by count
+  geom_bar() + #get counts
+  theme_bw() + #bw theme
+  labs(x = "Habitat",
+       y = "Count") + #change labels
+  theme(axis.text.x = element_text(angle = 30, hjust=1)) #rotate x axis labels
+```
+
+#### Training and Testing Data Creation
+
+Here, we will use functions from the `rsample` package within `TidyModels`
+
+```{r}
+data_split = initial_split(fish_clean, prop = .8, strata = habitat) #split data stratified by survived
+
+train = training(data_split)#get training data
+test = testing(data_split) #get testing data
+
+head(train)
+head(test)
+```
+
+In order to find the best model for the data, I will be using cross validation to tune the parameters for each of the models. This is accomplished by splitting the data into 10 folds for 10-fold cross validation.
+
+```{r}
+cv_folds = vfold_cv(train, v = 5)
+```
+
+#### Recipe Creation
+
+After splitting my data, the first step is to create a recipe indicating the formula for the model and any pre-processing steps I want to preform on my data. Here we will use the `recipes` package.
+
+I will be predicting habitat based on trophic level, length, minimum depth, maximum depth, vulnerability, body shape, and food source type. We will be normalizing all numeric predictors
+
+```{r}
+fish_recipe = recipe(habitat ~ shape_impute + food_impute + shallow_impute + deep_impute + vulnerability + length_impute + trophic_level_impute, data = train) %>% #create model recipe
+  step_dummy(all_nominal_predictors()) %>% #create dummy variables from all factors
+  step_normalize(all_numeric_predictors()) #normalize all numeric predictors
+```
+
+#### Model 3: K-nearest neighbors
+
+```{r}
+?nearest_neighbor
+```
+
+I will be using the kknn engine (Schliep and Hechenbichler 2016) for this model and tuning the number of neighbors (k) to determine the best value.
+
+```{r}
+knn_model = nearest_neighbor(neighbors = tune()) %>% #set nearest neighbers model to tune neighbers parameter
+  set_engine("kknn") %>% #use kknn engine
+  set_mode("classification") #set classification as mode
+```
+
+
+```{r}
+knn_workflow = workflow() %>% #create workflow
+  add_model(knn_model) %>% #add knn model
+  add_recipe(fish_recipe) #add recipe
+
+knn_workflow
+```
+
+##### Parameter Tuning
+
+After creating my workflow for my KNN model, I will be using `tune_grid()` to get 10 possible values for k and using cross validation to fit the model to the folds in order to determine the best value for number of neighbors. Make sure you set eval = FALSE when knitting
+
+```{r, eval = FALSE}
+# knn_cv_tune = knn_workflow %>%
+#   tune_grid(resamples = cv_folds, grid = 5) #use cross validation to neighbors
+```
+
+```{r, include=FALSE}
+load(file = here::here("discussion","data", "knn_tune.rda"))
+```
+
+```{r}
+collect_metrics(knn_cv_tune) #get metrics from tuning cv to pick best model
+```
+
+```{r}
+autoplot(knn_cv_tune) + #plot cv results for parameter tuning
+  theme_bw()
+```
+
+#### Finalize workflow
+
+```{r}
+?show_best
+?finalize_workflow()
+```
+
+```{r}
+knn_best = show_best(knn_cv_tune, n = 1, metric = "roc_auc") #get metrics for best random forest model
+knn_best
+
+knn_final = finalize_workflow(knn_workflow, select_best(knn_cv_tune, metric = "roc_auc")) #finalize random forest model with best parameters
+```
+
+#### Model Fitting
+
+*these all take a few seconds*
+
+```{r, eval = FALSE}
+train_fit = fit(knn_final, train) #fit the KNN model to the training set
+
+train_fit
+```
+
+```{r}
+train_predict = predict(object = train_fit, new_data = train) %>% #predict the training set
+  bind_cols(train) #bind training set column to prediction
+
+train_predict2 = predict(object = train_fit, new_data = train, type = "prob") %>% #predict the training set
+  bind_cols(train) #bind training set column to prediction
+```
+
+```{r}
+test_predict = predict(train_fit, test) %>% #get prediction probabilities for test 
+  bind_cols(test) %>%  #bind to testing column
+  mutate(habitat = as.factor(habitat))
+
+test_predict2 = predict(train_fit, test, type = "prob") %>% #get testing prediction
+  bind_cols(test) %>%  #bind to testing column
+  mutate(habitat = as.factor(habitat))
+```
+
+#### Model Metrics and Evaluation
+
+```{r}
+accuracy(test_predict, truth = habitat, estimate = .pred_class) #get accuracy of testing prediction
+
+sensitivity(test_predict, truth = habitat, estimate = .pred_class)
+specificity(test_predict, truth = habitat, estimate = .pred_class)
+
+test_roc_auc = roc_curve(test_predict2, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
+```
+
+#### Visualizations
+
+```{r}
+test_predict %>% 
+  conf_mat(truth = habitat, estimate = .pred_class) %>% #create confusion matrix
+  autoplot(type = "heatmap") + #plot confusion matrix with heatmap
+  theme_bw() + #change theme
+  theme(axis.text.x = element_text(angle = 30, hjust=1)) #rotate axis labels
+
+```
+
+```{r}
+autoplot(test_roc_auc) +
+  theme_bw()
+```
+
+
