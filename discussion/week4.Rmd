@@ -13,7 +13,7 @@ library(tidymodels)
 library(spData)
 library(ggpmisc)
 
-sf_use_s2(FALSE)
+set.seed(5)
 ```
 
 ```{r}
