@@ -97,3 +97,21 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 -   Download discussion template [here](discussion/week4_skeleton.Rmd)
 -   Download discussion data [here](https://drive.google.com/drive/folders/1lkfNW4SpQXsGJI_U1WzocCVkibwFpbGd?usp=drive_link)
 -   Download completed discussion [here](discussion/week4.Rmd)
+
+## Week 5
+
+### Slides:
+
+-   Lecture: [Guest Lecture](https://ucsb.box.com/s/spuc0fxqjauu0aqre1h1q7u7lrlp9g0j)
+
+### Assigned Reading:
+
+-   [HOML Ch. 8](https://bradleyboehmke.github.io/HOML/knn.html), [HOML Ch. 9](https://bradleyboehmke.github.io/HOML/DT.html) (*continued from last week*)
+
+### Lab:
+
+-   Demo
+
+-   Assignment
+
+### Discussion:
