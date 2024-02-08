@@ -1,0 +1,152 @@
+---
+title: "Lab5_Demo"
+author: "Mateo Robbins"
+date: "2024-02-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)    
+library(ggplot2) #great plots
+library(rsample)  #data splitting 
+library(recipes) #data preprocessing
+library(skimr) #data exploration
+library(tidymodels) #re-entering tidymodel mode
+library(kknn) #knn modeling
+```
+
+###k-nearest neighbor in tidymodels
+
+## Data
+
+```{r data}
+data(attrition)
+churn <- attrition %>% mutate_if(is.ordered, .funs = factor, ordered = F) 
+#skim(churn) run in console
+```
+
+Not doing the data exploration here in the interest of time and since we are familiar with this dataset.
+
+```{r initial_split}
+set.seed(808)
+#initial split of data, default 75/25
+churn_split 
+churn_test 
+churn_train 
+```
+
+We need to create a recipe and do the preprocessing by dummy coding the nominal variables and standardizing the numeric variables.
+
+```{r recipe}
+#preprocessing
+knn_rec 
+
+baked_train
+```
+
+Recall: if you want to see the what the recipe is doing to your data, you can first prep() the recipe to estimate the parameters needed for each step and then bake(new_data = NULL) to pull out the training data with those steps applied.
+
+Now the recipe is ready to be applied to the test data.
+
+```{r bake_test}
+baked_test
+```
+
+##Specify the k-nearest neighbor model
+
+```{r knn_spec}
+
+knn_spec 
+```
+
+```{r knn_fit}
+knn_fit 
+```
+
+```{r cv}
+set.seed(808)
+# 5-fold CV on the training dataset (instead of 10 for in-class demo)
+cv_folds 
+
+```
+
+We now have a recipe for processing the data, a model specification, and CV splits for the training data.
+
+Let's put it all together in a workflow.
+
+```{r knn_workflow}
+knn_workflow 
+```
+Let's fit the resamples and carry out the cross-validation
+```{r knn_res}
+knn_res 
+```
+
+```{r}
+# Check the performance
+```
+
+Let's find the best value of k
+```{r spec_with_tuning}
+# Define our KNN model with tuning
+knn_spec_tune 
+```
+
+```{r wf_knn_tune}
+# Define a new workflow
+wf_knn_tune
+```
+
+This time before we fit the model we need to tell R which values to try for the parameter that we're tuning.
+
+To tune our hyperparameter(s), we will use the tune_grid() function (instead of the fit() or fit_resamples() functions).
+
+This tune_grid() is similar to fit_resamples() except that it takes an additional argument: grid. We will pass the possible values of our hyperparameter(s) to this grid argument, and it will evaluate each fold of our sample on each set of hyperparameters passed to grid.
+
+We'll explore a few values of k: (1,5,10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
+```{r fit_knn_cv}
+# Fit the workflow on our predefined folds and a grid of hyperparameters
+fit_knn_cv 
+
+# Check the performance with collect_metrics()
+
+```
+
+And finally, we will predict.
+
+Use finalize_workflow() function wants (1) your initial workflow and (2) your best model.
+
+```{r final_wf}
+# The final workflow for our KNN model. Finalize_workflow takes a workflow and a set of parameters.  In this case, that set is just the best value of k
+final_wf
+
+# Check out the final workflow object.  Choosing accuracy for interpretability in this simple binary context
+final_wf
+```
+
+```{r final_fit}
+# Fitting our final workflow
+final_fit 
+# Examine the final workflow
+final_fit
+```
+
+And finally, we can predict onto the testing dataset.
+
+```{r churn_pred}
+churn_pred 
+
+
+```
+
+There's a better way! You can pass your final workflow (workflow plus the best model) to the last_fit() function along with your initial split (for us: churn_split) to both (a) fit your final model on your full training dataset and (b) make predictions onto the testing dataset (defined in your initial split object).
+
+This last_fit() approach streamlines your work (combining steps) and also lets you easily collect metrics using the collect_metrics() function
+
+```{r last_fit}
+# Write over 'final_fit' with this last_fit() approach
+final_fit 
+# Collect metrics on the test data!
+final_fit
+```
