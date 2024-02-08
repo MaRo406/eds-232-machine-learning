@@ -77,7 +77,6 @@ ggplot(fish_clean, aes(habitat)) + #order by count
   labs(x = "Habitat",
        y = "Count") + #change labels
   theme(axis.text.x = element_text(angle = 30, hjust=1)) #rotate x axis labels
-
 ```
 
 #### Training and Testing Data Creation
@@ -202,6 +201,15 @@ test_predict2 = predict(train_fit, test, type = "prob") %>% #get testing predict
 #### Model Metrics and Evaluation
 
 ```{r}
+accuracy(train_predict, truth = habitat, estimate = .pred_class) #get accuracy of testing prediction
+
+sensitivity(train_predict, truth = habitat, estimate = .pred_class)
+specificity(train_predict, truth = habitat, estimate = .pred_class)
+
+train_roc_auc = roc_curve(train_predict2, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
+```
+
+```{r}
 accuracy(test_predict, truth = habitat, estimate = .pred_class) #get accuracy of testing prediction
 
 sensitivity(test_predict, truth = habitat, estimate = .pred_class)
@@ -213,7 +221,7 @@ test_roc_auc = roc_curve(test_predict2, habitat, .pred_bathydemersal, .pred_bath
 #### Visualizations
 
 ```{r}
-test_predict %>% 
+train_predict %>% 
   conf_mat(truth = habitat, estimate = .pred_class) %>% #create confusion matrix
   autoplot(type = "heatmap") + #plot confusion matrix with heatmap
   theme_bw() + #change theme
