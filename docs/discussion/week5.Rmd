@@ -77,6 +77,7 @@ ggplot(fish_clean, aes(habitat)) + #order by count
   labs(x = "Habitat",
        y = "Count") + #change labels
   theme(axis.text.x = element_text(angle = 30, hjust=1)) #rotate x axis labels
+
 ```
 
 #### Training and Testing Data Creation

@@ -115,3 +115,6 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 -   [Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab5.Rmd)
 
 ### Discussion:
+
+-   Download discussion template [here](discussion/week5_skeleton.Rmd)
+-   Download discussion data [here](https://drive.google.com/drive/folders/15A89wGnu8l_hjR_DQLCwaNXjddOnRfn8?usp=drive_link)
