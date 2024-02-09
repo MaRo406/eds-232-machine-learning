@@ -29,7 +29,8 @@ Client ID and Client Secret are required to create and access token that is requ
 
 ```{r access_API}
 
-Sys.setenv(SPOTIFY_CLIENT_ID = 'your_client_id_here') Sys.setenv(SPOTIFY_CLIENT_SECRET = 'you_client_secret_here')
+Sys.setenv(SPOTIFY_CLIENT_ID = 'your_client_id_here') 
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'you_client_secret_here')
 
 authorization_code <- get_spotify_authorization_code(scope = scopes()[c(1:19)]) #sets an authorization code that you'll need to provide for certain get_ functions via my_tracks <- get_my_saved_tracks(authorization = authorization_code)
 
