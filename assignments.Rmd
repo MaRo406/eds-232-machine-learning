@@ -110,7 +110,7 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Lab:
 
--   [Demo](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab5_Demo.Rmd)
+-   [Demo key](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab5_Demo.Rmd)
 
 -   [Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab5.Rmd)
 
