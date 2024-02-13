@@ -119,3 +119,19 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 -   Download discussion template [here](discussion/week5_skeleton.Rmd)
 -   Download discussion data [here](https://drive.google.com/drive/folders/15A89wGnu8l_hjR_DQLCwaNXjddOnRfn8?usp=drive_link)
 -   Download completed discussion [here](discussion/week5.Rmd)
+
+## Week 6
+
+### Slides:
+
+-   Lecture: [Bagging and Random Forests](https://ucsb.box.com/s/8btqbb9k518w1wp8k5iw39fi4sq2dzw6)
+
+### Assigned Reading:
+
+-   [HOML Ch.10](https://bradleyboehmke.github.io/HOML/bagging.html), [HOML Ch.11](https://bradleyboehmke.github.io/HOML/random-forest.html)
+
+### Lab:
+
+### Discussion:
+
+### 
