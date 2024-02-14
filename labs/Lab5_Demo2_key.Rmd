@@ -1,0 +1,134 @@
+---
+title: "Lab5_Demo2_key"
+author: "Mateo Robbins"
+date: "2023-02-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(vip) #variable importance
+```
+## R
+```{r}
+#Grab the .csv from here:
+#https://www.kaggle.com/datasets/mrmorj/dataset-of-songs-in-spotify
+kaggle_dat <- read_csv("kaggle_genres_v2.csv")
+unique(kaggle_dat$genre)
+table(kaggle_dat$genre)
+
+#Removing inappropriate columns and selecting trap and Hiphop as the two genres here and making case consistent
+
+genre_dat <- kaggle_dat %>%
+  select(-c(type, uri, track_href, analysis_url, `Unnamed: 0`, title, tempo, id, song_name)) %>%
+  filter(genre == "Hiphop"|genre == "Rap") %>%
+  mutate(genre = str_replace(genre, "Hiphop", "hiphop")) %>%
+  mutate(genre = str_replace(genre, "Rap", "rap")) %>%
+  mutate(genre = as.factor(genre))
+```
+
+```{r}
+##split the data
+genre_split <- initial_split(genre_dat)
+genre_train <- training(genre_split)
+genre_test <- testing(genre_split)
+```
+
+```{r recipe}
+#Preprocess the data
+genre_rec <- recipe(genre ~., data = genre_train) %>%
+  step_dummy(all_nominal(), -all_outcomes(), one_hot = TRUE) %>%
+  step_normalize(all_numeric(), -all_outcomes(),)
+  
+```
+
+Set up a decision tree specification. Note: the cost_complexity parameter is a pruning penalty parameter that controls how much we penalize the number of terminal nodes in the tree.  It's conceptually similar to lambda from regularized regression.
+
+```{r tree_specification}
+tree_spec_fixed <- decision_tree(
+  cost_complexity = 0.1,
+  tree_depth = 4,
+  min_n = 11
+) %>%
+  set_engine("rpart") %>%
+  set_mode("classification")
+```
+
+But, as usual, we don't want just any old values for our hyperparameters, we want optimal values.
+```{r}
+#new spec, tell the model that we are tuning hyperparams
+tree_spec_tune <- decision_tree(
+  cost_complexity = tune(),
+  tree_depth = tune(),
+  min_n = tune()) %>%
+  set_engine("rpart") %>%
+  set_mode("classification")
+
+tree_spec_tune
+
+tree_grid <- grid_regular(cost_complexity(), tree_depth(), min_n(), levels = 5)
+tree_grid
+```
+
+```{r workflow_tree}
+wf_tree_tune <- workflow() %>%
+  add_recipe(genre_rec) %>%
+    add_model(tree_spec_tune)
+```
+
+```{r resampling}
+#set up k-fold cv. This can be used for all the algorithms
+genre_cv = genre_train %>% vfold_cv(v = 10)
+genre_cv
+```
+
+```{r}
+doParallel::registerDoParallel() #build trees in parallel
+#As models become more complex, it is useful to measure running time
+system.time(
+tree_rs <- tune_grid(
+  tree_spec_tune,
+  genre ~., 
+  resamples = genre_cv,
+    grid = tree_grid,
+  metrics = metric_set(accuracy)
+)
+)
+tree_rs
+```
+Use autoplot() to examine how different parameter configurations relate to accuracy 
+```{r}
+autoplot(tree_rs) + theme_light()
+```
+
+```{r select_hyperparam}
+show_best(tree_rs)
+select_best(tree_rs)
+```
+
+We can finalize the model specification where we have replaced the tune functions with optimized values.
+
+```{r final_tree_spec}
+final_tree <- finalize_model(tree_spec_tune, select_best(tree_rs))
+```
+
+This model has not been fit yet though.
+
+```{r final_tree_fit}
+#similar functions here.
+final_tree_fit <- fit(final_tree, genre~.,genre_train)
+#last_fit() fits on training data (like fit()), but then also evaluates on the test data.
+final_tree_result <- last_fit(final_tree, genre~., genre_split )
+final_tree_result$.predictions 
+```
+
+#Visualize variable importance.
+```{r tree_vip}
+final_tree_fit %>%
+  vip(geom = "col", aesthetics = list(fill = "midnightblue", alpha = 0.8)) +
+  scale_y_continuous(expand = c(0,0))
+
+```
+
+
