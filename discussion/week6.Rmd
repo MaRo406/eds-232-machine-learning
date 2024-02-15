@@ -182,7 +182,7 @@ xgb_workflow
 
 ##### Parameter Tuning
 
-After creating my workflow for my random forest model, I will be using `tune_grid()` to get 10 possible values for both mtry and trees parameters and using cross validation to fit the model to the folds in order to determine the best value for the parameters.
+After creating my workflow for my boosted tree model, I will be using `tune_grid()` to get 10 possible values for both mtry and trees parameters and using cross validation to fit the model to the folds in order to determine the best value for the parameters.
 
 ```{r, eval = FALSE}
 # xgb_cv_tune = xgb_workflow %>%

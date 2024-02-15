@@ -133,6 +133,7 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 ### Lab:
 
 -   [Demo](labs/Lab5_Demo2.Rmd)
+-   [Demo Data](https://drive.google.com/drive/folders/1T51L6kBQnYXaqSRGAzTJtEWh7dw9zAiz?usp=sharing)
 -   [Demo Key](labs/Lab5_Demo2_key.Rmd)
 
 ### Discussion:
