@@ -68,7 +68,7 @@ fish_clean = read_csv(here("discussion", "data", "fish_clean.csv")) %>%
 
 ### Modeling
 
-Today, we will look at preforming K-nearest neighbors on this data set. We will continue to come back to this data set as we learn more models in this section.
+Today, we will look at preforming Random Forest and Boosted Trees on this data set. We will continue to come back to this data set as we learn more models in this section.
 
 #### Training and Testing Data Creation
 
@@ -111,16 +111,16 @@ fish_recipe = recipe(habitat ~ shape_impute + food_impute + shallow_impute + dee
 I will be using the ranger engine (Wright 2017) for this model. The parameters I will be tuning are mtry and trees. mtry is the number of predictors that will be randomly sampled for use in each of the trees created. trees is the number of tress that the model creates.
 
 ```{r}
-rf_model = rand_forest(mtry = tune(), trees = tune()) %>% #set random forest model to tune number of trees and number of predictors sampled
-  set_engine("ranger") %>% #use ranger engine
-  set_mode("classification") #set classification as mode
+rf_model <- rand_forest(mtry = tune(), trees = tune()) %>% 
+  set_engine("ranger") %>% 
+  set_mode("classification")
 ```
 
 
 ```{r}
-rf_workflow = workflow() %>% #create workflow
-  add_model(rf_model) %>% #add random forest model
-  add_recipe(fish_recipe) #add recipe
+rf_workflow = workflow() %>% 
+  add_model(rf_model) %>% 
+  add_recipe(fish_recipe)
 
 rf_workflow
 ```
@@ -153,11 +153,10 @@ autoplot(rf_cv_tune) + #plot cv results for parameter tuning
 
 ```{r}
 rf_best = show_best(rf_cv_tune, n = 1, metric = "roc_auc") #get metrics for best random forest model
-
-rf_final = finalize_workflow(rf_workflow, select_best(rf_cv_tune, metric = "roc_auc")) #finalize random forest model with best parameters
+rf_best
 ```
 
-#### Model 5: Random Forest Classifier
+#### Model 5: Boosted Tree Classifier
 
 ```{r}
 ?boost_tree
@@ -166,9 +165,9 @@ rf_final = finalize_workflow(rf_workflow, select_best(rf_cv_tune, metric = "roc_
 I will be using the xgboost engine (Chen et al., 2022) for this model. The parameters I will be tuning are learn_rate and trees. learn_rate is the rate that the algorithm adapts between each tree iteration. trees is the number of tress that the model creates.
 
 ```{r}
-xgb_model = boost_tree(learn_rate = tune(), trees = tune()) %>% #set boosted trees model to tune number of trees and number of predictors sampled
-  set_engine("xgboost") %>% #use xgboost engine
-  set_mode("classification") #set classification as mode
+xgb_model = boost_tree(learn_rate = tune(), trees = tune()) %>% 
+  set_engine("xgboost") %>% 
+  set_mode("classification")
 ```
 
 
@@ -182,7 +181,7 @@ xgb_workflow
 
 ##### Parameter Tuning
 
-After creating my workflow for my boosted tree model, I will be using `tune_grid()` to get 10 possible values for both mtry and trees parameters and using cross validation to fit the model to the folds in order to determine the best value for the parameters.
+After creating my workflow for my random forest model, I will be using `tune_grid()` to get 10 possible values for both mtry and trees parameters and using cross validation to fit the model to the folds in order to determine the best value for the parameters.
 
 ```{r, eval = FALSE}
 # xgb_cv_tune = xgb_workflow %>%
@@ -208,11 +207,16 @@ autoplot(xgb_cv_tune) + #plot cv results for parameter tuning
 
 ```{r}
 xgb_best = show_best(xgb_cv_tune, n = 1, metric = "roc_auc") #get metrics for best random forest model
-
-xgb_final = finalize_workflow(xgb_workflow, select_best(xgb_cv_tune, metric = "roc_auc")) #finalize random forest model with best parameters
+xgb_best
 ```
 
 #### Model Fitting
+
+```{r}
+rf_final = finalize_workflow(rf_workflow, select_best(rf_cv_tune, metric = "roc_auc"))
+
+xgb_final = finalize_workflow(xgb_workflow, select_best(xgb_cv_tune, metric = "roc_auc"))
+```
 
 *these all take a few seconds*
 
@@ -227,21 +231,22 @@ train_fit_xgb
 ```
 
 ```{r}
-test_predict_rf = predict(train_fit_rf, test) %>% #get prediction probabilities for test 
+test_predict_rf = predict(train_fit_rf, test) %>%
+  #get testing prediction
   bind_cols(test) %>%  #bind to testing column
   mutate(habitat = as.factor(habitat))
 
-test_predict2_rf = predict(train_fit_rf, test, type = "prob") %>% #get testing prediction
+test_predict2_rf = predict(train_fit_rf, test, type = "prob") %>% #get prediction probabilities for test 
   bind_cols(test) %>%  #bind to testing column
   mutate(habitat = as.factor(habitat))
 ```
 
 ```{r}
-test_predict_xgb = predict(train_fit_xbg, test) %>% #get prediction probabilities for test 
+test_predict_xgb = predict(train_fit_xgb, test) %>% #get testing prediction
   bind_cols(test) %>%  #bind to testing column
   mutate(habitat = as.factor(habitat))
 
-test_predict2_xbg = predict(train_fit_xbg, test, type = "prob") %>% #get testing prediction
+test_predict2_xgb = predict(train_fit_xgb, test, type = "prob") %>% #get prediction probabilities for test 
   bind_cols(test) %>%  #bind to testing column
   mutate(habitat = as.factor(habitat))
 ```
@@ -254,8 +259,8 @@ accuracy(test_predict_xgb, truth = habitat, estimate = .pred_class) #get accurac
 ```
 
 ```{r}
-test_roc_auc_rf = roc_curve(test_predict_rf2, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
-test_roc_auc_xgb = roc_curve(test_predict_xgb2, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
+test_roc_auc_rf = roc_curve(test_predict2_rf, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
+test_roc_auc_xgb = roc_curve(test_predict2_xgb, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
 ```
 
 #### Visualizations
@@ -269,7 +274,7 @@ m1 = test_predict_rf %>%
   #rotate axis labels
   labs(title = "Random Forest")
 
-m2 = test_predict_xbg %>% 
+m2 = test_predict_xgb %>% 
   conf_mat(truth = habitat, estimate = .pred_class) %>% #create confusion matrix
   autoplot(type = "heatmap") + #plot confusion matrix with heatmap
   theme_bw() + #change theme
@@ -294,7 +299,7 @@ r2 = autoplot(test_roc_auc_xgb) +
 ```
 
 ```{r}
-r1 + r2
+r1+ r2
 ```
 
 
