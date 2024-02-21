@@ -134,4 +134,18 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Discussion:
 
+## Week 7
+
+### Slides:
+
+-   Lecture: [Boosted Trees](https://ucsb.box.com/s/roha0hdtyc7548qkttvfidjj4o26s5n9)
+
+### Assigned Reading:
+
+-   [HOML Ch. 12](https://bradleyboehmke.github.io/HOML/gbm.html#a-sequential-ensemble-approach)
+
+### Lab:
+
+### Discussion:
+
 ### 
