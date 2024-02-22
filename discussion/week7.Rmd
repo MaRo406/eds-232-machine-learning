@@ -141,7 +141,7 @@ rf_fit %>%
 ### Recipe Re-Specification
 
 ```{r}
-recipe <- recipe(percent ~ area + total_pop_10 + median_income_10 + poverty_level_10, data = train)%>%
+recipe2 <- recipe(percent ~ area + total_pop_10 + median_income_10 + poverty_level_10, data = train)%>%
   step_normalize(all_numeric_predictors()) %>% 
   step_dummy(all_nominal_predictors()) %>% 
   step_interact(terms = ~total_pop_10:median_income_10) %>% 
@@ -157,11 +157,11 @@ rf_model <- rand_forest(mtry = tune(), trees = tune()) %>%
 ```
 
 ```{r}
-rf_wflw <- workflow() %>%
+rf_wflw2 <- workflow() %>%
   add_model(rf_model) %>%
-  add_recipe(recipe)
+  add_recipe(recipe2)
 
-rf_wflw
+rf_wflw2
 ```
 
 ### Cross Validation
@@ -172,18 +172,18 @@ trees() %>% range_get()
 
 my_grid = expand.grid(mtry = seq(2, 6, length.out = 5), trees = round(seq(50, 2000, length.out = 10)))
 
-rf_cv = rf_wflw %>%
+rf_cv2 = rf_wflw2 %>%
   tune_grid(resamples = folds, grid = my_grid)
 ```
 
 ```{r}
-autoplot(rf_cv)
+autoplot(rf_cv2)
 ```
 
 ```{r}
-rf_final = finalize_workflow(rf_wflw, select_best(rf_cv, metric = "rmse"))
+rf_final2 = finalize_workflow(rf_wflw2, select_best(rf_cv2, metric = "rmse"))
 
-rf_final
+rf_final2
 ```
 
 ### Model Fitting
