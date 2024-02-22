@@ -189,31 +189,33 @@ rf_final2
 ### Model Fitting
 
 ```{r, include=FALSE}
-rf_fit <- fit(rf_final, train) # fit the data to the training data
+rf_fit2 <- fit(rf_final2, train) # fit the data to the training data
 ```
 
 ```{r, include=FALSE}
-train_predict <- predict(object = rf_fit, new_data = train) %>% # predict the training set
+train_predict2 <- predict(object = rf_fit2, new_data = train) %>% # predict the training set
   bind_cols(train) # bind training set column to prediction
 
-test_predict <- predict(object = rf_fit, new_data = test) %>% # predict the training set
+test_predict2 <- predict(object = rf_fit2, new_data = test) %>% # predict the training set
   bind_cols(test) # bind prediction to testing data column
 ```
 
 ```{r}
-train_metrics <- train_predict %>%
+train_metrics2 <- train_predict2 %>%
   metrics(percent, .pred) # get testing data metrics
 train_metrics
+train_metrics2
 
-test_metrics <- test_predict %>%
+test_metrics2 <- test_predict2 %>%
   metrics(percent, .pred) # get testing data metrics
 test_metrics
+test_metrics2
 ```
 
 ### Visualization
 
 ```{r}
-ggplot(train_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+ggplot(train_predict2, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
   geom_point() +
   stat_poly_line() +
   stat_poly_eq(use_label("eq")) +
@@ -225,7 +227,7 @@ ggplot(train_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln
   ) +
   theme(text = element_text(size = 10))
 
-ggplot(test_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+ggplot(test_predict2, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
   geom_point() +
   stat_poly_line() +
   stat_poly_eq(use_label("eq")) +
@@ -239,10 +241,8 @@ ggplot(test_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln 
 ```
 
 ```{r}
-rf_fit %>%
+rf_fit2 %>%
   extract_fit_parsnip() %>%
   vip() +
   theme_bw()
 ```
-
-
