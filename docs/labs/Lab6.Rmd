@@ -11,16 +11,17 @@ This week's lab follows a project modeling the eel species Anguilla australis de
 
 ## Data
 
-Grab the training data sets (eel.model.data.csv, eel.eval.data.csv) from github here:
+Grab the training and evaluation data sets (eel.model.data.csv, eel.eval.data.csv) from github here:
 https://github.com/MaRo406/eds-232-machine-learning/blob/main/data 
+
+### Preprocess
+
+Create a recipe to prepare your data for the XGBoost model
 
 ### Split and Resample
 
 Split the model data (eel.model.data.csv) into a training and test set, stratified by outcome score (Angaus). Use 10-fold CV to resample the training set.
 
-### Preprocess
-
-Create a recipe to prepare your data for the XGBoost model
 
 ## Tuning XGBoost
 
