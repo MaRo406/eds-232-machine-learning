@@ -1,5 +1,5 @@
 ---
-title: 'Week 8: Clustering with Tidy Models'
+title: 'Week 8: Clustering with Tidy Clust'
 author: "Allie Caughman"
 date: "2024-01-11"
 output: html_document
@@ -141,7 +141,7 @@ ggplot(fish_clean) +
   scale_color_viridis_d()
 
 ggplot(fish_clean) +
-  geom_point(aes(trophic_level_impute, length_impute, color = cluster, shape = habitat)) +
+  geom_point(aes(trophic_level_impute, length_impute, color = habitat, shape = cluster)) +
   theme_bw() +
   scale_color_viridis_d()
 ```

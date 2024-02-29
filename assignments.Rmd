@@ -182,3 +182,6 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 -   [Demo/Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/Lab7_Demo_InClass.Rmd)
 
 ### Discussion:
+
+-   Download discussion template [here](discussion/week8_skeleton.Rmd)
+-   Download discussion data [here](https://drive.google.com/drive/folders/1kBySK4clcG5RvzmKpxzvPp_nW0Rqq-W6?usp=sharing)
