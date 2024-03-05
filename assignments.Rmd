@@ -186,3 +186,19 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 -   Download discussion template [here](discussion/week8_skeleton.Rmd)
 -   Download discussion data [here](https://drive.google.com/drive/folders/1kBySK4clcG5RvzmKpxzvPp_nW0Rqq-W6?usp=sharing)
+
+## Week 8
+
+### Slides:
+
+-   Lecture: [Support Vector Machines](https://ucsb.box.com/s/ogq5ubj3umkx5igb8ph3xnma4q0lrhim)
+
+### Assigned Reading:
+
+-   [HOML Ch. 14](https://bradleyboehmke.github.io/HOML/svm.html#feature-interpretation-2)
+
+### Lab:
+
+### Discussion: 
+
+-   No discussion this week
