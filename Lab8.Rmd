@@ -1,0 +1,35 @@
+---
+title: "Lab 8"
+author: "Mateo Robbins"
+date: "2024-03-06"
+output: html_document
+---
+
+## Forest Cover Classification with SVM
+
+In this week's lab we are exploring the use of Support Vector Machines for multi-class classification. Specifically, you will be using cartographic variables to predict forest cover type (7 types).
+
+Natural resource managers responsible for developing ecosystem management strategies require basic descriptive information including inventory data like forest cover type for forested lands to support their decision-making processes. However, managers generally do not have this type of data for in-holdings or neighboring lands that are outside their immediate jurisdiction. One method of obtaining this information is through the use of predictive models.
+
+You task is build both an SVM and a random forest model and compare their performance on accuracy and computation time.
+
+1.  The data is available here: <https://ucsb.box.com/s/ai5ost029enlguqyyn04bnlfaqmp8kn4>
+
+Explore the data.
+
+-   What kinds of features are we working with?
+
+-   Does anything stand out that will affect you modeling choices?
+
+Hint: Pay special attention to the distribution of the outcome variable across the classes.
+
+2.  Create the recipe and carry out any necessary preprocessing. Can you use the same recipe for both models?
+
+3.  Create the folds for cross-validation.
+
+4.  Tune the models. Choose appropriate parameters and grids. If the computational costs of tuning given your strategy are prohibitive, how might you work around this?
+
+5.  Conduct final predictions for both models and compare their prediction performances and computation costs from part 4.
+
+-   Which type of model do you think is better for this task?
+-   Why do you speculate this is the case?
