@@ -199,6 +199,10 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Lab:
 
-### Discussion: 
+-   [Demo](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab8_Demo.Rmd)
+
+-   [Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab8.Rmd)
+
+### Discussion:
 
 -   No discussion this week

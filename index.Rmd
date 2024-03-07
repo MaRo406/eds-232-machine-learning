@@ -85,7 +85,7 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 ## Tentative topics
 
 |         |            |                                                                |                                    |
-|-------------|-------------|-------------------------------|----------------|
+|---------|------------|----------------------------------------------------------------|------------------------------------|
 | Week \# | Dates      | Lecture                                                        | Lab                                |
 | 1       | 1/9, 1/11  | Introduction, Linear Regression and ML Modeling Fundamentals I | 1.Regression I (Pumpkins)          |
 | 2       | 1/16, 1/18 | Regularized Regression and ML Modeling Fundamentals II         | 2.Regression II (Pumpkins)         |
