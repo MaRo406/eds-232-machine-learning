@@ -203,6 +203,8 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 -   [Assignment](https://github.com/MaRo406/eds-232-machine-learning/blob/main/Lab8.Rmd)
 
+    -   [Metadata](https://github.com/MaRo406/eds-232-machine-learning/blob/main/data/covtype_metadata.info)
+
 ### Discussion:
 
 -   No discussion this week
