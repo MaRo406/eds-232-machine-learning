@@ -95,5 +95,5 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 | 6       | 2/13, 2/15 | Bagging, Random Forest                                         | 5.Classification (Spotify)         |
 | 7       | 2/20, 2/22 | Gradient Boosting                                              | 6.Boosting                         |
 | 8       | 2/27, 3/1  | Clustering                                                     | 7.Clustering                       |
-| 9       | 3/6, 3/8   | TBD                                                            | TBD                                |
-| 10      | 3/13, 3/15 | TBD                                                            | Kaggle                             |
+| 9       | 3/6, 3/8   | Support Vector Machines                                        | 8.SVM                              |
+| 10      | 3/13, 3/15 | Deep Learning, CalCOFI                                         | 9.Kaggle                           |

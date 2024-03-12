@@ -1,0 +1,112 @@
+---
+title: "Lab 8 Demo"
+author: "Mateo Robbins"
+date: "2024-03-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidymodels)
+library(dplyr)
+library(kernlab)
+```
+
+
+```{r}
+#Create simulate training data for our SVM exercise
+set.seed(1)
+
+```
+
+```{r}
+#plot to see the structure of the data we created
+
+```
+
+```{r svm_rec}
+#specify a recipe where we center to mean of 0 and scale to sd of 1
+
+```
+
+```{r svm_spec}
+#Create linear SVM model specification
+
+```
+
+In SVM, the cost parameter influences the width of the margin around the separating hyperplane. A smaller C allows a wider margin but more misclassifications are allowed. Recall that we can improve  generalization by accepting more errors on the training set. A larger C aims for a narrower margin that tries to correctly classify as many training samples as possible, even if it means a more complex model.
+
+```{r}
+#Bundle into workflow
+```
+
+```{r}
+#Fit workflow
+```
+
+```{r}
+#Plot the fit from kernlab engine
+
+```
+
+
+```{r tune}
+#As usual we want to tune our hyperparameter values
+
+```
+
+#Finalize model and fit
+```{r finalize}
+
+```
+
+
+```{r sim_test}
+#Create a small test data set
+set.seed(2)
+
+```
+
+We can use augment() from {broom} to use our trained model to predict on new data (test data) and add additional info for examining model performance. 
+
+```{r augment}
+
+```
+
+That went well, but makes SVMs really interesting is that we can use non-linear kernels. Let us start by generating some data, but this time generate with a non-linear class boundary.
+
+```{r}
+
+```
+
+```{r svm_rbf}
+
+```
+
+
+```{r}
+#Fit the new specification
+
+```
+
+```{r}
+#Plot the fit
+
+```
+
+```{r}
+#Create the test data
+
+```
+
+```{r}
+#Examine model performance via confustion matrix
+
+```
+
+ROC Curves
+
+```{r}
+#We can examine our model's performance using ROC and AUC
+
+```
