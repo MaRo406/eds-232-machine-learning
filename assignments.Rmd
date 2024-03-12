@@ -210,3 +210,14 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 ### Discussion:
 
 -   No discussion this week
+
+## Week 10
+
+### Slides:
+
+-   Lecture: Guest Lecture
+-   Lecture:
+
+### Assigned Reading: 
+
+-   [HOML Ch. 13](https://bradleyboehmke.github.io/HOML/deep-learning.html)
