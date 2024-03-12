@@ -70,7 +70,7 @@ res <- tune_cluster(
   resamples = folds,
   grid = clust_num_grid,
   control = control_grid(save_pred = TRUE, extract = identity),
-  metrics = cluster_metric_set(sse_within_total, sse_total, sse_ratio)
+  metrics = cluster_metric_set(silhouette_avg, sse_within_total, sse_total, sse_ratio)
 )
 ```
 
@@ -150,7 +150,6 @@ ggplot(fish_clean) +
 
 ```{r}
 hc_spec <- hier_clust(
-  num_clusters = 4,
   linkage_method = "average")
 ```
 
