@@ -218,6 +218,6 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 -   Lecture: Guest Lecture
 -   Lecture:
 
-### Assigned Reading: 
+### Assigned Reading:
 
 -   [HOML Ch. 13](https://bradleyboehmke.github.io/HOML/deep-learning.html)
