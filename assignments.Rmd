@@ -215,9 +215,14 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 
 ### Slides:
 
--   Lecture: Guest Lecture
--   Lecture:
+-   Lecture: [Guest Lecture](https://ucsb.box.com/s/0209zv5ewg24hfgf3ecb3vl3x0d3sg6l)
+-   Lecture: [Deep Learning](https://ucsb.box.com/s/0qpe0m1rvbmhfszvug7u4vkkg6vt25kc)
+    -   [Demo code](https://github.com/MaRo406/eds-232-machine-learning/blob/main/labs/NN_demo.Rmd)
 
 ### Assigned Reading:
 
 -   [HOML Ch. 13](https://bradleyboehmke.github.io/HOML/deep-learning.html)
+
+### Lab:
+
+-   [Link to join Kaggle competition](https://www.kaggle.com/t/e4267f920cde4233b377f57806bdec56)
