@@ -1,0 +1,87 @@
+---
+title: "NN_demo"
+output: html_document
+date: "2024-03-14"
+---
+```{r keras}
+install.packages("keras")
+keras::install_keras()
+```
+
+```{r sim_lin}
+library(tidyverse)
+n <- 1000
+b <- 30
+a <- 5
+
+set.seed(123)
+sim <- tibble(
+  x = runif(n, min = -1, max = 1),
+  y = b +a*x + rnorm(n)
+)
+```
+
+```{r plot_lin}
+ggplot(sim, aes(x,y)) +
+  geom_point()+
+  geom_smooth(method = lm)
+```
+
+```
+```{r fit_lin}
+ols_model <- lm(y ~ x, sim)
+
+sigma(ols_model)
+
+ols_model
+```
+
+
+```{r mod}
+x <- matrix(sim$x, ncol = 1)
+
+library(keras)
+
+mod <- keras_model_sequential() %>%
+  layer_dense(units = 1,
+              activation = "linear",
+              input_shape = ncol(x))
+```
+
+```{r mod_compile}
+mod %>%
+  compile(optimizer = "sgd", #stochastic gradient descent
+          loss = "mse") #mean square error
+```
+
+```{r mod_hist}
+hist <- mod %>%
+  fit(x, sim$y, #data
+      batch_size = 16, #mini-batch size
+      epochs = 20, # n times through full training data
+      validation_split = .2 
+  )
+```
+
+
+```{r compare_lin}
+
+plot(hist)
+
+keras::get_weights(mod)
+coef(ols_model)
+
+history
+sigma(ols_model)
+```
+
+```{r sim_sine}
+set.seed(321)
+df <- tibble(
+  x = seq(from = -1, to = 2 * pi, length = n),
+  e = rnorm(n, sd = 0.2),
+  y = sin(x) + e
+)
+
+x <- matrix(sim$x, ncol= 1)
+```
