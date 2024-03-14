@@ -73,8 +73,6 @@ coef(ols_model)
 
 history
 sigma(ols_model)
-
-
 ```
 
 ```{r sim_sine}
