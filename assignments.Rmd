@@ -227,3 +227,8 @@ Lecture 2: [Lab 2 - Linear Regression II](https://ucsb.box.com/s/us6c7w0ad4wllmk
 ### Lab:
 
 -   [Link to join Kaggle competition](https://www.kaggle.com/t/e4267f920cde4233b377f57806bdec56)
+
+### Discussion:
+
+-   Download discussion data [here](https://drive.google.com/drive/folders/1xcGugTojSjzkWm4UnXLDbvrHBldCMJLT?usp=sharing)
+-   Download completed discussion [here](discussion/week10.Rmd)
