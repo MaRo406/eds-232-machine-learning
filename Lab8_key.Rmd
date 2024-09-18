@@ -1,0 +1,137 @@
+---
+title: "Lab 8_key"
+author: "Mateo Robbins"
+date: "2024-03-06"
+output: html_document
+---
+```{r}
+library(tidymodels)
+library(dplyr)
+library(readr)
+```
+
+
+Forest Cover Classification with SVM
+
+In this week's lab we are exploring the use of Support Vector Machines for multi-class classification. Specifically, you will be using cartographic variables to predict forest cover type (7 types).
+
+Natural resource managers responsible for developing ecosystem management strategies require basic descriptive information including inventory data like forest cover type for forested lands to support their decision-making processes. However, managers generally do not have this type of data for in-holdings or neighboring lands that are outside their immediate jurisdiction. One method of obtaining this information is through the use of predictive models.
+
+You task is build both an SVM and a random forest model and compare their performance on accuracy and computation time.
+
+The data is available here: https://ucsb.box.com/s/ai5ost029enlguqyyn04bnlfaqmp8kn4
+
+Explore the data.
+
+What kinds of features are we working with? 
+Answer: Can pull from metadata
+
+Does anything stand out that will affect you modeling choices?
+
+Hint: Pay special attention to the distribution of the outcome variable across the classes.
+
+Answer: Extreme class imbalance in outcome variable.  Consider stratifying during initial split and when forming folds.
+
+Create the recipe and carry out any necessary preprocessing. Can you use the same recipe for both models?
+Answer: SVMs have more stringent requirements, but any data that meets these requirements will also work for random forests, so yes.
+
+Create the folds for cross-validation.
+
+Tune the models. Choose appropriate parameters and grids. If the computational costs of tuning given your strategy are prohibitive, how might you work around this?
+
+Answer: looking for any real engagement on this.  Possibilities include:
+- randomly sampling down to a smaller data set for analysis
+- random sample for an initial tuning pass to identify a reduced parameter space for subsequent tuning on the whole data set
+- downsampling
+- use Taylor!
+
+Conduct final predictions for both models and compare their prediction performances and computation costs from part 4.
+Answer: A table is probably the best way to display this
+
+Which type of model do you think is better for this task?
+Answer: Some discussion on the compute/accuracy tradeoff.
+
+
+Why do you speculate this is the case?
+Answer: Any real engagement on this is fine.
+
+#Code skeleton for svm
+```{r}
+
+covtype <- read_csv("covtype_sample.csv")
+
+
+url <- "https://github.com/MaRo406/eds-232-machine-learning/blob/main/covtype_sample.csv"
+
+# Read the CSV file from the URL
+covtype_data <- read.csv(url, header = TRUE)
+
+
+split <- initial_split(covtype)
+covtype_train <- training(split)
+covtype_test <- testing(split)
+```
+
+```{r}
+set.seed(234)
+cov_folds <- vfold_cv(covtype_train, strata = Cover_Type)
+cov_folds
+```
+
+```{r svm_rec}
+svm_rec <- recipe(Cover_Type~., data = covtype_train) %>%
+  step_zv(all_predictors()) %>%
+  step_normalize(all_predictors()) %>%
+  step_mutate(Cover_Type = factor(Cover_Type))
+  
+  
+```
+
+```{r}
+#could try other kernels here like 'poly', 'sigmoid', tho 'rbf is best
+
+svm_spec <- svm_rbf(cost = 0.5) %>%
+  set_engine("kernlab") %>%
+  set_mode("classification")
+
+svm_spec
+```
+
+```{r svm_wf}
+#could tune other params here like gamma, but cost is the main one we discussed
+
+svm_wf <- workflow() %>%
+  add_recipe(svm_rec) %>%
+  add_model(svm_spec %>% 
+  set_args(cost = tune()))
+
+svm_wf
+```
+
+```{r}
+param_grid <- grid_regular(cost(), levels = 10)
+
+tune_res <- tune_grid(
+  svm_wf, 
+  resamples = cov_folds, 
+  grid = param_grid
+)
+```
+
+
+```{r}
+collect_metrics(tune_res)
+conf_mat_resampled(tune_res)
+autoplot(tune_res)
+```
+
+```{r}
+best_cost <- select_best(tune_res, metric = "accuracy")
+
+final_fit <- finalize_workflow(svm_linear_wf, best_cost)
+
+final_fit <- svm_linear_final %>% fit(sim_data)
+
+```
+
+
