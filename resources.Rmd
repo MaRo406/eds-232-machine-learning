@@ -1,14 +1,45 @@
 ---
-title: "Course resources"
+title: "Resources"
+author: "Mateo Robbins"
+date: "2024-10-17"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<p style="color: #ba5e00"><b>TO UPDATE THIS PAGE:</b> Open and edit the <b>resources.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!</p>
+#### Algorithm Selection Flowchart
 
-### Week 1
+#### Animated Explainers
 
-Lecture slides: 
-Assignment:
+<https://mlu-explain.github.io/bias-variance/>
+<https://bbest.github.io/eds232-ml/resources.html>
+
+#### Literature
+
+##### Context for Weekly Labs
+
+##### Machine Learning in Environmental Science
+
+Machine Learning for Ecology and Sustainable Natural Resource Management
+<https://link.springer.com/book/10.1007/978-3-319-96978-7>
+
+Machine Learning in Wildlife Biology: Algorithms, Data Issues and
+Availability, Workflows, Citizen Science, Code Sharing, Metadata and a
+Brief Historical Perspective
+
+##### Key ML Papers and Empirical Foundation of Heuristics 
+
+\- 1 SE rule - 70/30 Split
+
+\- Data Primacy
+
+\- All you need is attention
+
+#### 
+
+#### 
