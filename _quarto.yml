@@ -1,3 +1,7 @@
+project:
+  type: website
+  output-dir: docs
+
 website:
   navbar:
     title: "EDS 232"
