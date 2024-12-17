@@ -1,0 +1,192 @@
+---
+title: 'Week 3: Logistic Regression Tidy Models'
+author: "Allie Caughman"
+date: "2024-01-11"
+output: html_document
+---
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(here) #easy file paths
+library(corrplot) #correlation plots
+library(tidyverse) #data wrangling
+library(tidymodels) #modeling
+
+set.seed(42) #set random seed
+```
+
+### Data Introduction
+
+This data was acquired form FishBase (Froese and Pauley 2000) using the rfishbase package (Boettiger et al., 2012; see data_acquisition.R for data retrieval). 
+
+The data set includes the following variables:
+
+* `species`: the scientific name of fish 
+* `genus`: the scientific genus of fish
+* `common_name`: common name used for fish
+* `body_shape`**: shape of fish body (elongated, fusiform/normal, eel-like, short and/or deep, other)**
+* `habitat`**: area of the ocean that fish typically resides in **
+* `depth_range_shallow`**: minimum depth fish is found**
+* `depth_range_deep`**: maximum depth fish is found**
+* `vulnerability`**: metric for how at risk a fish is to over fishing based on other life history and ecological traits**
+* `length`**: total length, fork length, or standard length of fish**
+* `trophic_level`**: trophic level that the fish occupies based on position in food web **
+* `food_troph`: trophic level that fish's food source occupies
+* `food`**: type of food source fish consumes **
+* `family`: the scientific family of fish
+
+*Bold variables are included in the models. A full copy of the codebook is included in the data/raw folder*
+
+#### Habitat Types 
+
+This project attempts to predict 8 different habitat types. These habitats are described below to note differences.
+
+1. pelagic: living within several regions of the pelagic zone, through both shallower pelagic-oceanic and deeper bathypelagic
+2. pelagic-neritic: relating to upper layers of the ocean on the continental shelf. Waters here are not as deep as the pelagic zone
+3. reef-associated: living in association with a coral reef. This habitat is the most diverse, offering an array of food types and shelters
+4. demersal: relating to living on or near the ocean floor, whether in the pelagic-neritic, pelagic, or bathypelagic zones   
+5. benthopelagic: relating specifically to the ocean floor in the pelagic zone, but not at the deepest depths
+6. bathydemersal: relating to the ocean floor at depths greater than 200 meters
+7. pelagic-oceanic: relating specifically to the upper layers of the open ocean. Food is scarce
+8. bathypelagic: relating to deeper layers of the open ocean at the continental slope. Limited sunlight reaches this zone
+
+While there is some possible overlap in these categories, they are kept separate as specifically defined in FishBase. Data has already been pre-processed for you. 
+
+#### Data Cleaning
+
+We are going to load the data and only use two categories (demersal - i.e., bottom dwelling species - and reef-associated).
+
+Additionally, we are going to binary encode these values. This means turning them into a 0 and 1. 
+
+```{r}
+
+fish_clean = read_csv(here("discussion", "data", "fish_clean.csv")) %>% 
+  filter(habitat == "demersal" | habitat == "reef-associated") %>% 
+  mutate(habitat = case_when(
+    habitat == "demersal" ~ 0,
+    habitat == "reef-associated" ~ 1,
+  )) %>% 
+  mutate(habitat = as.factor(habitat))
+
+```
+
+### Modeling
+
+Today, we will look at preforming logistic regression on this data set. We will continue to come back to this data set as we learn more models in this section.
+
+#### Training and Testing Data Creation
+
+Here, we will use functions from the `rsample` package within `TidyModels`
+
+```{r}
+data_split = initial_split(fish_clean, prop = .8, strata = habitat) #split data stratified by survived
+
+train = training(data_split) #get training data
+test = testing(data_split) #get testing data
+
+head(train)
+head(test)
+```
+
+#### Recipe Creation
+
+After splitting my data, the first step is to create a recipe indicating the formula for the model and any pre-processing steps I want to preform on my data. Here we will use the `recipes` package.
+
+I will be predicting habitat based on trophic level, length, minimum depth, maximum depth, vulnerability, body shape, and food source type. We will be normalizing all numeric predictors
+
+```{r}
+fish_recipe = recipe(habitat ~ shape_impute + food_impute + shallow_impute + deep_impute + vulnerability + length_impute + trophic_level_impute, data = train) %>% #create model recipe
+  step_normalize(all_numeric_predictors()) #normalize all numeric predictors
+```
+
+#### Model 2: Logistic Regression
+
+```{r}
+?logistic_reg
+```
+
+```{r}
+log_model = logistic_reg() %>% #set logistic regression model
+  set_engine("glm") %>% #use glm engine
+  set_mode("classification") #set classification as mode
+```
+
+
+```{r}
+log_workflow = workflow() %>% #create workflow
+  add_model(log_model) %>% #add logisitic regression model
+  add_recipe(fish_recipe) #add recipe
+
+log_workflow
+```
+
+#### Model Fitting
+
+```{r, eval = FALSE}
+train_fit = fit(log_workflow, train) #fit the boosted tree model to the training set
+
+train_fit
+```
+
+```{r}
+train_predict = predict(object = train_fit, new_data = train) %>% #predict the training set
+  bind_cols(train) #bind training set column to prediction
+
+train_predict2 = predict(object = train_fit, new_data = train, type = "prob") %>% #predict the training set
+  bind_cols(train) #bind training set column to prediction
+```
+
+```{r}
+test_predict = predict(train_fit, test) %>% #get prediction probabilities for test 
+  bind_cols(test)  #bind to testing column
+
+test_predict2 = predict(train_fit, test, type ="prob") %>% #get prediction probabilities for test 
+  bind_cols(test)  #bind to testing column
+
+head(test_predict)
+head(test_predict2)
+```
+
+#### Model Metrics and Evaluation
+
+```{r}
+accuracy(train_predict, truth = habitat, estimate = .pred_class) #get training accuracy
+
+sensitivity(train_predict, truth = habitat, estimate = .pred_class)
+specificity(train_predict, truth = habitat, estimate = .pred_class)
+
+train_roc_auc = roc_curve(train_predict2, habitat, .pred_0)
+autoplot(train_roc_auc)
+```
+
+```{r}
+test_predict = predict(train_fit, test) %>% #get prediction probabilities for test 
+  bind_cols(test) #bind to testing column
+
+test_predict2 = predict(train_fit, test, type = "prob") %>% #get testing prediction
+  bind_cols(test) #bind to testing column
+```
+
+```{r}
+accuracy(test_predict, truth = habitat, estimate = .pred_class) #get accuracy of testing prediction
+
+sensitivity(test_predict, truth = habitat, estimate = .pred_class)
+specificity(test_predict, truth = habitat, estimate = .pred_class)
+
+test_roc_auc = roc_curve(test_predict2, habitat, .pred_0)
+```
+
+#### Visualizations
+
+```{r, fig.cap="Figure 24. confusion matrix displaying results of the best model: the boosted tree model"}
+test_predict %>% 
+  conf_mat(truth = habitat, estimate = .pred_class) %>% #create confusion matrix
+  autoplot(type = "heatmap") + #plot confusion matrix with heatmap
+  theme_bw() + #change theme
+  theme(axis.text.x = element_text(angle = 30, hjust=1)) #rotate axis labels
+
+autoplot(test_roc_auc)
+```
+
+

@@ -1,0 +1,176 @@
+---
+title: 'Week 10: Simple Neural Network'
+author: "Allie Caughman"
+date: "2024-01-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(tidymodels)
+library(tensorflow)
+library(keras)
+
+set.seed(5)
+
+```
+
+```{r}
+# remotes::install_github("rstudio/tensorflow")
+# install_tensorflow()
+```
+
+#### Data Cleaning
+
+Today, we are going to use all habitats!
+
+```{r}
+
+fish_clean = read_csv(here::here("discussion", "data", "fish_clean.csv")) %>% 
+  mutate(habitat = as.factor(habitat))
+
+```
+
+### Modeling
+
+Today, we will look at preforming a multilayer perceptron model (neural net) on this data set. We will continue to come back to this data set as we learn more models in this section.
+
+#### Training and Testing Data Creation
+
+Here, we will use functions from the `rsample` package within `TidyModels`
+
+```{r}
+data_split = initial_split(fish_clean, prop = .8, strata = habitat) #split data stratified by survived
+
+train = training(data_split)#get training data
+test = testing(data_split) #get testing data
+```
+
+In order to find the best model for the data, I will be using cross validation to tune the parameters for each of the models. This is accomplished by splitting the data into 10 folds for 10-fold cross validation.
+
+```{r}
+cv_folds = vfold_cv(train, v = 5)
+```
+
+#### Recipe Creation
+
+After splitting my data, the first step is to create a recipe indicating the formula for the model and any pre-processing steps I want to preform on my data. Here we will use the `recipes` package.
+
+I will be predicting habitat based on trophic level, length, minimum depth, maximum depth, vulnerability, body shape, and food source type. We will be normalizing all numeric predictors
+
+```{r}
+fish_recipe = recipe(habitat ~ shape_impute + food_impute + shallow_impute + deep_impute + vulnerability + length_impute + trophic_level_impute, data = train) %>% #create model recipe
+  step_dummy(all_nominal_predictors()) %>% #create dummy variables from all factors
+  step_normalize(all_numeric_predictors()) #normalize all numeric predictors
+```
+
+#### Model 6: multilayer perceptron classifier
+
+```{r}
+?mlp
+```
+
+I will be using the ranger engine (Wright 2017) for this model. The parameters I will be tuning are mtry and trees. mtry is the number of predictors that will be randomly sampled for use in each of the trees created. trees is the number of tress that the model creates.
+
+```{r}
+nn_model <- mlp(penalty = tune(), hidden_units = tune()) %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification")
+```
+
+
+```{r}
+nn_workflow = workflow() %>% 
+  add_model(nn_model) %>% 
+  add_recipe(fish_recipe)
+
+nn_workflow
+```
+
+##### Parameter Tuning
+
+```{r, eval = FALSE}
+# nn_cv_tune = nn_workflow %>%
+#   tune_grid(resamples = cv_folds, grid = grid_latin_hypercube(penalty(), hidden_units(), size = 10)) #use cross validation to tune parameters
+```
+
+```{r, include=FALSE}
+load(file = here::here("discussion", "data",  "nn_tune.rda"))
+```
+
+Below are the results of the random forest cross validation tuning the mtry and trees parameters.
+
+```{r}
+collect_metrics(nn_cv_tune) #get metrics from tuning cv to pick best model
+```
+
+```{r}
+autoplot(nn_cv_tune) + #plot cv results for parameter tuning
+  theme_bw()
+```
+
+#### Finalize workflow
+
+```{r}
+nn_best = show_best(nn_cv_tune, n = 1, metric = "roc_auc") #get metrics for best random forest model
+nn_best
+```
+
+```{r}
+nn_final = finalize_workflow(nn_workflow, select_best(nn_cv_tune, metric = "roc_auc"))
+```
+
+*these all take a few seconds*
+
+```{r, eval = FALSE}
+train_fit_nn = fit(nn_final, train) #fit the RF model to the training set
+
+train_fit_nn
+```
+
+```{r}
+test_predict_nn = predict(train_fit_nn, test) %>%
+  #get testing prediction
+  bind_cols(test) %>%  #bind to testing column
+  mutate(habitat = as.factor(habitat))
+
+test_predict2_nn = predict(train_fit_nn, test, type = "prob") %>% #get prediction probabilities for test 
+  bind_cols(test) %>%  #bind to testing column
+  mutate(habitat = as.factor(habitat))
+```
+
+#### Model Metrics and Evaluation
+
+```{r}
+accuracy(test_predict_nn, truth = habitat, estimate = .pred_class) #get accuracy of testing prediction
+sensitivity(test_predict_nn, truth = habitat, estimate = .pred_class)
+specificity(test_predict_nn, truth = habitat, estimate = .pred_class)
+```
+
+```{r}
+test_roc_auc_nn = roc_curve(test_predict2_nn, habitat, .pred_bathydemersal, .pred_bathypelagic, .pred_benthopelagic, .pred_demersal, .pred_pelagic, `.pred_pelagic-neritic`, `.pred_pelagic-oceanic`, `.pred_reef-associated`)
+```
+
+#### Visualizations
+
+```{r}
+m1 = test_predict_nn %>% 
+  conf_mat(truth = habitat, estimate = .pred_class) %>% #create confusion matrix
+  autoplot(type = "heatmap") + #plot confusion matrix with heatmap
+  theme_bw() + #change theme
+  theme(axis.text.x = element_text(angle = 30, hjust=1)) +
+  #rotate axis labels
+  labs(title = "Random Forest")
+
+m1
+```
+
+```{r}
+r1 = autoplot(test_roc_auc_nn) +
+  theme_bw() +
+  labs(title = "Random Forest")
+
+r1
+```

@@ -1,0 +1,168 @@
+---
+title: 'Week 4: Ridge Regression'
+author: "Allie Caughman"
+date: "2024-01-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(tidymodels)
+library(spData)
+library(ggpmisc)
+
+set.seed(5)
+```
+
+```{r}
+redlining = read_csv(here::here("discussion", "data", "redlining.csv")) %>% 
+  left_join(us_states_df %>% rename(name = state)) %>% 
+  janitor::clean_names()
+```
+
+```{r}
+ggplot(redlining) +
+  geom_boxplot(aes(region, percent)) +
+  theme_bw()
+```
+
+```{r}
+ggplot(redlining) +
+  geom_point(aes(area, percent)) +
+  theme_bw()
+```
+
+```{r}
+ggplot(redlining) +
+  geom_point(aes(total_pop_10, percent)) +
+  theme_bw()
+```
+
+```{r}
+ggplot(redlining) +
+  geom_point(aes(median_income_10, percent)) +
+  theme_bw()
+```
+
+```{r}
+ggplot(redlining) +
+  geom_point(aes(poverty_level_10, percent)) +
+  theme_bw()
+```
+
+### Data Splitting
+
+```{r}
+split <- initial_split(redlining, prop = .7)
+
+train <- training(split)
+test <- testing(split)
+
+folds <- vfold_cv(redlining, v = 5, repeats = 2)
+```
+
+### Recipe Specification
+
+```{r}
+recipe <- recipe(percent ~ region + area + total_pop_10 + median_income_10 + poverty_level_10, data = train) %>%
+  step_normalize(all_numeric_predictors()) %>% 
+  step_integer(all_nominal_predictors()) %>% 
+  step_interact(terms = ~total_pop_10:median_income_10) %>% 
+  step_interact(terms = ~total_pop_10:poverty_level_10) %>% 
+  step_interact(terms = ~poverty_level_10:median_income_10) 
+```
+
+### Model: Tuned Linear Regression
+
+```{r}
+lm_model <- linear_reg(penalty = tune(), mixture = tune()) %>%
+  set_engine("glmnet") %>% 
+  set_mode("regression")
+```
+
+```{r}
+lm_wflw <- workflow() %>%
+  add_model(lm_model) %>%
+  add_recipe(recipe)
+
+lm_wflw
+```
+
+```{r}
+?tune_grid
+```
+
+```{r, eval = FALSE}
+lm_cv_tune = lm_wflw %>%
+  tune_grid(resamples = folds, grid = 5) #use cross validation to neighbors
+```
+
+```{r}
+?collect_metrics #from tune
+```
+
+```{r}
+collect_metrics(lm_cv_tune) #get metrics from tuning cv to pick best model
+```
+
+```{r}
+autoplot(lm_cv_tune) + #plot cv results for parameter tuning
+  theme_bw()
+```
+
+#### Finalize workflow
+
+```{r}
+?show_best
+?finalize_workflow()
+```
+
+```{r}
+lm_best = show_best(lm_cv_tune, n = 1, metric = "rmse") #get metrics for best random forest model
+lm_best
+
+lm_final = finalize_workflow(lm_wflw, select_best(lm_cv_tune, metric = "rmse")) #finalize random forest model with best parameters
+```
+
+### Model Fitting
+
+```{r, include=FALSE}
+lm_fit <- fit(lm_final, train) # fit the data to the training data
+```
+
+```{r, include=FALSE}
+train_predict <- predict(object = lm_fit, new_data = train) %>% # predict the training set
+  bind_cols(train) # bind training set column to prediction
+
+test_predict <- predict(object = lm_fit, new_data = test) %>% # predict the training set
+  bind_cols(test) # bind prediction to testing data column
+```
+
+```{r}
+train_metrics <- train_predict %>%
+  metrics(percent, .pred) # get testing data metrics
+train_metrics
+
+test_metrics <- test_predict %>%
+  metrics(percent, .pred) # get testing data metrics
+test_metrics
+```
+
+### Visualization
+
+```{r}
+ggplot(test_predict, aes(x = percent, y = .pred)) + # plot ln of real versus ln of predicted
+  geom_point() +
+  stat_poly_line() +
+  stat_poly_eq(use_label("eq")) +
+  stat_poly_eq(label.y = 0.9) +
+  theme_bw() +
+  labs(
+    x = "Observed",
+    y = "Predicted"
+  ) +
+  theme(text = element_text(size = 10))
+```
+
