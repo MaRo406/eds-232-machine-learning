@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  navbar:
+    title: "EDS 232"
+    right:
+      - href: index.qmd
+        text: Home
+      - icon: github
+        href: https://github.com/MaRo406/eds-232-machine-learning
+        target: _blank
+
+  page-footer:
+    background: dark
+
+format:
+  html:
+    theme: docs/meds-website-styles.css
+    toc: true
+    toc-location: left
+    title-block-banner: true
+    page-layout: full
+
+editor: source

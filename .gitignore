@@ -5,3 +5,5 @@
 .DS_Store
 .ipynb_checkpoints/
 docs/site_libs/font-awesome-5.1.0/
+
+/.quarto/
