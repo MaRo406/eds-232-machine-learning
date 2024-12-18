@@ -14,8 +14,6 @@ website:
 
   page-footer:
     background: dark
-    left: "© 2024 EDS 232"
-    right: "This is a test footer."
 
 format:
   html:
