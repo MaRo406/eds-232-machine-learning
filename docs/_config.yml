@@ -4,3 +4,5 @@ exclude:
   - "slides/"
   - "**/*.ipynb"   # Exclude all Jupyter Notebooks
   - "**/*.Rmd"     # Exclude R Markdown files
+
+search: false
