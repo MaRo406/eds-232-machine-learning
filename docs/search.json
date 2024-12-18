@@ -1,27 +1,51 @@
-{
-  "articles": [
-    {
-      "path": "assignments.html",
-      "title": "Assignments",
-      "author": [],
-      "contents": "\n\nAssigned readings and labs will be posted to this page on a weekly\nbasis.\n\n\n\n\n",
-      "last_modified": "2024-09-18T16:51:52-07:00"
-    },
-    {
-      "path": "index.html",
-      "title": "EDS 232: Machine Learning in Environmental Science",
-      "description": "",
-      "author": [],
-      "contents": "\n\nContents\nWelcome to the EDS 232\nwebsite\nCourse\ndescription\nTeaching\nteam\nImportant\nlinks\nWeekly course schedule\nLearning\nobjectives\nCourse\nrequirements\nComputing\nTextbook\n\n\nTentative\ntopics\n\n\n\n\nFigure 1: Image created using the Midjourney image\ngeneration tool\n\n\n\nWelcome to the EDS 232\nwebsite\nCourse description\nMachine learning is a field of inquiry devoted to understanding and\nbuilding methods that ‘learn’, that is, methods that leverage data to\nimprove performance on some set of tasks. In this course, we focus on\nthe core concepts of machine learning that beginning ML researchers must\nknow. We cover ‘classical machine learning’ primarily using R, and\nexplore applications to environmental science. To understand broader\nconcepts of artificial intelligence or deep learning, a strong\nfundamental knowledge of machine learning is indispensable.\nTeaching team\nInstructor: Mateo Robbins (mjrobbins@ucsb.edu)\nStudent hours:\nTeaching assistant:\nStudent hours:\nImportant links\nLink to full course syllabus\nWeekly course schedule\nLecture: TTh 9:30am - 10:45am PST (Bren\n1424)\nSection:\nLearning objectives\nThe goal of EDS 232 is to equip students with a strong foundation in\nthe core concepts of machine learning. By the end of the course,\nstudents should be able to: \nBuild machine learning models in Python using popular machine\nlearning packages\nBuild and train supervised machine learning models for prediction\nand binary classification tasks, including linear and logistic\nregression.\nApply best practices for machine learning development so that\nyour models generalize to data and tasks in the real world.\nBuild and use decision trees and tree ensemble methods, including\nrandom forests and boosted trees.\nUse unsupervised learning techniques including\nclustering.\nCourse requirements\nComputing\nMinimum\nMEDS device requirements\nTextbook\n\nTentative topics\nWeek #\nDates\nLecture \nLab\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-      "last_modified": "2024-09-18T16:53:32-07:00"
-    },
-    {
-      "path": "resources.html",
-      "title": "Course resources",
-      "author": [],
-      "contents": "\n\nContents\nWeek 1\n\n\nTO UPDATE THIS PAGE: Open and edit the resources.Rmd file,\nin the project root, to delete this placeholder text and customize with\nyour own!\n\nWeek 1\nLecture slides: Assignment:\n\n\n\n",
-      "last_modified": "2024-09-18T16:51:54-07:00"
-    }
-  ],
-  "collections": []
-}
+[
+  {
+    "objectID": "index.html#course-description",
+    "href": "index.html#course-description",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Description",
+    "text": "Course Description\nMachine learning is a field of inquiry devoted to understanding and building methods that “learn,” that is, methods that leverage data to improve performance on some set of tasks. In this course, we focus on the core concepts of machine learning that beginning ML researchers must know. We cover “classical machine learning” primarily using R and explore applications to environmental science. To understand broader concepts of artificial intelligence or deep learning, a strong fundamental knowledge of machine learning is indispensable."
+  },
+  {
+    "objectID": "index.html#teaching-team",
+    "href": "index.html#teaching-team",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Teaching Team",
+    "text": "Teaching Team\nInstructor: Mateo Robbins (mjrobbins@ucsb.edu)\nStudent hours: Tuesdays 10:45am (Bren 1424)\nTeaching Assistant: Annie Adams (aradams@ucsb.edu)\nStudent hours: Thursdays 11:00am (Bren 3022)"
+  },
+  {
+    "objectID": "index.html#important-links",
+    "href": "index.html#important-links",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Important Links",
+    "text": "Important Links\n\nLink to full course syllabus"
+  },
+  {
+    "objectID": "index.html#weekly-course-schedule",
+    "href": "index.html#weekly-course-schedule",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Weekly Course Schedule",
+    "text": "Weekly Course Schedule\nLecture: TTh 9:30am - 10:45am (Bren 1424)\nSections: Th 1:00pm - 1:50pm or 2:00 - 2:50pm (Bren 3022)"
+  },
+  {
+    "objectID": "index.html#learning-objectives",
+    "href": "index.html#learning-objectives",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nThe goal of EDS 232 is to equip students with a strong foundation in the core concepts of machine learning. By the end of the course, students should be able to:\n\nBuild machine learning models in Python using popular machine learning packages.\nBuild and train supervised machine learning models for prediction and binary classification tasks, including linear and logistic regression.\nApply best practices for machine learning development so that your models generalize to data and tasks in the real world.\nBuild and use decision trees and tree ensemble methods, including random forests and boosted trees.\nUse unsupervised learning techniques including clustering."
+  },
+  {
+    "objectID": "index.html#course-requirements",
+    "href": "index.html#course-requirements",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Requirements",
+    "text": "Course Requirements\n\nComputing\n\nMinimum MEDS device requirements\n\n\n\nTextbook\n\nIntro to Statistical Learning with Python"
+  },
+  {
+    "objectID": "index.html#course-topics",
+    "href": "index.html#course-topics",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Topics",
+    "text": "Course Topics\n\n\n\n\n\n\n\n\nWeek #\nDates\nLecture\n\n\n1\n1/7, 1/9\nIntroduction, Linear Regression and ML Modeling Fundamentals I\n\n\n2\n1/14, 1/16\nRegularized Regression and ML Modeling Fundamentals II\n\n\n3\n1/21, 1/23\nLogistic Regression, Classification\n\n\n4\n1/28, 1/30\nK-nearest neighbors, Decision Trees\n\n\n5\n2/3, 2/6\nRandom Forest\n\n\n6\n2/11, 2/13\nGradient Boosting\n\n\n7\n2/18, 2/20\nClustering\n\n\n8\n2/25, 2/27\nSupport Vector Machines\n\n\n9\n3/4, 3/6\nDeep Learning\n\n\n10\n3/11, 3/13\nKaggle"
+  }
+]
