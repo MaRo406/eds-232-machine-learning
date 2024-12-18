@@ -1,8 +1,0 @@
-exclude:
-  - "labs/"
-  - "discussion/"
-  - "slides/"
-  - "**/*.ipynb"   # Exclude all Jupyter Notebooks
-  - "**/*.Rmd"     # Exclude R Markdown files
-
-search: false

@@ -17,7 +17,7 @@ website:
 
 format:
   html:
-    theme: meds-website-styles.scss
+    theme: meds-website-styles.css
     toc: true
     toc-location: left
     title-block-banner: true
