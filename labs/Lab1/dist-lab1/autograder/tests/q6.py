@@ -1,8 +1,8 @@
 OK_FORMAT = True
 
-test = {   'name': 'q1a',
+test = {   'name': 'q6',
     'points': 2,
-    'suites': [   {   'cases': [{'code': '>>> assert X_train.index[0] == np.int64(249)\n>>> assert len(X_train) == 771\n', 'hidden': False, 'locked': False}],
+    'suites': [   {   'cases': [{'code': '>>> assert np.round(scores[1], 3) == np.float64(-50247.532)\n', 'hidden': False, 'locked': False}],
                       'scored': True,
                       'setup': '',
                       'teardown': '',
