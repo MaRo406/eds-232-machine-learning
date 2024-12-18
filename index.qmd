@@ -7,7 +7,9 @@ format:
     toc-location: left
 ---
 
-![](docs/img/MLRobotLearnBanner.png)
+![Image created using the Midjourney image generation tool](img/MLRobotLearnBanner.png)
+
+
 
 ## Course Description
 
