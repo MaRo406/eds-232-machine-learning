@@ -42,39 +42,10 @@ Now that our data is cleaned, let's do the following to carry out a multiple lin
 4. Predict and Evaluate your model
 
 
-
 # Create a Widget for updating the predictor and target variables. 
 
 1. Create the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output
 2. Wrap our worfklow into a function called `evaluate_model()`. This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the $R^2$, MSE, and a scatterplot of the actual versus predicted target variable.
 3. Create a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.
 4. Play around with your widget and see how your $R^2$ changes based on your selected variables! 
-
-
-
-```python
-# Define predictors and the target variable
-X = data[['albany_rainfall', 'norrie_rainfall', 'albany_do', 'norrie_do']]  # Adjust as needed
-y = data['albany_turbidity']
-
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Create and fit the model
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-# Predict and evaluate
-y_pred = model.predict(X_test)
-print(f"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}")
-print(f"R-squared: {r2_score(y_test, y_pred)}")
-
-```
-RMSE: 180.9663057607227
-R-squared: 0.632779560169372
-
-
-# Conclusion
-
-Reflect on what you've learned in today's lab. Consider how you can apply these techniques to other datasets or problems.
 
