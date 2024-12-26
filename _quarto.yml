@@ -8,6 +8,12 @@ website:
     right:
       - href: index.qmd
         text: Home
+      # - href: sections.qmd
+      #   text: Sections
+      - text: Sections
+        menu:
+          - text: week 0
+            href: sections/week0.qmd
       - icon: github
         href: https://github.com/MaRo406/eds-232-machine-learning
         target: _blank
