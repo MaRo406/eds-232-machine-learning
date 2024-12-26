@@ -313,5 +313,12 @@
     "title": "week0",
     "section": "",
     "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Algorithm Selection Guidance\n\n\nAnimated Explainers\nhttps://mlu-explain.github.io/bias-variance/ https://bbest.github.io/eds232-ml/resources.html\n\n\nLiterature\n\n\nContext for Weekly Labs\n\n\nMachine Learning in Environmental Science\nMachine Learning for Ecology and Sustainable Natural Resource Management https://link.springer.com/book/10.1007/978-3-319-96978-7\nMachine Learning in Wildlife Biology: Algorithms, Data Issues and Availability, Workflows, Citizen Science, Code Sharing, Metadata and a Brief Historical Perspective\n\n\nKey ML Papers and Empirical Foundation of Heuristics\n- 1 SE rule - 70/30 Split\n- Data Primacy\n- All you need is attention"
   }
 ]
