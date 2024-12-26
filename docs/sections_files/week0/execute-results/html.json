@@ -1,0 +1,15 @@
+{
+  "hash": "5dd04a00a6367a2d86391403b2f3ec6f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"week0\"\nformat: html\neditor: visual\n---\n\n\n\n\n\n## Test Section Page\n\nThis will contain content to support students in creating a notebook for the week's section material.\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
