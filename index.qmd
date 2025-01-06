@@ -59,16 +59,16 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 
 ## Course Topics
 
-|             |            |                                                                |                |
-|----------------|----------------|---------------------------------------|--|
-| **Week \#** | **Dates**  | **Lecture**                                                    | **Reading**    |
-| 1           | 1/7, 1/9   | Introduction, Linear Regression and ML Modeling Fundamentals I | ISL Ch. 1, 2.1 |
-| 2           | 1/14, 1/16 | Regularized Regression and ML Modeling Fundamentals II         |                |
-| 3           | 1/21, 1/23 | Logistic Regression, Classification                            |                |
-| 4           | 1/28, 1/30 | K-nearest neighbors, Decision Trees                            |                |
-| 5           | 2/3, 2/6   | Random Forest                                                  |                |
-| 6           | 2/11, 2/13 | Gradient Boosting                                              |                |
-| 7           | 2/18, 2/20 | Clustering                                                     |                |
-| 8           | 2/25, 2/27 | Support Vector Machines                                        |                |
-| 9           | 3/4, 3/6   | Deep Learning                                                  |                |
-| 10          | 3/11, 3/13 | Kaggle                                                         |                |
+|  |  |  |  |
+|--------|----------|-----------------------------|-------------------|
+| **Week \#** | **Dates** | **Lecture** | **Reading** |
+| 1 | 1/7, 1/9 | Introduction, Linear Regression and ML Modeling Fundamentals I | ISL Ch. 1, 2.1 |
+| 2 | 1/14, 1/16 | Regularized Regression and ML Modeling Fundamentals II |  |
+| 3 | 1/21, 1/23 | Logistic Regression, Classification |  |
+| 4 | 1/28, 1/30 | K-nearest neighbors, Decision Trees |  |
+| 5 | 2/3, 2/6 | Random Forest |  |
+| 6 | 2/11, 2/13 | Gradient Boosting |  |
+| 7 | 2/18, 2/20 | Clustering |  |
+| 8 | 2/25, 2/27 | Support Vector Machines |  |
+| 9 | 3/4, 3/6 | Deep Learning |  |
+| 10 | 3/11, 3/13 | Kaggle |  |
