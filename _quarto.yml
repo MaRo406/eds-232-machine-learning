@@ -12,8 +12,8 @@ website:
       #   text: Sections
       - text: Discussion
         menu:
-          - text: week 0
-            href: discussion/week0.qmd
+       #   - text: week 0
+        #    href: discussion/week0.qmd
           - text: week 1
             href: discussion/week1.qmd
       - icon: github
