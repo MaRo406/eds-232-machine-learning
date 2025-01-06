@@ -1,7 +1,0 @@
-exclude:
-  - "labs/"
-  - "discussion/"
-  - "slides/"
-  - "**/*.ipynb"
-  - "**/*.Rmd"
-  - "**/*.json"  # If any stray JSON files are corrupt
