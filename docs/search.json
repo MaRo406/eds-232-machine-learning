@@ -75,5 +75,33 @@
     "title": "Discussion 1",
     "section": "",
     "text": "Introduction\nIn this week’s discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let’s find out.\n\n\nData Loading\nAccess the same .xlsx file we used in lab this week. If you lost access to it, you can find the data here. Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries:\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport matplotlib.pyplot as plt\nfrom ipywidgets import interact\nimport ipywidgets as widgets\nfrom ipywidgets import interact, FloatSlider\nfrom IPython.display import display, clear_output\n\n\n\nData Wrangling\nPerform the following data wrangling steps to get our data ready for our model.\n\nMerge the three dataframes together. While merging, or after, drop all columns for the Piedmont location.\nUpdate the column names to be shorter and not have spaces. Use snake case.\nMake your date column a datetime obect.\nSet the data as the index for the merged dataframe.\n\n\n\nMultiple Linear Regression\nNow that our data is cleaned, let’s do the following to carry out a multiple linear regression.\n\nDefine your predictors and target variables.\nSplit the data into training and testing sets\nCreate and fit the model\nPredict and Evaluate your model\n\n\n\nCreate a Widget for updating the predictor and target variables.\n\nCreate the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output\nWrap our worfklow into a function called evaluate_model(). This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the \\(R^2\\), MSE, and a scatterplot of the actual versus predicted target variable.\nCreate a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.\nPlay around with your widget and see how your \\(R^2\\) changes based on your selected variables!"
+  },
+  {
+    "objectID": "labs/lab_instructions.html",
+    "href": "labs/lab_instructions.html",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "",
+    "text": "We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week’s new lab!"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-1-fork-the-repository",
+    "href": "labs/lab_instructions.html#step-1-fork-the-repository",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 1: Fork the Repository",
+    "text": "Step 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account."
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-2-clone-your-fork",
+    "href": "labs/lab_instructions.html#step-2-clone-your-fork",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 2: Clone Your Fork",
+    "text": "Step 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
+    "href": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 3: Configure your remote branch",
+    "text": "Step 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
   }
 ]

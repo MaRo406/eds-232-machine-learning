@@ -19,8 +19,10 @@ website:
 
       - text: Weekly Labs
         menu:
-          - text: week 1
-            href: labs/lab1.qmd      
+          - text: Lab Rubric
+            href: www/lab_rubric.pdf
+          - text: Weekly Labs
+            href: labs/lab_instructions.qmd     
      
       - icon: github
         href: https://github.com/MaRo406/eds-232-machine-learning
