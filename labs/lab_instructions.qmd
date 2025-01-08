@@ -13,8 +13,6 @@ jupyter:
     name: eds220-env
 ---
 
-
-
 #### We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week's new lab!
 
 # Initial Repository Setup
