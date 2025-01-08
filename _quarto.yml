@@ -16,6 +16,12 @@ website:
         #    href: discussion/week0.qmd
           - text: week 1
             href: discussion/week1.qmd
+
+      - text: Weekly Labs
+        menu:
+          - text: week 1
+            href: labs/lab1.qmd      
+     
       - icon: github
         href: https://github.com/MaRo406/eds-232-machine-learning
         target: _blank

@@ -1,10 +1,21 @@
 ---
-title: "Machine Learning in Environmental Science"
-description: "Welcome to the EDS 232 Website"
+title: Machine Learning in Environmental Science
+description: Welcome to the EDS 232 Website
 format:
   html:
     toc: true
     toc-location: left
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: Python (eds220-env)
+    language: python
+    name: eds220-env
 ---
 
 ![Image created using the Midjourney image generation tool](img/MLRobotLearnBanner.png)
