@@ -8,9 +8,9 @@ jupyter:
       format_version: '1.0'
       jupytext_version: 1.16.4
   kernelspec:
-    display_name: Python (eds220-env)
+    display_name: Python (eds232_env)
     language: python
-    name: eds220-env
+    name: eds232_env
 ---
 
 #### We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week's new lab!
