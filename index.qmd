@@ -13,9 +13,9 @@ jupyter:
       format_version: '1.0'
       jupytext_version: 1.16.4
   kernelspec:
-    display_name: Python (eds232_env)
+    display_name: ML Environment
     language: python
-    name: eds232_env
+    name: ml-env
 ---
 
 ![Image created using the Midjourney image generation tool](img/MLRobotLearnBanner.png)
