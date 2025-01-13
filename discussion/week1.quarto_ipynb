@@ -32,7 +32,7 @@
         "\n",
         "Access the same .xlsx file we used in lab this week. If you lost access to it, you can find the data [here](https://docs.google.com/spreadsheets/d/1MsSf679OsQpt4y6btV3tLPf-i8_bdoTZ/edit?gid=511934884#gid=511934884). Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries: \n"
       ],
-      "id": "aae517d3"
+      "id": "b9976228"
     },
     {
       "cell_type": "code",
@@ -49,7 +49,7 @@
         "from ipywidgets import interact, FloatSlider\n",
         "from IPython.display import display, clear_output"
       ],
-      "id": "3075cff9",
+      "id": "e5d9594b",
       "execution_count": null,
       "outputs": []
     },
@@ -63,7 +63,7 @@
         "rainfall_data = pd.read_excel(fp, sheet_name='Rainfall').drop(['Piermont  Rainfall Daily Accumulation (Inches)'], axis = 1)\n",
         "turbidity_data = pd.read_excel(fp, sheet_name='Turbidity').drop(['Piermont Turbidity in NTU'], axis = 1)"
       ],
-      "id": "66a45b76",
+      "id": "363f2adb",
       "execution_count": null,
       "outputs": []
     },
@@ -80,7 +80,7 @@
         "3. Make your date column a datetime obect.\n",
         "4. Set the data as the index for the merged dataframe. \n"
       ],
-      "id": "d36f743d"
+      "id": "62cbcb0f"
     },
     {
       "cell_type": "code",
@@ -100,7 +100,7 @@
         "# Update index\n",
         "data.set_index('date', inplace=True)"
       ],
-      "id": "2467ed0e",
+      "id": "8d2f9122",
       "execution_count": null,
       "outputs": []
     },
@@ -116,7 +116,7 @@
         "3. Create and fit the model\n",
         "4. Predict and Evaluate your model\n"
       ],
-      "id": "39fbbe5e"
+      "id": "7fdbf936"
     },
     {
       "cell_type": "code",
@@ -138,7 +138,7 @@
         "print(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}\")\n",
         "print(f\"R-squared: {r2_score(y_test, y_pred)}\")"
       ],
-      "id": "d1f839b0",
+      "id": "bd8d11d1",
       "execution_count": null,
       "outputs": []
     },
@@ -153,7 +153,7 @@
         "3. Create a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.\n",
         "4. Play around with your widget and see how your $R^2$ changes based on your selected variables! \n"
       ],
-      "id": "1c877f46"
+      "id": "dbbc9246"
     },
     {
       "cell_type": "code",
@@ -223,7 +223,7 @@
         "display(predictor_selector, target_selector, evaluate_button, output)\n",
         "evaluate_button.on_click(evaluate_model)"
       ],
-      "id": "97cc9a5b",
+      "id": "4838310e",
       "execution_count": null,
       "outputs": []
     }
