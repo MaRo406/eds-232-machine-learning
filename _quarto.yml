@@ -2,6 +2,9 @@ project:
   type: website
   output-dir: docs
 
+jupyter:
+  kernel: ml-env
+
 website:
   navbar:
     title: "EDS 232"
