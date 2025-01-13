@@ -16,10 +16,12 @@
         "      format_version: '1.0'\n",
         "      jupytext_version: 1.16.4\n",
         "  kernelspec:\n",
-        "    display_name: Python (ml-env)\n",
+        "    display_name: Python (eds232_env)\n",
         "    language: python\n",
-        "    name: ml-env\n",
+        "    name: eds232_env\n",
         "---\n",
+        "\n",
+        "\n",
         "\n",
         "\n",
         "# Introduction\n",
@@ -30,7 +32,7 @@
         "\n",
         "Access the same .xlsx file we used in lab this week. If you lost access to it, you can find the data [here](https://docs.google.com/spreadsheets/d/1MsSf679OsQpt4y6btV3tLPf-i8_bdoTZ/edit?gid=511934884#gid=511934884). Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries: \n"
       ],
-      "id": "ea05e6cd"
+      "id": "aae517d3"
     },
     {
       "cell_type": "code",
@@ -47,7 +49,7 @@
         "from ipywidgets import interact, FloatSlider\n",
         "from IPython.display import display, clear_output"
       ],
-      "id": "0ffabb47",
+      "id": "3075cff9",
       "execution_count": null,
       "outputs": []
     },
@@ -61,7 +63,7 @@
         "rainfall_data = pd.read_excel(fp, sheet_name='Rainfall').drop(['Piermont  Rainfall Daily Accumulation (Inches)'], axis = 1)\n",
         "turbidity_data = pd.read_excel(fp, sheet_name='Turbidity').drop(['Piermont Turbidity in NTU'], axis = 1)"
       ],
-      "id": "14700b9d",
+      "id": "66a45b76",
       "execution_count": null,
       "outputs": []
     },
@@ -78,7 +80,7 @@
         "3. Make your date column a datetime obect.\n",
         "4. Set the data as the index for the merged dataframe. \n"
       ],
-      "id": "77257d7d"
+      "id": "d36f743d"
     },
     {
       "cell_type": "code",
@@ -98,7 +100,7 @@
         "# Update index\n",
         "data.set_index('date', inplace=True)"
       ],
-      "id": "0489243a",
+      "id": "2467ed0e",
       "execution_count": null,
       "outputs": []
     },
@@ -114,7 +116,7 @@
         "3. Create and fit the model\n",
         "4. Predict and Evaluate your model\n"
       ],
-      "id": "37568976"
+      "id": "39fbbe5e"
     },
     {
       "cell_type": "code",
@@ -136,7 +138,7 @@
         "print(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}\")\n",
         "print(f\"R-squared: {r2_score(y_test, y_pred)}\")"
       ],
-      "id": "f5968937",
+      "id": "d1f839b0",
       "execution_count": null,
       "outputs": []
     },
@@ -151,7 +153,7 @@
         "3. Create a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.\n",
         "4. Play around with your widget and see how your $R^2$ changes based on your selected variables! \n"
       ],
-      "id": "9c138b3e"
+      "id": "1c877f46"
     },
     {
       "cell_type": "code",
@@ -221,18 +223,17 @@
         "display(predictor_selector, target_selector, evaluate_button, output)\n",
         "evaluate_button.on_click(evaluate_model)"
       ],
-      "id": "1c9c6e4a",
+      "id": "97cc9a5b",
       "execution_count": null,
       "outputs": []
     }
   ],
   "metadata": {
     "kernelspec": {
-      "display_name": "Python (ml-env)",
+      "display_name": "Python (eds232_env)",
       "language": "python",
-      "name": "ml-env"
+      "name": "eds232_env"
     },
-    "kernel": "ml-env",
     "jupytext": {
       "text_representation": {
         "extension": ".qmd",
