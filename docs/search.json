@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "discussion/week0.html",
+    "href": "discussion/week0.html",
+    "title": "week0",
+    "section": "",
+    "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "discussion/week0.html#test-section-page",
+    "href": "discussion/week0.html#test-section-page",
+    "title": "week0",
+    "section": "",
+    "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-1-fork-the-repository",
+    "href": "labs/lab_instructions.html#step-1-fork-the-repository",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 1: Fork the Repository",
+    "text": "Step 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account."
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-2-clone-your-fork",
+    "href": "labs/lab_instructions.html#step-2-clone-your-fork",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 2: Clone Your Fork",
+    "text": "Step 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
+    "href": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 3: Configure your remote branch",
+    "text": "Step 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Machine Learning in Environmental Science",
+    "section": "",
+    "text": "Image created using the Midjourney image generation tool"
+  },
+  {
+    "objectID": "index.html#course-description",
+    "href": "index.html#course-description",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Description",
+    "text": "Course Description\nMachine learning is a field of inquiry devoted to understanding and building methods that “learn,” that is, methods that leverage data to improve performance on some set of tasks. In this course, we focus on the core concepts of machine learning that beginning ML researchers must know. We cover “classical machine learning” primarily using R and explore applications to environmental science. To understand broader concepts of artificial intelligence or deep learning, a strong fundamental knowledge of machine learning is indispensable."
+  },
+  {
+    "objectID": "index.html#teaching-team",
+    "href": "index.html#teaching-team",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Teaching Team",
+    "text": "Teaching Team\nInstructor: Mateo Robbins (mjrobbins@ucsb.edu)\nStudent hours: Tuesdays 10:45am (Bren 1424)\nTeaching Assistant: Annie Adams (aradams@ucsb.edu)\nStudent hours: Thursdays 11:00am (Bren 3022)"
+  },
+  {
+    "objectID": "index.html#important-links",
+    "href": "index.html#important-links",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Important Links",
+    "text": "Important Links\n\nLink to full course syllabus"
+  },
+  {
+    "objectID": "index.html#weekly-course-schedule",
+    "href": "index.html#weekly-course-schedule",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Weekly Course Schedule",
+    "text": "Weekly Course Schedule\nLecture: TTh 9:30am - 10:45am (Bren 1424)\nSections: Th 1:00pm - 1:50pm or 2:00 - 2:50pm (Bren 3022)"
+  },
+  {
+    "objectID": "index.html#learning-objectives",
+    "href": "index.html#learning-objectives",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nThe goal of EDS 232 is to equip students with a strong foundation in the core concepts of machine learning. By the end of the course, students should be able to:\n\nExplain key machine learning concepts such as classification, regression, overfitting, and the trade-off in model complexity.\nIdentify and justify appropriate data preprocessing techniques and integrate them into machine learning pipelines.\nDemonstrate an intuitive understanding of common machine learning algorithms.\nBuild supervised machine learning pipelines using Python and scikit-learn on real-world datasets.\nApply best practices for machine learning development so that your models generalize to data and tasks in the real world. Measure and contrast the performance of various models"
+  },
+  {
+    "objectID": "index.html#course-requirements",
+    "href": "index.html#course-requirements",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Requirements",
+    "text": "Course Requirements\n\nComputing\n\nMinimum MEDS device requirements\n\n\n\nTextbook\n\nIntro to Statistical Learning with Python (ISL)"
+  },
+  {
+    "objectID": "index.html#course-topics",
+    "href": "index.html#course-topics",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Topics",
+    "text": "Course Topics\n\n\n\nWeek #\nDates\nLecture\nReading\n\n\n1\n1/7, 1/9\nIntroduction\nLinear Regression and ML Modeling Fundamentals I\nISL Ch. 1, 2.1\n\n\n2\n1/14, 1/16\nRegularized Regression and ML Modeling Fundamentals II\nISL Ch. 5.1.1-5.1.4, 6.2\n\n\n3\n1/21, 1/23\nLogistic Regression, Classification\n\n\n\n4\n1/28, 1/30\nK-nearest neighbors, Decision Trees\n\n\n\n5\n2/3, 2/6\nRandom Forest\n\n\n\n6\n2/11, 2/13\nGradient Boosting\n\n\n\n7\n2/18, 2/20\nClustering\n\n\n\n8\n2/25, 2/27\nSupport Vector Machines\n\n\n\n9\n3/4, 3/6\nDeep Learning\n\n\n\n10\n3/11, 3/13\nKaggle"
+  }
+]

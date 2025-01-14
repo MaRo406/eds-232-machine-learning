@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome to our weekly machine learning labs!</title>
+<title>week0</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-right">
-      <h1 class="title">Welcome to our weekly machine learning labs!</h1>
+      <h1 class="title">week0</h1>
                       </div>
   </div>
     
@@ -187,13 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#initial-repository-setup" id="toc-initial-repository-setup" class="nav-link active" data-scroll-target="#initial-repository-setup">Initial Repository Setup</a>
-  <ul class="collapse">
-  <li><a href="#step-1-fork-the-repository" id="toc-step-1-fork-the-repository" class="nav-link" data-scroll-target="#step-1-fork-the-repository">Step 1: Fork the Repository</a></li>
-  <li><a href="#step-2-clone-your-fork" id="toc-step-2-clone-your-fork" class="nav-link" data-scroll-target="#step-2-clone-your-fork">Step 2: Clone Your Fork</a></li>
-  <li><a href="#step-3-configure-your-remote-branch" id="toc-step-3-configure-your-remote-branch" class="nav-link" data-scroll-target="#step-3-configure-your-remote-branch">Step 3: Configure your remote branch</a></li>
-  </ul></li>
-  <li><a href="#weekly-fetching-to-get-new-labs" id="toc-weekly-fetching-to-get-new-labs" class="nav-link" data-scroll-target="#weekly-fetching-to-get-new-labs">Weekly Fetching to get new labs</a></li>
+  <li><a href="#test-section-page" id="toc-test-section-page" class="nav-link active" data-scroll-target="#test-section-page">Test Section Page</a></li>
   </ul>
 </nav>
 </nav>
@@ -208,47 +202,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="we-will-be-using-a-single-repo-for-all-of-our-weekly-lab-assignments.-follow-the-instructions-below-on-how-to-clone-the-repo-and-get-each-weeks-new-lab" class="level4">
-<h4 class="anchored" data-anchor-id="we-will-be-using-a-single-repo-for-all-of-our-weekly-lab-assignments.-follow-the-instructions-below-on-how-to-clone-the-repo-and-get-each-weeks-new-lab">We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week’s new lab!</h4>
-</section>
-<section id="initial-repository-setup" class="level1">
-<h1>Initial Repository Setup</h1>
-<section id="step-1-fork-the-repository" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-fork-the-repository">Step 1: Fork the Repository</h2>
-<ol type="1">
-<li><p><strong>Navigate to the following Repository</strong>: https://github.com/annieradams/EDS232-labs</p></li>
-<li><p><strong>Fork the Repository</strong>: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account.</p></li>
-</ol>
-</section>
-<section id="step-2-clone-your-fork" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-clone-your-fork">Step 2: Clone Your Fork</h2>
-<ol type="1">
-<li><p><strong>Copy the URL of Your Fork</strong>: On your fork’s GitHub page, click the “Code” button and copy the URL provided.</p></li>
-<li><p><strong>Clone the Repository</strong>: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace <code>URL_OF_YOUR_FORK</code> with the URL you just copied):</p></li>
-</ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone URL_OF_YOUR_FORK</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="step-3-configure-your-remote-branch" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-configure-your-remote-branch">Step 3: Configure your remote branch</h2>
-<ol type="1">
-<li><strong>Add upstream remote branch.</strong>: Change your directory to the new repository. Once there, copy the following line into your terminal:</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/annieradams/EDS232-labs.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>To verify the new upstream repository you have specified for your fork, type</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><em>You should see the URL for your fork as origin, and the URL for the upstream repository as upstream.</em></p>
-</section>
-</section>
-<section id="weekly-fetching-to-get-new-labs" class="level1">
-<h1>Weekly Fetching to get new labs</h1>
-<p>To ensure you have the latest lab materials each week, make sure you are at the correct directoy and copy the following code in the terminal:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull upstream main  <span class="co"># or master if the main branch is named master</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command will fetch the latest updates from the upstream and merge them into your current branch.</p>
-<section id="you-are-now-ready-to-start-working-on-this-weeks-lab" class="level4">
-<h4 class="anchored" data-anchor-id="you-are-now-ready-to-start-working-on-this-weeks-lab">You are now ready to start working on this week’s lab!!</h4>
+<section id="test-section-page" class="level2">
+<h2 class="anchored" data-anchor-id="test-section-page">Test Section Page</h2>
+<p>This will contain content to support students in creating a notebook for the week’s section material.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
