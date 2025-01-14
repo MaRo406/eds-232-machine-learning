@@ -145,5 +145,40 @@
     "title": "Discussion 1",
     "section": "Create a Widget for updating the predictor and target variables.",
     "text": "Create a Widget for updating the predictor and target variables.\n\nCreate the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output\nWrap our worfklow into a function called evaluate_model(). This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the \\(R^2\\), MSE, and a scatterplot of the actual versus predicted target variable.\nCreate a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.\nPlay around with your widget and see how your \\(R^2\\) changes based on your selected variables!\n\n\n# Create a widget for selecting predictors\npredictor_selector = widgets.SelectMultiple(\n    options=data.columns, # Options for predictor: columns of data\n    value=[data.columns[0]],  # Default selected: 1st column of data (albany_rainfall)\n    description='Predictors' # Name the predictor selection\n)\n\n# Create a dropdown for selecting the target variable\ntarget_selector = widgets.Dropdown(\n    options=data.columns, # Options for predictor: columns of data\n    value=data.columns[1],  # Default selected: 2nd column of data (norrie_rainfall)\n    description='Target',\n)\n\n# Create button to evaluate the model\nevaluate_button = widgets.Button(description=\"Evaluate Model\")\n\n# Output widget to display results\noutput = widgets.Output()\n\n# Define the function to handle button clicks\ndef evaluate_model(b):\n    with output:\n        clear_output(wait=True) # Clear previous displayed output before running\n        \n        # Make sure the target variable is not also a predictor variable\n        selected_predictors = [item for item in predictor_selector.value] # Pull out predictor values selected by user\n        if target_selector.value in selected_predictors: # Make sure target variable is not also a predictor variable\n            print(\"Target variable must not be in the predictors.\")\n            return\n        \n        # Assign X and y variables\n        X = data[selected_predictors]\n        y = data[target_selector.value]\n        \n        # Split data into training and testing sets\n        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n        \n        # Create and fit the model\n        model = LinearRegression()\n        model.fit(X_train, y_train)\n        \n        # Predict and calculate R^2 and MSE\n        y_pred = model.predict(X_test)\n        r2 = r2_score(y_test, y_pred)\n        mse = mean_squared_error(y_test, y_pred)\n        \n        # Display the R^2 score and MSE\n        print(f\"R^2: {r2:.4f}\")\n        print(f\"MSE: {mse:.4f}\")\n\n\n        # Create a scatter plot of y test vs predicted y\n        plt.scatter(y_test, y_pred) \n        plt.xlabel('Actual') \n        plt.ylabel('Predicted') \n        plt.title('Actual vs Predicted') \n        plt.show() \n\n\n# Display the widgets and connect the button to the function\ndisplay(predictor_selector, target_selector, evaluate_button, output)\nevaluate_button.on_click(evaluate_model)"
+  },
+  {
+    "objectID": "discussion/week2.html",
+    "href": "discussion/week2.html",
+    "title": "Discussion 2",
+    "section": "",
+    "text": "In this week’s discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models."
+  },
+  {
+    "objectID": "discussion/week2.html#introduction",
+    "href": "discussion/week2.html#introduction",
+    "title": "Discussion 2",
+    "section": "",
+    "text": "In this week’s discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models."
+  },
+  {
+    "objectID": "discussion/week2.html#data-loading",
+    "href": "discussion/week2.html#data-loading",
+    "title": "Discussion 2",
+    "section": "Data Loading",
+    "text": "Data Loading\nCopy the code below to load the neessary libraries genereate the data we will use. Read the comments to on each feature to get an idea of the relationship between variables.\n\n# Import necessary libraries\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import Lasso, Ridge\nfrom sklearn.metrics import mean_squared_error, r2_score\nfrom ipywidgets import interact, FloatLogSlider\n\n# Generate data\nnp.random.seed(42)\nn_samples = 200\nX = np.zeros((n_samples, 6))\nX[:, 0] = np.random.normal(0, 1, n_samples)  # X1 - Important feature\nX[:, 1] = np.random.normal(0, 1, n_samples)  # X2 -  Important feature\nX[:, 2] = X[:, 0] + np.random.normal(0, 0.1, n_samples)  # Correlated with X1\nX[:, 3] = X[:, 1] + np.random.normal(0, 0.1, n_samples)  # Correlated with X2\nX[:, 4] = np.random.normal(0, 0.1, n_samples)  # Noise\nX[:, 5] = np.random.normal(0, 0.1, n_samples)  # Noise\n\ny = 3 * X[:, 0] + 2 * X[:, 1] + 0.5 * X[:, 2] + np.random.normal(0, 0.1, n_samples)"
+  },
+  {
+    "objectID": "discussion/week2.html#regression",
+    "href": "discussion/week2.html#regression",
+    "title": "Discussion 2",
+    "section": "Regression",
+    "text": "Regression\nNow that you have your data, do the following:\n\nSplit your data into training and testing.\nCreate and fit a ridge regression\nCalculate the MSE and \\(R^2\\) for your ridge regression.\nCreate and fit a lasso model.\nCalculate the MSE and \\(R^2\\) for your lasso model."
+  },
+  {
+    "objectID": "discussion/week2.html#visualizing-ridge-vs-regression",
+    "href": "discussion/week2.html#visualizing-ridge-vs-regression",
+    "title": "Discussion 2",
+    "section": "Visualizing Ridge vs Regression",
+    "text": "Visualizing Ridge vs Regression\n\nCreate a plot that looks at the alpha against the MSE for both lasso and ridge regression.\nCreate an interactive plot (for both lasso and ridge) that allows you to adjust alpha to see how the actual vs predicted values are changing.\nCreate three different bar plots with the following guidelines:\n\nEach plot should represent a different alpha value: Alpha = 0.1, Alpha = 1, Alpha = 10\nEach plot should show how both the ridge and lasso model performed\nThe y axis should represent the six different variables: X1, X2, X1_corr, X2_corr, Noise1, Noise2\nThe y axis should represent the coefficients"
   }
 ]

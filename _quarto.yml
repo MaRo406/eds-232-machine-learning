@@ -13,8 +13,10 @@ website:
         text: Home
       - text: Discussion
         menu:
-          - text: week 1
+          - text: Week 1
             href: discussion/week1.qmd
+          - text: Week 2 
+            href: discussion/week2.qmd
       - text: Weekly Labs
         menu:
           - text: Lab Rubric
