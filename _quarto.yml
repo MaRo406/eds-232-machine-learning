@@ -13,8 +13,8 @@ website:
         text: Home
       - text: Discussion
         menu:
-          - text: week 0
-            href: discussion/week0.qmd
+          - text: week 1
+            href: discussion/week1.qmd
       - text: Weekly Labs
         menu:
           - text: Lab Rubric
@@ -31,7 +31,7 @@ website:
 
 format:
   html:
-    theme: meds-website-styles.css
+    theme: meds-website-styles.scss
     toc: true
     toc-location: left
     title-block-banner: true

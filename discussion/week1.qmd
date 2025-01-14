@@ -1,0 +1,171 @@
+---
+title: Discussion 1
+subtitle: Creating Widgets for Multiple Linear Regression
+description: 'Thursday, January 9th, 2025'
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: Python (ml-env)
+    language: python
+    name: ml-env
+---
+
+# Introduction
+
+In this week's discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let's find out. 
+
+# Data Loading
+
+Access the same .xlsx file we used in lab this week. If you lost access to it, you can find the data [here](https://docs.google.com/spreadsheets/d/1MsSf679OsQpt4y6btV3tLPf-i8_bdoTZ/edit?gid=511934884#gid=511934884). Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries: 
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+from ipywidgets import interact
+import ipywidgets as widgets
+from ipywidgets import interact, FloatSlider
+from IPython.display import display, clear_output
+```
+
+```{python}
+# Load the data
+fp = '../data/Hurricane_Irene_Hudson_River.xlsx'
+do_data = pd.read_excel(fp, sheet_name = 5).drop(['Piermont D.O. (ppm)'], axis = 1)
+rainfall_data = pd.read_excel(fp, sheet_name='Rainfall').drop(['Piermont  Rainfall Daily Accumulation (Inches)'], axis = 1)
+turbidity_data = pd.read_excel(fp, sheet_name='Turbidity').drop(['Piermont Turbidity in NTU'], axis = 1)
+
+```
+
+# Data Wrangling
+Perform the following data wrangling steps to get our data ready for our model. 
+
+
+1. Merge the three dataframes together. While merging, or after, drop all columns for the Piedmont location. 
+2. Update the column names to be shorter and not have spaces. Use snake case.
+3. Make your date column a datetime obect.
+4. Set the data as the index for the merged dataframe. 
+
+```{python}
+# Merge the two datasets on date
+data = rainfall_data.merge(turbidity_data, on = 'Date Time (ET)')
+data = data.merge(do_data, on = 'Date Time (ET)')
+data.head()
+
+# Update the column names 
+data.columns = ['date', 'albany_rainfall', 'norrie_rainfall', 'albany_turbidity', 'norrie_turbidity','albany_do', 'norrie_do']
+
+# Convert data to datetime format and set it as index
+data['date'] = pd.to_datetime(data['date'])
+
+# Update index
+data.set_index('date', inplace=True)
+
+```
+
+# Multiple Linear Regression
+Now that our data is cleaned, let's do the following to carry out a multiple linear regression. 
+
+1. Define your predictors and target variables.
+2. Split the data into training and testing sets
+3. Create and fit the model
+4. Predict and Evaluate your model
+
+```{python}
+# Define predictors and the target variable
+X = data[['albany_rainfall', 'norrie_rainfall', 'albany_do', 'norrie_do']]  # Adjust as needed
+y = data['albany_turbidity']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create and fit the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred = model.predict(X_test)
+print(f"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}")
+print(f"R-squared: {r2_score(y_test, y_pred)}")
+```
+
+# Create a Widget for updating the predictor and target variables. 
+
+1. Create the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output
+2. Wrap our worfklow into a function called `evaluate_model()`. This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the $R^2$, MSE, and a scatterplot of the actual versus predicted target variable.
+3. Create a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.
+4. Play around with your widget and see how your $R^2$ changes based on your selected variables! 
+
+```{python}
+# Create a widget for selecting predictors
+predictor_selector = widgets.SelectMultiple(
+    options=data.columns, # Options for predictor: columns of data
+    value=[data.columns[0]],  # Default selected: 1st column of data (albany_rainfall)
+    description='Predictors' # Name the predictor selection
+)
+
+# Create a dropdown for selecting the target variable
+target_selector = widgets.Dropdown(
+    options=data.columns, # Options for predictor: columns of data
+    value=data.columns[1],  # Default selected: 2nd column of data (norrie_rainfall)
+    description='Target',
+)
+
+# Create button to evaluate the model
+evaluate_button = widgets.Button(description="Evaluate Model")
+
+# Output widget to display results
+output = widgets.Output()
+
+# Define the function to handle button clicks
+def evaluate_model(b):
+    with output:
+        clear_output(wait=True) # Clear previous displayed output before running
+        
+        # Make sure the target variable is not also a predictor variable
+        selected_predictors = [item for item in predictor_selector.value] # Pull out predictor values selected by user
+        if target_selector.value in selected_predictors: # Make sure target variable is not also a predictor variable
+            print("Target variable must not be in the predictors.")
+            return
+        
+        # Assign X and y variables
+        X = data[selected_predictors]
+        y = data[target_selector.value]
+        
+        # Split data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+        
+        # Create and fit the model
+        model = LinearRegression()
+        model.fit(X_train, y_train)
+        
+        # Predict and calculate R^2 and MSE
+        y_pred = model.predict(X_test)
+        r2 = r2_score(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        
+        # Display the R^2 score and MSE
+        print(f"R^2: {r2:.4f}")
+        print(f"MSE: {mse:.4f}")
+
+
+        # Create a scatter plot of y test vs predicted y
+        plt.scatter(y_test, y_pred) 
+        plt.xlabel('Actual') 
+        plt.ylabel('Predicted') 
+        plt.title('Actual vs Predicted') 
+        plt.show() 
+
+
+# Display the widgets and connect the button to the function
+display(predictor_selector, target_selector, evaluate_button, output)
+evaluate_button.on_click(evaluate_model)
+```

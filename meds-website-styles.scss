@@ -1,81 +1,74 @@
 /*-- scss:defaults --*/
 
-// Import fonts
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nunito:wght@300;800&family=Roboto+Mono:wght@300;400&family=Sanchez&display=swap');
+// Import Google Fonts
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nunito:wght@300;800&family=Roboto+Mono:wght@300;400&family=Sanchez&display=swap");
 
-// fonts
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-family-serif: 'Sanchez', serif;
-$font-family-monospace: 'Roboto Mono', monospace;
+// Variables
+$font-family-headers: "Sanchez", serif;
+$color-dark-blue: #003660;
+$color-teal: #047C90;
+$color-green: #78A540;
+$color-pink: #900C3F;
+$color-peach: #DF8073;
+$color-gray: #ADADAD;
+$color-white: #FFFFFF;
+$color-seafom: #517699;
 
-// colors
-$baby-blue: #d2e3f3;
-$teal: #047C90;
-$dark-blue: #003660;
-$white: #FFFFFF;
-$green: #78A540;
-$magenta: #900C3F;
-$white: #FFFFFF;
-$off-white: #F7F7F7;
-$gray: #ADADAD;
-$dark-gray: #373A3E;
-$peach: #DF8073;
+$navbar-bg: $color-seafom;
+$navbar-fg: $color-white;
+$navbar-hl: $color-gray;
 
-// quarto sass variables
-$navbar-bg: $off-white;
-$navbar-fg: $dark-blue;
-$navbar-hl: $teal;
-$body-bg: $white;
-$body-color: $dark-gray;
-$footer-bg: $dark-blue;
-$link-color: $green;
 
-/*-- scss:rules --*/
 
-// header font & color
-h1, h2, h3, h4 {
-  font-family: $font-family-serif;
-  color: $dark-blue;
+// Mixins
+@mixin body-text($size, $line-height, $margin-bottom) {
+  font-size: $size;
+  line-height: $line-height;
+  margin-bottom: $margin-bottom;
 }
 
-// line beneath h2
+
+// Header Styles
+h1{
+  font-family: $font-family-headers;
+  color: $color-white;
+}
+
+h2, h3, h4 {
+  font-family: $font-family-headers;
+  color: $color-dark-blue;
+}
+
 h2 {
-  border-bottom: 3px solid $dark-blue;
+  border-bottom: 3px solid $color-dark-blue;
   padding-bottom: 0.5rem;
 }
 
+// Icon Styles
 .large-fa-icon {
   font-size: 2.5em;
 }
 
-// XL body text
-.body-text-xl {
-  font-size: 30px;
-	line-height: 1.7em;
-	margin-bottom: 1em;
+// Body Text Classes
+.body-text {
+  &-xl {
+    @include body-text(35px, 1.7em, 1em);
+  }
+  
+  &-l {
+    @include body-text(30px, 1.7em, 1em);
+  }
+  
+  &-m {
+    @include body-text(25px, 1.7em, 1em);
+  }
+  
+  &-s {
+    @include body-text(18px, 0.3em, null);
+  }
 }
 
-// L body text
-.body-text-l {
-  font-size: 25px;
-	line-height: 1.7em;
-	margin-bottom: 1em;
-}
-
-// M body text
-.body-text-m {
-  font-size: 20px;
-	line-height: 1.7em;
-	margin-bottom: 1em;
-}
-
-// S body text
-.body-text-s {
-  font-size: 14px;
-	line-height: 0.3em;
-}
-
-// pink-box
+// Box Styles
 .pink-box {
   width: 800px;
   padding: 10px;
@@ -83,47 +76,44 @@ h2 {
   margin: 0 auto;
 }
 
-// gray text
-.gray-text {
-  color: $gray;
+// Text Colors
+.text {
+  &.gray-text {
+    color: $color-gray;
+  }
+  
+  &.teal-text {
+    color: $color-teal;
+  }
+  
+  &.dark-blue-text {
+    color: $color-dark-blue;
+  }
+  
+  &.pink-text {
+    color: $color-pink;
+  }
+  
+  &.peach-text {
+    color: $color-peach;
+  }
 }
 
-// teal text
-.teal-text {
-  color: $teal;
-}
-
-// dark blue text
-.dark-blue-text {
-  color: $dark-blue;
-}
-
-// pink text
-.pink-text {
-  color: $magenta;
-}
-
-// peach text
-.peach-text {
-  color: $peach;
-}
-
-// center text (horizontally)
-.center-text{
+// Text Alignment
+.center-text {
   text-align: center;
 }
 
-// btn styling
+// Button Styles
 .btn {
-  color: $teal;
-  background-color: $white;
-  border-color: $teal;
-}
-
-// button hover styling
-.btn:hover {
-  color: $green;
-  background-color: $white;
-  border-color: $green;
+  color: $color-teal;
+  background-color: $color-white;
+  border-color: $color-teal;
+  
+  &:hover {
+    color: $color-green;
+    background-color: $color-white;
+    border-color: $color-green;
+  }
 }
 

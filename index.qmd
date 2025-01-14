@@ -15,7 +15,7 @@ jupyter:
   kernelspec:
     display_name: ML Environment
     language: python
-    name: eds232_env
+    name: ml-env
 ---
 
 ![Image created using the Midjourney image generation tool](img/MLRobotLearnBanner.png)
@@ -95,3 +95,4 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 +-------------+------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
 | 10          | 3/11, 3/13 | Kaggle                                                                                                      |                          |
 +-------------+------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
+
