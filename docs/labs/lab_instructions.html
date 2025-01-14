@@ -203,25 +203,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="we-will-be-using-a-single-repo-for-all-of-our-weekly-lab-assignments.-follow-the-instructions-below-on-how-to-clone-the-repo-and-get-each-weeks-new-lab" class="level4">
 <h4 class="anchored" data-anchor-id="we-will-be-using-a-single-repo-for-all-of-our-weekly-lab-assignments.-follow-the-instructions-below-on-how-to-clone-the-repo-and-get-each-weeks-new-lab">We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week’s new lab!</h4>
 </section>
-<section id="initial-repository-setup" class="level1">
-<h1>Initial Repository Setup</h1>
-<section id="step-1-fork-the-repository" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-fork-the-repository">Step 1: Fork the Repository</h2>
+<section id="initial-repository-setup" class="level2">
+<h2 class="anchored" data-anchor-id="initial-repository-setup">Initial Repository Setup</h2>
+<section id="step-1-fork-the-repository" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-fork-the-repository">Step 1: Fork the Repository</h3>
 <ol type="1">
 <li><p><strong>Navigate to the following Repository</strong>: https://github.com/annieradams/EDS232-labs</p></li>
 <li><p><strong>Fork the Repository</strong>: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account.</p></li>
 </ol>
 </section>
-<section id="step-2-clone-your-fork" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-clone-your-fork">Step 2: Clone Your Fork</h2>
+<section id="step-2-clone-your-fork" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-clone-your-fork">Step 2: Clone Your Fork</h3>
 <ol type="1">
 <li><p><strong>Copy the URL of Your Fork</strong>: On your fork’s GitHub page, click the “Code” button and copy the URL provided.</p></li>
 <li><p><strong>Clone the Repository</strong>: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace <code>URL_OF_YOUR_FORK</code> with the URL you just copied):</p></li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone URL_OF_YOUR_FORK</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-3-configure-your-remote-branch" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-configure-your-remote-branch">Step 3: Configure your remote branch</h2>
+<section id="step-3-configure-your-remote-branch" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-configure-your-remote-branch">Step 3: Configure your remote branch</h3>
 <ol type="1">
 <li><strong>Add upstream remote branch.</strong>: Change your directory to the new repository. Once there, copy the following line into your terminal:</li>
 </ol>
@@ -231,8 +231,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>You should see the URL for your fork as origin, and the URL for the upstream repository as upstream.</em></p>
 </section>
 </section>
-<section id="weekly-fetching-to-get-new-labs" class="level1">
-<h1>Weekly Fetching to get new labs</h1>
+<section id="weekly-fetching-to-get-new-labs" class="level2">
+<h2 class="anchored" data-anchor-id="weekly-fetching-to-get-new-labs">Weekly Fetching to get new labs</h2>
 <p>To ensure you have the latest lab materials each week, make sure you are at the correct directoy and copy the following code in the terminal:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull upstream main  <span class="co"># or master if the main branch is named master</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This command will fetch the latest updates from the upstream and merge them into your current branch.</p>
