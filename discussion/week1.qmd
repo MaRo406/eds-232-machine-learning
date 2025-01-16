@@ -1,19 +1,27 @@
 ---
 title: Discussion 1
 subtitle: Creating Widgets for Multiple Linear Regression
-description: Thursday, January 9th, 2025
+description: 'Thursday, January 9th, 2025'
 jupyter:
   jupytext:
     text_representation:
       extension: .qmd
       format_name: quarto
       format_version: '1.0'
-      jupytext_version: 1.16.6
+      jupytext_version: 1.16.4
   kernelspec:
-    display_name: Python (eds232_env)
+    display_name: ML Environment
     language: python
-    name: eds232_env
+    name: ml-env
 ---
+
+## Introduction
+
+In this week's discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let's find out. 
+
+## Data Loading
+
+Access the same .xlsx file we used in lab this week. If you lost access to it, you can find the data [here](https://docs.google.com/spreadsheets/d/1MsSf679OsQpt4y6btV3tLPf-i8_bdoTZ/edit?gid=511934884#gid=511934884). Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries: 
 
 ```{python}
 import pandas as pd
@@ -36,7 +44,7 @@ rainfall_data = pd.read_excel(fp, sheet_name='Rainfall').drop(['Piermont  Rainfa
 turbidity_data = pd.read_excel(fp, sheet_name='Turbidity').drop(['Piermont Turbidity in NTU'], axis = 1)
 ```
 
-# Data Wrangling
+## Data Wrangling
 Perform the following data wrangling steps to get our data ready for our model. 
 
 
@@ -61,7 +69,7 @@ data['date'] = pd.to_datetime(data['date'])
 data.set_index('date', inplace=True)
 ```
 
-# Multiple Linear Regression
+## Multiple Linear Regression
 Now that our data is cleaned, let's do the following to carry out a multiple linear regression. 
 
 1. Define your predictors and target variables.
@@ -87,7 +95,7 @@ print(f"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}")
 print(f"R-squared: {r2_score(y_test, y_pred)}")
 ```
 
-# Create a Widget for updating the predictor and target variables. 
+## Create a Widget for updating the predictor and target variables. 
 
 1. Create the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output
 2. Wrap our worfklow into a function called `evaluate_model()`. This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the $R^2$, MSE, and a scatterplot of the actual versus predicted target variable.

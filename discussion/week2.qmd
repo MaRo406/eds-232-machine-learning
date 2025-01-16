@@ -1,0 +1,67 @@
+---
+title: Discussion 2
+subtitle: Utilizing synthesized data to better understand ridge and lasso regression
+description: 'Thursday, January 16th, 2025'
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: ML Environment
+    language: python
+    name: ml-env
+---
+
+## Introduction
+
+In this week's discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models. 
+
+## Data Loading
+
+Copy the code below to load the neessary libraries genereate the data we will use. Read the comments to on each feature to get an idea of the relationship between variables. 
+
+```{python}
+# Import necessary libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Lasso, Ridge
+from sklearn.metrics import mean_squared_error, r2_score
+from ipywidgets import interact, FloatLogSlider
+
+# Generate data
+np.random.seed(42)
+n_samples = 200
+X = np.zeros((n_samples, 6))
+X[:, 0] = np.random.normal(0, 1, n_samples)  # X1 - Important feature
+X[:, 1] = np.random.normal(0, 1, n_samples)  # X2 -  Important feature
+X[:, 2] = X[:, 0] + np.random.normal(0, 0.1, n_samples)  # Correlated with X1
+X[:, 3] = X[:, 1] + np.random.normal(0, 0.1, n_samples)  # Correlated with X2
+X[:, 4] = np.random.normal(0, 0.1, n_samples)  # Noise
+X[:, 5] = np.random.normal(0, 0.1, n_samples)  # Noise
+
+y = 3 * X[:, 0] + 2 * X[:, 1] + 0.5 * X[:, 2] + np.random.normal(0, 0.1, n_samples) 
+```
+
+## Regression
+
+Now that you have your data, do the following: 
+
+1. Split your data into training and testing.
+2. Create and fit a ridge regression
+3. Calculate the MSE and $R^2$ for your ridge regression.
+4. Create and fit a lasso model.
+5. Calculate the MSE and $R^2$ for your lasso model.
+
+## Visualizing Ridge vs Regression
+
+1. Create a plot that looks at the alpha against the MSE for both lasso and ridge regression.
+2. Create an interactive plot (for both lasso and ridge) that allows you to adjust alpha to see how the actual vs predicted values are changing.
+3. Create three different bar plots with the following guidelines:
+   - Each plot should represent a different alpha value: Alpha = 0.1, Alpha = 1, Alpha = 10
+   - Each plot should show how both the ridge and lasso model performed
+   - The y axis should represent the six different variables:  `X1`, `X2`, `X1_corr`, `X2_corr`, `Noise1`, `Noise2`
+   - The y axis should represent the coefficients

@@ -8,22 +8,22 @@ jupyter:
       format_version: '1.0'
       jupytext_version: 1.16.4
   kernelspec:
-    display_name: Python (eds232_env)
+    display_name: EDS 232 Environment
     language: python
     name: eds232_env
 ---
 
 #### We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week's new lab!
 
-# Initial Repository Setup
+## Initial Repository Setup
 
-## Step 1: Fork the Repository
+### Step 1: Fork the Repository
 
 1. **Navigate to the following Repository**: https://github.com/annieradams/EDS232-labs
 
 2. **Fork the Repository**: Click the "Fork" button located at the top right corner of the page. This creates a copy of the repository in your GitHub account.
 
-## Step 2: Clone Your Fork
+### Step 2: Clone Your Fork
 
 1. **Copy the URL of Your Fork**: On your fork's GitHub page, click the "Code" button and copy the URL provided.
 
@@ -33,7 +33,7 @@ jupyter:
 git clone URL_OF_YOUR_FORK
 ```
 
-## Step 3: Configure your remote branch
+### Step 3: Configure your remote branch
 
 1. **Add upstream remote branch.**: Change your directory to the new repository. Once there, copy the following line into your terminal:
 
@@ -49,7 +49,7 @@ git remote -v
 
 *You should see the URL for your fork as origin, and the URL for the upstream repository as upstream.*
 
-# Weekly Fetching to get new labs
+## Weekly Fetching to get new labs
 
 To ensure you have the latest lab materials each week, make sure you are at the correct directoy and copy the following code in the terminal: 
 
