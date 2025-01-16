@@ -14,27 +14,6 @@
     "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "labs/lab_instructions.html#step-1-fork-the-repository",
-    "href": "labs/lab_instructions.html#step-1-fork-the-repository",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Step 1: Fork the Repository",
-    "text": "Step 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account."
-  },
-  {
-    "objectID": "labs/lab_instructions.html#step-2-clone-your-fork",
-    "href": "labs/lab_instructions.html#step-2-clone-your-fork",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Step 2: Clone Your Fork",
-    "text": "Step 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK"
-  },
-  {
-    "objectID": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
-    "href": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Step 3: Configure your remote branch",
-    "text": "Step 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Machine Learning in Environmental Science",
@@ -89,6 +68,27 @@
     "title": "Machine Learning in Environmental Science",
     "section": "Course Topics",
     "text": "Course Topics\n\n\n\nWeek #\nDates\nLecture\nReading\n\n\n1\n1/7, 1/9\nIntroduction\nLinear Regression and ML Modeling Fundamentals I\nISL Ch. 1, 2.1\n\n\n2\n1/14, 1/16\nRegularized Regression and ML Modeling Fundamentals II\nISL Ch. 5.1.1-5.1.4, 6.2\n\n\n3\n1/21, 1/23\nLogistic Regression, Classification\n\n\n\n4\n1/28, 1/30\nK-nearest neighbors, Decision Trees\n\n\n\n5\n2/3, 2/6\nRandom Forest\n\n\n\n6\n2/11, 2/13\nGradient Boosting\n\n\n\n7\n2/18, 2/20\nClustering\n\n\n\n8\n2/25, 2/27\nSupport Vector Machines\n\n\n\n9\n3/4, 3/6\nDeep Learning\n\n\n\n10\n3/11, 3/13\nKaggle"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-1-fork-the-repository",
+    "href": "labs/lab_instructions.html#step-1-fork-the-repository",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 1: Fork the Repository",
+    "text": "Step 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account."
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-2-clone-your-fork",
+    "href": "labs/lab_instructions.html#step-2-clone-your-fork",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 2: Clone Your Fork",
+    "text": "Step 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
+    "href": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Step 3: Configure your remote branch",
+    "text": "Step 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
   },
   {
     "objectID": "discussion/week1.html",
