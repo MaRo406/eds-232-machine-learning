@@ -1,17 +1,94 @@
 [
   {
-    "objectID": "discussion/week0.html",
-    "href": "discussion/week0.html",
-    "title": "week0",
+    "objectID": "discussion/week2.html",
+    "href": "discussion/week2.html",
+    "title": "Discussion 2",
     "section": "",
-    "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
+    "text": "In this week’s discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models."
   },
   {
-    "objectID": "discussion/week0.html#test-section-page",
-    "href": "discussion/week0.html#test-section-page",
-    "title": "week0",
+    "objectID": "discussion/week2.html#introduction",
+    "href": "discussion/week2.html#introduction",
+    "title": "Discussion 2",
     "section": "",
-    "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
+    "text": "In this week’s discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models."
+  },
+  {
+    "objectID": "discussion/week2.html#data-loading",
+    "href": "discussion/week2.html#data-loading",
+    "title": "Discussion 2",
+    "section": "Data Loading",
+    "text": "Data Loading\nCopy the code below to load the neessary libraries genereate the data we will use. Read the comments to on each feature to get an idea of the relationship between variables.\n\n# Import necessary libraries\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import Lasso, Ridge\nfrom sklearn.metrics import mean_squared_error, r2_score\nfrom ipywidgets import interact, FloatLogSlider\n\n# Generate data\nnp.random.seed(42)\nn_samples = 200\nX = np.zeros((n_samples, 6))\nX[:, 0] = np.random.normal(0, 1, n_samples)  # X1 - Important feature\nX[:, 1] = np.random.normal(0, 1, n_samples)  # X2 -  Important feature\nX[:, 2] = X[:, 0] + np.random.normal(0, 0.1, n_samples)  # Correlated with X1\nX[:, 3] = X[:, 1] + np.random.normal(0, 0.1, n_samples)  # Correlated with X2\nX[:, 4] = np.random.normal(0, 0.1, n_samples)  # Noise\nX[:, 5] = np.random.normal(0, 0.1, n_samples)  # Noise\n\ny = 3 * X[:, 0] + 2 * X[:, 1] + 0.5 * X[:, 2] + np.random.normal(0, 0.1, n_samples)"
+  },
+  {
+    "objectID": "discussion/week2.html#regression",
+    "href": "discussion/week2.html#regression",
+    "title": "Discussion 2",
+    "section": "Regression",
+    "text": "Regression\nNow that you have your data, do the following:\n\nSplit your data into training and testing.\nCreate and fit a ridge regression\nCalculate the MSE and \\(R^2\\) for your ridge regression.\nCreate and fit a lasso model.\nCalculate the MSE and \\(R^2\\) for your lasso model."
+  },
+  {
+    "objectID": "discussion/week2.html#visualizing-ridge-vs-regression",
+    "href": "discussion/week2.html#visualizing-ridge-vs-regression",
+    "title": "Discussion 2",
+    "section": "Visualizing Ridge vs Regression",
+    "text": "Visualizing Ridge vs Regression\n\nCreate a plot that looks at the alpha against the MSE for both lasso and ridge regression.\nCreate an interactive plot (for both lasso and ridge) that allows you to adjust alpha to see how the actual vs predicted values are changing.\nCreate three different bar plots with the following guidelines:\n\nEach plot should represent a different alpha value: Alpha = 0.1, Alpha = 1, Alpha = 10\nEach plot should show how both the ridge and lasso model performed\nThe y axis should represent the six different variables: X1, X2, X1_corr, X2_corr, Noise1, Noise2\nThe y axis should represent the coefficients"
+  },
+  {
+    "objectID": "discussion/week1.html",
+    "href": "discussion/week1.html",
+    "title": "Discussion 1",
+    "section": "",
+    "text": "In this week’s discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let’s find out."
+  },
+  {
+    "objectID": "discussion/week1.html#introduction",
+    "href": "discussion/week1.html#introduction",
+    "title": "Discussion 1",
+    "section": "",
+    "text": "In this week’s discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let’s find out."
+  },
+  {
+    "objectID": "discussion/week1.html#data-loading",
+    "href": "discussion/week1.html#data-loading",
+    "title": "Discussion 1",
+    "section": "Data Loading",
+    "text": "Data Loading\nAccess the same .xlsx file we used in lab this week. If you lost access to it, you can find the data here. Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries:\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport matplotlib.pyplot as plt\nfrom ipywidgets import interact\nimport ipywidgets as widgets\nfrom ipywidgets import interact, FloatSlider\nfrom IPython.display import display, clear_output\n\n\n# Load the data\nfp = '../data/Hurricane_Irene_Hudson_River.xlsx'\ndo_data = pd.read_excel(fp, sheet_name = 5).drop(['Piermont D.O. (ppm)'], axis = 1)\nrainfall_data = pd.read_excel(fp, sheet_name='Rainfall').drop(['Piermont  Rainfall Daily Accumulation (Inches)'], axis = 1)\nturbidity_data = pd.read_excel(fp, sheet_name='Turbidity').drop(['Piermont Turbidity in NTU'], axis = 1)"
+  },
+  {
+    "objectID": "discussion/week1.html#data-wrangling",
+    "href": "discussion/week1.html#data-wrangling",
+    "title": "Discussion 1",
+    "section": "Data Wrangling",
+    "text": "Data Wrangling\nPerform the following data wrangling steps to get our data ready for our model.\n\nMerge the three dataframes together. While merging, or after, drop all columns for the Piedmont location.\nUpdate the column names to be shorter and not have spaces. Use snake case.\nMake your date column a datetime obect.\nSet the data as the index for the merged dataframe.\n\n\n# Merge the two datasets on date\ndata = rainfall_data.merge(turbidity_data, on = 'Date Time (ET)')\ndata = data.merge(do_data, on = 'Date Time (ET)')\ndata.head()\n\n# Update the column names \ndata.columns = ['date', 'albany_rainfall', 'norrie_rainfall', 'albany_turbidity', 'norrie_turbidity','albany_do', 'norrie_do']\n\n# Convert data to datetime format and set it as index\ndata['date'] = pd.to_datetime(data['date'])\n\n# Update index\ndata.set_index('date', inplace=True)"
+  },
+  {
+    "objectID": "discussion/week1.html#multiple-linear-regression",
+    "href": "discussion/week1.html#multiple-linear-regression",
+    "title": "Discussion 1",
+    "section": "Multiple Linear Regression",
+    "text": "Multiple Linear Regression\nNow that our data is cleaned, let’s do the following to carry out a multiple linear regression.\n\nDefine your predictors and target variables.\nSplit the data into training and testing sets\nCreate and fit the model\nPredict and Evaluate your model\n\n\n# Define predictors and the target variable\nX = data[['albany_rainfall', 'norrie_rainfall', 'albany_do', 'norrie_do']]  # Adjust as needed\ny = data['albany_turbidity']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# Create and fit the model\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Predict and evaluate\ny_pred = model.predict(X_test)\nprint(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}\")\nprint(f\"R-squared: {r2_score(y_test, y_pred)}\")\n\nRMSE: 187.03290519070686\nR-squared: 0.6382523355891789"
+  },
+  {
+    "objectID": "discussion/week1.html#create-a-widget-for-updating-the-predictor-and-target-variables.",
+    "href": "discussion/week1.html#create-a-widget-for-updating-the-predictor-and-target-variables.",
+    "title": "Discussion 1",
+    "section": "Create a Widget for updating the predictor and target variables.",
+    "text": "Create a Widget for updating the predictor and target variables.\n\nCreate the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output\nWrap our worfklow into a function called evaluate_model(). This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the \\(R^2\\), MSE, and a scatterplot of the actual versus predicted target variable.\nCreate a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.\nPlay around with your widget and see how your \\(R^2\\) changes based on your selected variables!\n\n\n# Create a widget for selecting predictors\npredictor_selector = widgets.SelectMultiple(\n    options=data.columns, # Options for predictor: columns of data\n    value=[data.columns[0]],  # Default selected: 1st column of data (albany_rainfall)\n    description='Predictors' # Name the predictor selection\n)\n\n# Create a dropdown for selecting the target variable\ntarget_selector = widgets.Dropdown(\n    options=data.columns, # Options for predictor: columns of data\n    value=data.columns[1],  # Default selected: 2nd column of data (norrie_rainfall)\n    description='Target',\n)\n\n# Create button to evaluate the model\nevaluate_button = widgets.Button(description=\"Evaluate Model\")\n\n# Output widget to display results\noutput = widgets.Output()\n\n# Define the function to handle button clicks\ndef evaluate_model(b):\n    with output:\n        clear_output(wait=True) # Clear previous displayed output before running\n        \n        # Make sure the target variable is not also a predictor variable\n        selected_predictors = [item for item in predictor_selector.value] # Pull out predictor values selected by user\n        if target_selector.value in selected_predictors: # Make sure target variable is not also a predictor variable\n            print(\"Target variable must not be in the predictors.\")\n            return\n        \n        # Assign X and y variables\n        X = data[selected_predictors]\n        y = data[target_selector.value]\n        \n        # Split data into training and testing sets\n        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n        \n        # Create and fit the model\n        model = LinearRegression()\n        model.fit(X_train, y_train)\n        \n        # Predict and calculate R^2 and MSE\n        y_pred = model.predict(X_test)\n        r2 = r2_score(y_test, y_pred)\n        mse = mean_squared_error(y_test, y_pred)\n        \n        # Display the R^2 score and MSE\n        print(f\"R^2: {r2:.4f}\")\n        print(f\"MSE: {mse:.4f}\")\n\n\n        # Create a scatter plot of y test vs predicted y\n        plt.scatter(y_test, y_pred) \n        plt.xlabel('Actual') \n        plt.ylabel('Predicted') \n        plt.title('Actual vs Predicted') \n        plt.show() \n\n\n# Display the widgets and connect the button to the function\ndisplay(predictor_selector, target_selector, evaluate_button, output)\nevaluate_button.on_click(evaluate_model)"
+  },
+  {
+    "objectID": "labs/lab_instructions.html#initial-repository-setup",
+    "href": "labs/lab_instructions.html#initial-repository-setup",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Initial Repository Setup",
+    "text": "Initial Repository Setup\n\nStep 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account.\n\n\n\nStep 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK\n\n\nStep 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
+  },
+  {
+    "objectID": "labs/lab_instructions.html#weekly-fetching-to-get-new-labs",
+    "href": "labs/lab_instructions.html#weekly-fetching-to-get-new-labs",
+    "title": "Welcome to our weekly machine learning labs!",
+    "section": "Weekly Fetching to get new labs",
+    "text": "Weekly Fetching to get new labs\nTo ensure you have the latest lab materials each week, make sure you are at the correct directoy and copy the following code in the terminal:\ngit pull upstream main  # or master if the main branch is named master\nThis command will fetch the latest updates from the upstream and merge them into your current branch.\n\nYou are now ready to start working on this week’s lab!!"
   },
   {
     "objectID": "index.html",
@@ -70,115 +147,17 @@
     "text": "Course Topics\n\n\n\nWeek #\nDates\nLecture\nReading\n\n\n1\n1/7, 1/9\nIntroduction\nLinear Regression and ML Modeling Fundamentals I\nISL Ch. 1, 2.1\n\n\n2\n1/14, 1/16\nRegularized Regression and ML Modeling Fundamentals II\nISL Ch. 5.1.1-5.1.4, 6.2\n\n\n3\n1/21, 1/23\nLogistic Regression, Classification\n\n\n\n4\n1/28, 1/30\nK-nearest neighbors, Decision Trees\n\n\n\n5\n2/3, 2/6\nRandom Forest\n\n\n\n6\n2/11, 2/13\nGradient Boosting\n\n\n\n7\n2/18, 2/20\nClustering\n\n\n\n8\n2/25, 2/27\nSupport Vector Machines\n\n\n\n9\n3/4, 3/6\nDeep Learning\n\n\n\n10\n3/11, 3/13\nKaggle"
   },
   {
-    "objectID": "labs/lab_instructions.html#step-1-fork-the-repository",
-    "href": "labs/lab_instructions.html#step-1-fork-the-repository",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Step 1: Fork the Repository",
-    "text": "Step 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account."
-  },
-  {
-    "objectID": "labs/lab_instructions.html#step-2-clone-your-fork",
-    "href": "labs/lab_instructions.html#step-2-clone-your-fork",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Step 2: Clone Your Fork",
-    "text": "Step 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK"
-  },
-  {
-    "objectID": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
-    "href": "labs/lab_instructions.html#step-3-configure-your-remote-branch",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Step 3: Configure your remote branch",
-    "text": "Step 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
-  },
-  {
-    "objectID": "discussion/week1.html",
-    "href": "discussion/week1.html",
-    "title": "Discussion 1",
+    "objectID": "discussion/week0.html",
+    "href": "discussion/week0.html",
+    "title": "week0",
     "section": "",
-    "text": "In this week’s discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let’s find out."
+    "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "labs/lab_instructions.html#initial-repository-setup",
-    "href": "labs/lab_instructions.html#initial-repository-setup",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Initial Repository Setup",
-    "text": "Initial Repository Setup\n\nStep 1: Fork the Repository\n\nNavigate to the following Repository: https://github.com/annieradams/EDS232-labs\nFork the Repository: Click the “Fork” button located at the top right corner of the page. This creates a copy of the repository in your GitHub account.\n\n\n\nStep 2: Clone Your Fork\n\nCopy the URL of Your Fork: On your fork’s GitHub page, click the “Code” button and copy the URL provided.\nClone the Repository: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace URL_OF_YOUR_FORK with the URL you just copied):\n\ngit clone URL_OF_YOUR_FORK\n\n\nStep 3: Configure your remote branch\n\nAdd upstream remote branch.: Change your directory to the new repository. Once there, copy the following line into your terminal:\n\ngit remote add upstream https://github.com/annieradams/EDS232-labs.git\nTo verify the new upstream repository you have specified for your fork, type\ngit remote -v \nYou should see the URL for your fork as origin, and the URL for the upstream repository as upstream."
-  },
-  {
-    "objectID": "labs/lab_instructions.html#weekly-fetching-to-get-new-labs",
-    "href": "labs/lab_instructions.html#weekly-fetching-to-get-new-labs",
-    "title": "Welcome to our weekly machine learning labs!",
-    "section": "Weekly Fetching to get new labs",
-    "text": "Weekly Fetching to get new labs\nTo ensure you have the latest lab materials each week, make sure you are at the correct directoy and copy the following code in the terminal:\ngit pull upstream main  # or master if the main branch is named master\nThis command will fetch the latest updates from the upstream and merge them into your current branch.\n\nYou are now ready to start working on this week’s lab!!"
-  },
-  {
-    "objectID": "discussion/week1.html#introduction",
-    "href": "discussion/week1.html#introduction",
-    "title": "Discussion 1",
+    "objectID": "discussion/week0.html#test-section-page",
+    "href": "discussion/week0.html#test-section-page",
+    "title": "week0",
     "section": "",
-    "text": "In this week’s discussion section, we will be using the same dataset from our weekly lab - Water characteristics in the Hudson River after Hurricane Irene. However, rather than looking at a single predictor variable, we are going to add more! Can we improve our model if we add more variables?? Let’s find out."
-  },
-  {
-    "objectID": "discussion/week1.html#data-loading",
-    "href": "discussion/week1.html#data-loading",
-    "title": "Discussion 1",
-    "section": "Data Loading",
-    "text": "Data Loading\nAccess the same .xlsx file we used in lab this week. If you lost access to it, you can find the data here. Instead of looking at only the dissolved oxygen and turbidity data this time, we are also going to read in data on rainfall. Read in each of these sheets on the excel sheet as its own dataframe. Load the following libraries:\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport matplotlib.pyplot as plt\nfrom ipywidgets import interact\nimport ipywidgets as widgets\nfrom ipywidgets import interact, FloatSlider\nfrom IPython.display import display, clear_output\n\n\n# Load the data\nfp = '../data/Hurricane_Irene_Hudson_River.xlsx'\ndo_data = pd.read_excel(fp, sheet_name = 5).drop(['Piermont D.O. (ppm)'], axis = 1)\nrainfall_data = pd.read_excel(fp, sheet_name='Rainfall').drop(['Piermont  Rainfall Daily Accumulation (Inches)'], axis = 1)\nturbidity_data = pd.read_excel(fp, sheet_name='Turbidity').drop(['Piermont Turbidity in NTU'], axis = 1)"
-  },
-  {
-    "objectID": "discussion/week1.html#data-wrangling",
-    "href": "discussion/week1.html#data-wrangling",
-    "title": "Discussion 1",
-    "section": "Data Wrangling",
-    "text": "Data Wrangling\nPerform the following data wrangling steps to get our data ready for our model.\n\nMerge the three dataframes together. While merging, or after, drop all columns for the Piedmont location.\nUpdate the column names to be shorter and not have spaces. Use snake case.\nMake your date column a datetime obect.\nSet the data as the index for the merged dataframe.\n\n\n# Merge the two datasets on date\ndata = rainfall_data.merge(turbidity_data, on = 'Date Time (ET)')\ndata = data.merge(do_data, on = 'Date Time (ET)')\ndata.head()\n\n# Update the column names \ndata.columns = ['date', 'albany_rainfall', 'norrie_rainfall', 'albany_turbidity', 'norrie_turbidity','albany_do', 'norrie_do']\n\n# Convert data to datetime format and set it as index\ndata['date'] = pd.to_datetime(data['date'])\n\n# Update index\ndata.set_index('date', inplace=True)"
-  },
-  {
-    "objectID": "discussion/week1.html#multiple-linear-regression",
-    "href": "discussion/week1.html#multiple-linear-regression",
-    "title": "Discussion 1",
-    "section": "Multiple Linear Regression",
-    "text": "Multiple Linear Regression\nNow that our data is cleaned, let’s do the following to carry out a multiple linear regression.\n\nDefine your predictors and target variables.\nSplit the data into training and testing sets\nCreate and fit the model\nPredict and Evaluate your model\n\n\n# Define predictors and the target variable\nX = data[['albany_rainfall', 'norrie_rainfall', 'albany_do', 'norrie_do']]  # Adjust as needed\ny = data['albany_turbidity']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# Create and fit the model\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Predict and evaluate\ny_pred = model.predict(X_test)\nprint(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred))}\")\nprint(f\"R-squared: {r2_score(y_test, y_pred)}\")\n\nRMSE: 187.03290519070686\nR-squared: 0.6382523355891789"
-  },
-  {
-    "objectID": "discussion/week1.html#create-a-widget-for-updating-the-predictor-and-target-variables.",
-    "href": "discussion/week1.html#create-a-widget-for-updating-the-predictor-and-target-variables.",
-    "title": "Discussion 1",
-    "section": "Create a Widget for updating the predictor and target variables.",
-    "text": "Create a Widget for updating the predictor and target variables.\n\nCreate the four different pieces to the widget: the predictor selector, the target selector, the evaluate button, and the output\nWrap our worfklow into a function called evaluate_model(). This function will run a linear regression model based on what the user selects as predictors and the outcome variable. It will print the \\(R^2\\), MSE, and a scatterplot of the actual versus predicted target variable.\nCreate a warning for your widget to ensure that the user does not select the same variable as both a predictor variable and a target variable.\nPlay around with your widget and see how your \\(R^2\\) changes based on your selected variables!\n\n\n# Create a widget for selecting predictors\npredictor_selector = widgets.SelectMultiple(\n    options=data.columns, # Options for predictor: columns of data\n    value=[data.columns[0]],  # Default selected: 1st column of data (albany_rainfall)\n    description='Predictors' # Name the predictor selection\n)\n\n# Create a dropdown for selecting the target variable\ntarget_selector = widgets.Dropdown(\n    options=data.columns, # Options for predictor: columns of data\n    value=data.columns[1],  # Default selected: 2nd column of data (norrie_rainfall)\n    description='Target',\n)\n\n# Create button to evaluate the model\nevaluate_button = widgets.Button(description=\"Evaluate Model\")\n\n# Output widget to display results\noutput = widgets.Output()\n\n# Define the function to handle button clicks\ndef evaluate_model(b):\n    with output:\n        clear_output(wait=True) # Clear previous displayed output before running\n        \n        # Make sure the target variable is not also a predictor variable\n        selected_predictors = [item for item in predictor_selector.value] # Pull out predictor values selected by user\n        if target_selector.value in selected_predictors: # Make sure target variable is not also a predictor variable\n            print(\"Target variable must not be in the predictors.\")\n            return\n        \n        # Assign X and y variables\n        X = data[selected_predictors]\n        y = data[target_selector.value]\n        \n        # Split data into training and testing sets\n        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n        \n        # Create and fit the model\n        model = LinearRegression()\n        model.fit(X_train, y_train)\n        \n        # Predict and calculate R^2 and MSE\n        y_pred = model.predict(X_test)\n        r2 = r2_score(y_test, y_pred)\n        mse = mean_squared_error(y_test, y_pred)\n        \n        # Display the R^2 score and MSE\n        print(f\"R^2: {r2:.4f}\")\n        print(f\"MSE: {mse:.4f}\")\n\n\n        # Create a scatter plot of y test vs predicted y\n        plt.scatter(y_test, y_pred) \n        plt.xlabel('Actual') \n        plt.ylabel('Predicted') \n        plt.title('Actual vs Predicted') \n        plt.show() \n\n\n# Display the widgets and connect the button to the function\ndisplay(predictor_selector, target_selector, evaluate_button, output)\nevaluate_button.on_click(evaluate_model)"
-  },
-  {
-    "objectID": "discussion/week2.html",
-    "href": "discussion/week2.html",
-    "title": "Discussion 2",
-    "section": "",
-    "text": "In this week’s discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models."
-  },
-  {
-    "objectID": "discussion/week2.html#introduction",
-    "href": "discussion/week2.html#introduction",
-    "title": "Discussion 2",
-    "section": "",
-    "text": "In this week’s discussion section, we will create some interactive plots to better undertsand how lasso and ridge regression are at work. To do so, we will use synthesized data that is made with the intention of better understanding how ridge and lasso regression are different based on the relationship of your parameters. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand regression models."
-  },
-  {
-    "objectID": "discussion/week2.html#data-loading",
-    "href": "discussion/week2.html#data-loading",
-    "title": "Discussion 2",
-    "section": "Data Loading",
-    "text": "Data Loading\nCopy the code below to load the neessary libraries genereate the data we will use. Read the comments to on each feature to get an idea of the relationship between variables.\n\n# Import necessary libraries\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import Lasso, Ridge\nfrom sklearn.metrics import mean_squared_error, r2_score\nfrom ipywidgets import interact, FloatLogSlider\n\n# Generate data\nnp.random.seed(42)\nn_samples = 200\nX = np.zeros((n_samples, 6))\nX[:, 0] = np.random.normal(0, 1, n_samples)  # X1 - Important feature\nX[:, 1] = np.random.normal(0, 1, n_samples)  # X2 -  Important feature\nX[:, 2] = X[:, 0] + np.random.normal(0, 0.1, n_samples)  # Correlated with X1\nX[:, 3] = X[:, 1] + np.random.normal(0, 0.1, n_samples)  # Correlated with X2\nX[:, 4] = np.random.normal(0, 0.1, n_samples)  # Noise\nX[:, 5] = np.random.normal(0, 0.1, n_samples)  # Noise\n\ny = 3 * X[:, 0] + 2 * X[:, 1] + 0.5 * X[:, 2] + np.random.normal(0, 0.1, n_samples)"
-  },
-  {
-    "objectID": "discussion/week2.html#regression",
-    "href": "discussion/week2.html#regression",
-    "title": "Discussion 2",
-    "section": "Regression",
-    "text": "Regression\nNow that you have your data, do the following:\n\nSplit your data into training and testing.\nCreate and fit a ridge regression\nCalculate the MSE and \\(R^2\\) for your ridge regression.\nCreate and fit a lasso model.\nCalculate the MSE and \\(R^2\\) for your lasso model."
-  },
-  {
-    "objectID": "discussion/week2.html#visualizing-ridge-vs-regression",
-    "href": "discussion/week2.html#visualizing-ridge-vs-regression",
-    "title": "Discussion 2",
-    "section": "Visualizing Ridge vs Regression",
-    "text": "Visualizing Ridge vs Regression\n\nCreate a plot that looks at the alpha against the MSE for both lasso and ridge regression.\nCreate an interactive plot (for both lasso and ridge) that allows you to adjust alpha to see how the actual vs predicted values are changing.\nCreate three different bar plots with the following guidelines:\n\nEach plot should represent a different alpha value: Alpha = 0.1, Alpha = 1, Alpha = 10\nEach plot should show how both the ridge and lasso model performed\nThe y axis should represent the six different variables: X1, X2, X1_corr, X2_corr, Noise1, Noise2\nThe y axis should represent the coefficients"
+    "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
   }
 ]
