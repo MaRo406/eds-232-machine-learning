@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 jupyter:
-  kernel: ml-env
+  kernel: eds232_env
 
 website:
   navbar:

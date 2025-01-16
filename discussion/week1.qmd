@@ -12,7 +12,7 @@ jupyter:
   kernelspec:
     display_name: ML Environment
     language: python
-    name: ml-env
+    name: eds232_env
 ---
 
 ## Introduction
