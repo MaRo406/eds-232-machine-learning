@@ -1,7 +1,7 @@
 ---
 title: Discussion 2
 subtitle: Utilizing synthesized data to better understand ridge and lasso regression
-description: 'Thursday, January 16th, 2025'
+description: 'Thursday, January 16th, 2025 test'
 jupyter:
   jupytext:
     text_representation:
@@ -132,7 +132,6 @@ plt.ylabel('Root Mean Squared Error')
 plt.title('RMSE vs. Alpha for Lasso and Ridge Regression')
 plt.legend()
 plt.show()
-
 ```
 
 2. Create an interactive plot (for both lasso and ridge) that allows you to adjust alpha to see how the actual vs predicted values are changing.
@@ -211,4 +210,3 @@ for i, df in enumerate(data):
     
 plt.show()
 ```
-
