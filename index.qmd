@@ -77,9 +77,9 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 |             |            |                                                                                                             |                          |
 |             |            | [Linear Regression and ML Modeling Fundamentals I](https://ucsb.box.com/s/3krktrjmagi8sbo3mwg2t4rc57qtu100) |                          |
 +-------------+------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
-| 2           | 1/14, 1/16 | Regularized Regression and ML Modeling Fundamentals II                                                      | ISL Ch. 5.1.1-5.1.4, 6.2 |
+| 2           | 1/14, 1/16 | [Regularized Regression and ML Modeling Fundamentals](https://ucsb.box.com/s/rbdkrkiue88ggqeutgua1xzeh44lj5aw) II                                                      | ISL Ch. 5.1.1-5.1.4, 6.2 |
 +-------------+------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
-| 3           | 1/21, 1/23 | Logistic Regression, Classification                                                                         |                          |
+| 3           | 1/21, 1/23 | [Logistic Regression, Classification](https://ucsb.box.com/s/i5ymtx2fv1cn2tonnt7ibt03gop19vey)                                                                         |                          |
 +-------------+------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
 | 4           | 1/28, 1/30 | K-nearest neighbors, Decision Trees                                                                         |                          |
 +-------------+------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
