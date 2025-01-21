@@ -159,5 +159,12 @@
     "title": "week0",
     "section": "",
     "text": "This will contain content to support students in creating a notebook for the week’s section material.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#course-topics---test",
+    "href": "index.html#course-topics---test",
+    "title": "Machine Learning in Environmental Science",
+    "section": "Course Topics - Test",
+    "text": "Course Topics - Test\n\n\n\nWeek #\nDates\nLecture\nReading\n\n\n1\n1/7, 1/9\nIntroduction\nLinear Regression and ML Modeling Fundamentals I\nISL Ch. 1, 2.1\n\n\n2\n1/14, 1/16\nRegularized Regression and ML Modeling Fundamentals II\nISL Ch. 5.1.1-5.1.4, 6.2\n\n\n3\n1/21, 1/23\nLogistic Regression, Classification\nISL Ch. 4.1-4.4\n\n\n4\n1/28, 1/30\nK-nearest neighbors, Decision Trees\n\n\n\n5\n2/3, 2/6\nRandom Forest\n\n\n\n6\n2/11, 2/13\nGradient Boosting\n\n\n\n7\n2/18, 2/20\nClustering\n\n\n\n8\n2/25, 2/27\nSupport Vector Machines\n\n\n\n9\n3/4, 3/6\nDeep Learning\n\n\n\n10\n3/11, 3/13\nKaggle"
   }
 ]
