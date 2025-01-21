@@ -1,7 +1,7 @@
 ---
 title: Discussion 2
 subtitle: Utilizing synthesized data to better understand ridge and lasso regression
-description: 'Thursday, January 16th, 2025 test'
+description: 'Thursday, January 16th, 2025 test test'
 jupyter:
   jupytext:
     text_representation:
