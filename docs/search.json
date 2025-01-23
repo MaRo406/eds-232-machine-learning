@@ -166,5 +166,26 @@
     "title": "Machine Learning in Environmental Science",
     "section": "Course Topics",
     "text": "Course Topics\n\n\n\nWeek #\nDates\nLecture\nReading\n\n\n1\n1/7, 1/9\nIntroduction\nLinear Regression and ML Modeling Fundamentals I\nISL Ch. 1, 2.1\n\n\n2\n1/14, 1/16\nRegularized Regression and ML Modeling Fundamentals II\nISL Ch. 5.1.1-5.1.4, 6.2\n\n\n3\n1/21, 1/23\nLogistic Regression, Classification\nISL Ch. 4.1-4.4\n\n\n4\n1/28, 1/30\nK-nearest neighbors, Decision Trees\nISL Ch. 2.2.3, 8.1\n\n\n5\n2/3, 2/6\nRandom Forest\n\n\n\n6\n2/11, 2/13\nGradient Boosting\n\n\n\n7\n2/18, 2/20\nClustering\n\n\n\n8\n2/25, 2/27\nSupport Vector Machines\n\n\n\n9\n3/4, 3/6\nDeep Learning\n\n\n\n10\n3/11, 3/13\nKaggle"
+  },
+  {
+    "objectID": "discussion/week3.html",
+    "href": "discussion/week3.html",
+    "title": "Discussion 3",
+    "section": "",
+    "text": "In this week’s discussion section, we will create some plots to better undertsand how much class imbalances can effect our classification model. Rather than creating a widget that updates the parameters of the model ( like we have done in the past couple weeks), this week we will create a widget that updates our data - specifically updating the class imbalance within our data. To do so, we will use synthesized data that is made with the intention of better understanding how relationships within data for logistic regression work. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand logistic regression."
+  },
+  {
+    "objectID": "discussion/week3.html#data",
+    "href": "discussion/week3.html#data",
+    "title": "Discussion 3",
+    "section": "Data",
+    "text": "Data\nWhile our data is synthetic, we will still have it hold an environmnetal value. Our data is going to represent the prescence/absence of the invasive European green crab that is often found in California coastal waters. These crabs prefer warmer water temperatures between 64° F and 79° F and salinity levels between 26 and 39 ppt. The features for our data will be water temperature and salinity, and our target variable will be the presence (1) or absence (0) of green crabs at our different sampling sites. Import the libraries below and copy the function to generate our data below to get started.\n\n# Import necessary libraries\nimport numpy as np\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import roc_curve, auc, confusion_matrix\nimport matplotlib.pyplot as plt\nfrom ipywidgets import interact, FloatSlider\nimport seaborn as sns"
+  },
+  {
+    "objectID": "discussion/week3.html#time-for-some-functions",
+    "href": "discussion/week3.html#time-for-some-functions",
+    "title": "Discussion 3",
+    "section": "Time for some FUN(ctions)!",
+    "text": "Time for some FUN(ctions)!\nWe will create six different functions for the different parts of our interactive output: one to generate the data, a second to create a barplot to represent the class imbalance, a third to create a confusion matrix, another to create an ROC curve, a function to wrap everything together, and a final function to add interactivity. Let’s get to it!\n\nFunction 1\nCreate a function that generates the species data. The parameters should be the sample size and the ratio of present green crabs.\n\ndef generate_species_data(n_samples=1000, presence_ratio=0.3):\n    # Calculate number of samples for each class\n    n_present = int(n_samples * presence_ratio)\n    n_absent = n_samples - n_present\n    \n    # Generate features for presence sites \n    # Green crabs prefer warmer temps (between 64 and 79 degrees Fahrenheit) and  salinity between 26 and 39 ppt\n    temp_present = np.random.normal(loc=71, scale= 4, size=n_present)\n    salinity_present = np.random.normal(loc=32, scale=3, size=n_present)\n    X_present = np.column_stack([temp_present, salinity_present])\n    y_present = np.ones(n_present)\n    \n    # Generate features for absence sites\n    # Sites with warmer temps or lower salinity\n    temp_absent = np.random.normal(loc=26, scale=3, size=n_absent)\n    salinity_absent = np.random.normal(loc=28, scale=2, size=n_absent)\n    X_absent = np.column_stack([temp_absent, salinity_absent])\n    y_absent = np.zeros(n_absent)\n    \n    # Combine and shuffle the data\n    X = np.concatenate([X_present, X_absent])\n    y = np.concatenate([y_present, y_absent])\n    \n    # Shuffle the data\n    shuffle_idx = np.random.permutation(n_samples)\n    X = X[shuffle_idx]\n    y = y[shuffle_idx]\n    \n    return X, y\n\n\n\nFunction 2\nCreate a function that creats a bar plot of species presense distribution based on the ratio selected by the user.\n\n\nFunction 3\nCreate a function that plots a confusion matrix of the predicted y values and true y values.\n\n\nFunction 4\nCreate a function that plots an ROC curve using the predicted y class probabilities and true y values.\n\n\nFunction 5\nCreate function that runs a logistic regression and outputs the three plots you created above.\n\n\nFunction 6\nCreate a function that adds interactivity to function 5."
   }
 ]

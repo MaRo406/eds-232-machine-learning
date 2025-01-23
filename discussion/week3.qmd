@@ -1,0 +1,96 @@
+---
+title: Discussion 3
+subtitle: Better understanding the effect of class imbalances
+description: 'Thursday, January 23rd, 2025'
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.15.2
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+### Introduction
+
+In this week's discussion section, we will create some plots to better undertsand how much class imbalances can effect our classification model. Rather than creating a widget that updates the parameters of the model ( like we have done in the past couple weeks), this week we will create a widget that updates our data - specifically updating the class imbalance within our data. To do so, we will use synthesized data that is made with the intention of better understanding how relationships within data for logistic regression work. It is important to note that your results with real data may look very different - unlike this notebook, the real world data you will be working with was not made to better understand logistic regression. 
+
+## Data 
+
+While our data is synthetic, we will still have it hold an environmnetal value. Our data is going to represent the prescence/absence of the invasive European green crab that is often found in California coastal waters. These crabs prefer warmer water temperatures between 64&deg; F and 79&deg; F and salinity levels between 26 and 39 ppt. The features for our data will be water temperature and salinity, and our target variable will be the presence (1) or absence (0) of green crabs at our different sampling sites. Import the libraries below and copy the function to generate our data below to get started. 
+
+```{python}
+# Import necessary libraries
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_curve, auc, confusion_matrix
+import matplotlib.pyplot as plt
+from ipywidgets import interact, FloatSlider
+import seaborn as sns
+```
+
+## Time for some FUN(ctions)!
+
+We will create six different functions for the  different parts of our interactive output: one to generate the data, a second to create a barplot to represent the class imbalance, a third to create a confusion matrix, another to create an ROC curve, a function to wrap everything together, and a final function to add interactivity. Let's get to it! 
+
+### Function 1
+
+Create a function that generates the species data. The parameters should be the sample size and the ratio of present green crabs.  
+
+```{python}
+def generate_species_data(n_samples=1000, presence_ratio=0.3):
+    # Calculate number of samples for each class
+    n_present = int(n_samples * presence_ratio)
+    n_absent = n_samples - n_present
+    
+    # Generate features for presence sites 
+    # Green crabs prefer warmer temps (between 64 and 79 degrees Fahrenheit) and  salinity between 26 and 39 ppt
+    temp_present = np.random.normal(loc=71, scale= 4, size=n_present)
+    salinity_present = np.random.normal(loc=32, scale=3, size=n_present)
+    X_present = np.column_stack([temp_present, salinity_present])
+    y_present = np.ones(n_present)
+    
+    # Generate features for absence sites
+    # Sites with warmer temps or lower salinity
+    temp_absent = np.random.normal(loc=26, scale=3, size=n_absent)
+    salinity_absent = np.random.normal(loc=28, scale=2, size=n_absent)
+    X_absent = np.column_stack([temp_absent, salinity_absent])
+    y_absent = np.zeros(n_absent)
+    
+    # Combine and shuffle the data
+    X = np.concatenate([X_present, X_absent])
+    y = np.concatenate([y_present, y_absent])
+    
+    # Shuffle the data
+    shuffle_idx = np.random.permutation(n_samples)
+    X = X[shuffle_idx]
+    y = y[shuffle_idx]
+    
+    return X, y
+```
+
+### Function 2
+
+Create a function that creats a bar plot of species presense distribution based on the ratio selected by the user. 
+
+### Function 3
+
+Create a function that plots a confusion matrix of the predicted y values and true y values.
+
+### Function 4
+
+Create a function that plots an ROC curve using the predicted y class probabilities and true y values.
+
+### Function 5
+
+Create function that runs a logistic regression and outputs the three plots you created above. 
+
+### Function 6
+
+Create a function that adds interactivity to function 5.
