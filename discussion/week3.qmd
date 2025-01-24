@@ -8,7 +8,7 @@ jupyter:
       extension: .qmd
       format_name: quarto
       format_version: '1.0'
-      jupytext_version: 1.15.2
+      jupytext_version: 1.16.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -77,20 +77,138 @@ def generate_species_data(n_samples=1000, presence_ratio=0.3):
 
 ### Function 2
 
-Create a function that creats a bar plot of species presense distribution based on the ratio selected by the user. 
+Create a function that creats a bar plot of species presense distribution based on the ratio selected by the user.
+
+```{python}
+def plot_class_distribution(y):
+    plt.figure(figsize = (8,4))
+    
+    # Count the values in each category
+    class_counts = pd.Series(y).value_counts()
+    
+    # Create the barplot of Absent and Present species
+    sns.barplot(x = ['Absent', 'Present'], y = class_counts, color = '#005477')
+    plt.title('Distribution of Species Presence/Absence')
+    plt.ylabel('Number of Sampling sites')
+    
+    # Add percent over each bar
+    total = len(y)
+    for i,count in enumerate(class_counts):
+        percentage = count/total * 100 
+        plt.text(i, count, f'{percentage:.1f}%', ha = 'center', va = 'bottom')
+    plt.show()
+```
 
 ### Function 3
 
 Create a function that plots a confusion matrix of the predicted y values and true y values.
 
+```{python}
+def plot_confusion_matrix(y_true, y_pred):
+    
+    # Create confusion matrix
+    cm = confusion_matrix(y_true, y_pred)
+    
+    # Create confusion matrix plot
+    plt.figure(figsize = (8,6))
+    sns.heatmap(cm, fmt = 'd', cmap = 'GnBu',annot = True,
+               xticklabels = ['Absent', 'Present'],
+               yticklabels = ['Absent', 'Present'])
+    plt.title('Confusion Matrix')
+    plt.ylabel('True Label')
+    plt.xlabel('Predicted Label')
+    plt.show()
+    
+    
+    # Calculate and display metrics
+    
+    TP = cm[1,1]
+    TN = cm[0,0]
+    FP = cm[0,1]
+    FN = cm[1,0]
+    
+    print(f"True positives (correctly predicted presence): {TP}")
+    
+    
+    # Calculate accuracy + various metric 
+    accuracy = (TP + TN) / (TP + TN + FP + FN)
+    sensitivity = TP/ (TP + FN)
+    specificity = TN / (TN + FP )
+    
+    
+    print(f"\nModel Performance Metrics:")
+    print(f"Accuracy: {accuracy:.3f}")
+    print(f"Sensitivity ( True positive rate): {sensitivity:.3f}")
+    print(f"Specificity ( True negative rate:) {specificity:.3f}")
+```
+
 ### Function 4
 
 Create a function that plots an ROC curve using the predicted y class probabilities and true y values.
+
+```{python}
+def plot_roc_curve(y_test, y_pred_prob):
+    
+    fpr, tpr, _ = roc_curve(y_test, y_pred_prob)
+    
+    roc_auc = auc(fpr, tpr)
+    
+    plt.figure(figsize = (8,6))
+    plt.plot(fpr, tpr, color = 'darkorange', lw =2, label = f'ROC Curve (AUC = {roc_auc:.2f})')
+    plt.plot([0,1], [0,1], color = 'navy', lw = 2, linestyle = '--',
+            label = 'Random Classifier (AUC = 0.5)')
+    plt.xlabel('False positive rate')
+    plt.ylabel('True positive rate')
+    plt.title('ROC curve: Species Presence Prediction')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+    
+```
 
 ### Function 5
 
 Create function that runs a logistic regression and outputs the three plots you created above. 
 
-### Function 6
+```{python}
+def interactive_logistic_regression(presence_ratio = 0.3):
+    
+    # Generate data based on class imbalance from user
+    X,y = generate_species_data(presence_ratio = presence_ratio)
+    
+    # Plot class distribution
+    print("\nClass Distribution")
+    plot_class_distribution(y)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(X, y , test_size = 0.3, random_state = 42)
+    
+    # Train model
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+    
+    # Make predict
+    y_pred = model.predict(X_test)
+    y_pred_prob = model.predict_proba(X_test)[:,1]
+    
+    # Plot confusion matrix
+    print("\nConfusion matrix:")
+    plot_confusion_matrix(y_test, y_pred)
+    
+    # Plot ROC curve
+    print("\nROC Curve:")
+    plot_roc_curve(y_test, y_pred_prob)
+```
 
+### Function 6
 Create a function that adds interactivity to function 5.
+
+```{python}
+# Create interactive widget
+
+def generate_log_regression():
+    interact(interactive_logistic_regression, 
+            presence_ratio = FloatSlider(min = .1, max = .9, step= .1, value = 0.3,
+                                        description = "% Present"))
+generate_log_regression()
+```
