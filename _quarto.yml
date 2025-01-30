@@ -19,6 +19,8 @@ website:
             href: discussion/week2.qmd
           - text: Week 3
             href: discussion/week3.qmd
+          - text: Week 4
+            href: discussion/week4.qmd
       - text: Weekly Labs
         menu:
           - text: Lab Rubric

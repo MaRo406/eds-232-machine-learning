@@ -1,0 +1,48 @@
+---
+title: Discussion 4
+subtitle: Prediciting National Park Species using Decision Trees & KNN
+description: 'Thursday, January 30th, 2025'
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: EDS 232 Environment
+    language: python
+    name: eds232_env
+---
+
+### Introduction
+
+In this week's discussion section, we will run and tune a KNN and Decision Tree model. We will see how our models perform differently, as well as attempt to improve them!  Given the variables listed below, we are going to build our model to predict which National Park a given taxon is part of. 
+
+### Data 
+
+Our data for this discussion section comes from a [tidytuesday project](https://github.com/rfordatascience/tidytuesday). The dataset contains National Park species obserations for the 15 most popular National Parks in the U.S. You can find the metadata [here](https://irma.nps.gov/content/npspecies/Help/docs/NPSpecies_User_Guide.pdf). Check out the table below with the different variables we will use this week. 
+
+| Feature                     | Description                                                                                   |
+|-----------------------------|-----------------------------------------------------------------------------------------------|
+| CategoryName        |   Broad taxanomic grouping                       |
+| Order                |       Order of Species                            |
+| Family                   |       Taxanomic family                                             |
+| GRank                   |     Global Rank, An assesment of the level of rarity or abundance of a taxon                                                  |
+| ParkName              |          National Park Name                                                         |
+| Sensitive                |   True/False variable on whether or not the taxon is sensitive                            |
+| Nativeness   | True/False variable on whether or not the taxon is native to the park   |
+| Abundance           | Categorical variable specifying whether the taxons is rare, common, or abundant|
+| Observations           | The number of times the taxon has been observed |
+
+## Time to dive in to our models!
+
+### 1. Prepare the data
+
+Read in the national park data and prepare your data from your models. We want our target variable to be `ParkName`, and all other variables in the table above to be our features. Then, split and scale the data. 
+
+### 2. Create a KNN Classifier 
+After running an untuned model, iterate over different values of K to see which performs best. Then, visualize how your accuracy changes wtih a varying K.
+
+### 3. Create a Decision Tree
+After running an untuned model, iterate over different max depths for your decision tree to determine which performs best. Then,create a decision tree visual using `plot_tree`. Lastly, find the most important features using `.feature_importances_`
