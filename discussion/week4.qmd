@@ -21,7 +21,7 @@ In this week's discussion section, we will run and tune a KNN and Decision Tree 
 
 ### Data 
 
-Our data for this discussion section comes from a [tidytuesday project](https://github.com/rfordatascience/tidytuesday). The dataset contains National Park species obserations for the 15 most popular National Parks in the U.S. You can find the metadata [here](https://irma.nps.gov/content/npspecies/Help/docs/NPSpecies_User_Guide.pdf). Check out the table below with the different variables we will use this week. 
+Our data for this discussion section comes from a [tidytuesday project](https://github.com/rfordatascience/tidytuesday). You can access the data [on this google sheet](https://docs.google.com/spreadsheets/d/1m2NfaV6HDf0jetd35SwskcPcYiELja7WQrpnrcsucsQ/edit?gid=715770001#gid=715770001) and download as a CSV. The dataset contains National Park species obserations for the 15 most popular National Parks in the U.S. The [user manual](https://irma.nps.gov/content/npspecies/Help/docs/NPSpecies_User_Guide.pdf) provided by the NPS cotains information on the different variables. Check out the table below with the different variables we will use this week. 
 
 | Feature                     | Description                                                                                   |
 |-----------------------------|-----------------------------------------------------------------------------------------------|
@@ -46,3 +46,4 @@ After running an untuned model, iterate over different values of K to see which 
 
 ### 3. Create a Decision Tree
 After running an untuned model, iterate over different max depths for your decision tree to determine which performs best. Then,create a decision tree visual using `plot_tree`. Lastly, find the most important features using `.feature_importances_`.
+
