@@ -32,7 +32,7 @@ Our data for this discussion section comes from a [tidytuesday project](https://
 | ParkName              |          National Park Name                                                         |
 | Sensitive                |   True/False variable on whether or not the taxon is sensitive                            |
 | Nativeness   | True/False variable on whether or not the taxon is native to the park   |
-| Abundance           | Categorical variable specifying whether the taxons is rare, common, or abundant|
+| Abundance           | Categorical variable specifying whether the taxons are rare, common, or abundant|
 | Observations           | The number of times the taxon has been observed |
 
 ## Time to dive in to our models!
@@ -45,4 +45,4 @@ Read in the national park data and prepare your data from your models. We want o
 After running an untuned model, iterate over different values of K to see which performs best. Then, visualize how your accuracy changes wtih a varying K.
 
 ### 3. Create a Decision Tree
-After running an untuned model, iterate over different max depths for your decision tree to determine which performs best. Then,create a decision tree visual using `plot_tree`. Lastly, find the most important features using `.feature_importances_`
+After running an untuned model, iterate over different max depths for your decision tree to determine which performs best. Then,create a decision tree visual using `plot_tree`. Lastly, find the most important features using `.feature_importances_`.
