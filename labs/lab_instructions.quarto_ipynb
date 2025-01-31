@@ -1,0 +1,92 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: Welcome to our weekly machine learning labs!\n",
+        "jupyter:\n",
+        "  jupytext:\n",
+        "    text_representation:\n",
+        "      extension: .qmd\n",
+        "      format_name: quarto\n",
+        "      format_version: '1.0'\n",
+        "      jupytext_version: 1.16.4\n",
+        "  kernelspec:\n",
+        "    display_name: EDS 232 Environment\n",
+        "    language: python\n",
+        "    name: eds232_env\n",
+        "---\n",
+        "\n",
+        "\n",
+        "#### We will be using a single repo for all of our weekly lab assignments. Follow the instructions below on how to clone the repo and get each week's new lab!\n",
+        "\n",
+        "## Initial Repository Setup\n",
+        "\n",
+        "### Step 1: Fork the Repository\n",
+        "\n",
+        "1. **Navigate to the following Repository**: https://github.com/annieradams/EDS232-labs\n",
+        "\n",
+        "2. **Fork the Repository**: Click the \"Fork\" button located at the top right corner of the page. This creates a copy of the repository in your GitHub account.\n",
+        "\n",
+        "### Step 2: Clone Your Fork\n",
+        "\n",
+        "1. **Copy the URL of Your Fork**: On your fork's GitHub page, click the \"Code\" button and copy the URL provided.\n",
+        "\n",
+        "2. **Clone the Repository**: Start a new Jupyter Lab Session on Workbench 1 and run the following command (replace `URL_OF_YOUR_FORK` with the URL you just copied):\n",
+        "\n",
+        "```bash\n",
+        "git clone URL_OF_YOUR_FORK\n",
+        "```\n",
+        "\n",
+        "### Step 3: Configure your remote branch\n",
+        "\n",
+        "1. **Add upstream remote branch.**: Change your directory to the new repository. Once there, copy the following line into your terminal:\n",
+        "\n",
+        "```bash\n",
+        "git remote add upstream https://github.com/annieradams/EDS232-labs.git\n",
+        "```\n",
+        "\n",
+        "**To verify the new upstream repository you have specified for your fork, type**\n",
+        "\n",
+        "```bash\n",
+        "git remote -v \n",
+        "```\n",
+        "\n",
+        "*You should see the URL for your fork as origin, and the URL for the upstream repository as upstream.*\n",
+        "\n",
+        "## Weekly Fetching to get new labs\n",
+        "\n",
+        "To ensure you have the latest lab materials each week, make sure you are at the correct directoy and copy the following code in the terminal: \n",
+        "\n",
+        "```bash\n",
+        "git pull upstream main  # or master if the main branch is named master\n",
+        "```\n",
+        "\n",
+        "This command will fetch the latest updates from the upstream and merge them into your current branch.\n",
+        "\n",
+        "#### You are now ready to start working on this week's lab!! "
+      ],
+      "id": "925720d2"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "EDS 232 Environment",
+      "language": "python",
+      "name": "eds232_env"
+    },
+    "kernel": "eds232_env",
+    "jupytext": {
+      "text_representation": {
+        "extension": ".qmd",
+        "format_name": "quarto",
+        "format_version": "1.0",
+        "jupytext_version": "1.16.4"
+      }
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
