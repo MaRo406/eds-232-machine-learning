@@ -34,7 +34,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.impute import SimpleImputer, KNNImputer
-from sklearn.metrics import mean_squared_error, accuracy_score
+from sklearn.metrics import mean_squared_error, accuracy_score, r2_score
 from ucimlrepo import fetch_ucirepo 
 ```
 
@@ -51,4 +51,168 @@ y = np.ravel(mushroom.data.targets)
 # Expand dataframe columns and look at view dataframe
 pd.set_option('display.max_columns', None)
 X.head()
+```
+
+### Encoding Data
+
+```{python}
+# Factorize all columns
+for col in X.columns: 
+    X.loc[:, col] = pd.factorize(X[col], sort = True)[0]
+
+# View first few rows of encoded data
+X.iloc[0:5, 0:5]
+```
+
+### Time to impute! 
+
+Does our dataset have any missing values? Lets check! 
+
+```{python}
+# Check for NAs
+X.isna().sum()
+```
+
+We are going to randomly assign observations in our dataset to be missing, and then see which imputation methods perform best by comparing their results to our actual dataset. Let's randomly assign NA observations throughout our dataset. We will create a copy of our dataframe and call it `X_Na`.
+
+```{python}
+# Create copy of X variables
+X_Na = X.copy()
+```
+
+```{python}
+# Assign 10% of new dataframe with NA values
+for col in X_Na.columns: 
+    X_Na.loc[X_Na.sample(frac = 0.1).index, col] = np.nan
+```
+
+```{python}
+# Check to make sure there are missing values
+X_Na.isna().sum()
+```
+
+Now that we have our dataset with missing values, let's impute! 
+
+##### Imputation method #1: Filling NA values with the mode
+
+```{python}
+# Impute with mode
+X_mode_impute = X_Na.fillna(X_Na.mode().iloc[0])
+
+# Check to make sure there are no NAs
+X_mode_impute.isna().sum()
+```
+
+##### Imputation method #2: Filling NA values with the median using `SimpleImputer`
+
+```{python}
+# Impute with median (using SimpleImputer) 
+median_impute = SimpleImputer(strategy = 'median')
+X_median_impute = median_impute.fit_transform(X_Na)
+X_median_impute = pd.DataFrame(X_median_impute, columns = X.columns)
+
+# Check to make sure there are no NAs
+X_median_impute.isna().sum()
+```
+
+##### Imputation method #3: Filling NA values with KNN Imputer
+
+```{python}
+# Impute with KNN Imputer
+knn_impute = KNNImputer(n_neighbors = 20)
+X_knn_impute = knn_impute.fit_transform(X_Na)
+X_knn_impute = pd.DataFrame(X_knn_impute, columns = X_Na.columns)
+
+# Check to make sure there are no NAs
+X_knn_impute.isna().sum()
+```
+
+##### Now that we have four different dataframes with four different imputation methods, lets see which best captured our real data!We can do this using the mean squared error!  
+
+```{python}
+# Calculate imputation accuracy using mean squared error
+mse_mode = mean_squared_error(X, X_mode_impute)
+mse_median = mean_squared_error(X, X_median_impute)
+mse_knn = mean_squared_error(X, X_knn_impute)
+
+
+# Report results
+print(f"Mode imputation performance: {mse_mode}")
+print(f"Median Imputation performance: {mse_median}")
+print(f"KNN Imputation performance: {mse_knn}")
+
+```
+
+```{python}
+# Calculate imputation accuracy using R2
+r2_mode = r2_score(X, X_mode_impute)
+r2_median = r2_score(X, X_median_impute)
+r2_knn = r2_score(X, X_knn_impute)
+
+
+# Report results
+print(f"Mode imputation performance: {r2_mode}")
+print(f"Median Imputation performance: {r2_median}")
+print(f"KNN Imputation performance: {r2_knn}")
+```
+
+### Random Forest Classifier with original data
+
+```{python}
+# Split actual data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
+```
+
+```{python}
+# Number of features to include for tuning
+num_features = [1,4,7,10,13,16,19,22]
+accuracy = []
+
+for feature in num_features: 
+    rf_classifier = RandomForestClassifier(
+        n_estimators = 50, 
+        max_depth = 3, 
+        random_state = 42, 
+        max_features = feature
+    )
+    
+    # Train model
+    rf_classifier.fit(X_train, y_train)
+    
+    # Predict and evaluate 
+    y_pred = rf_classifier.predict(X_test)
+    rf_accuracy = accuracy_score(y_test, y_pred)
+    accuracy.append(rf_accuracy)
+    print(f"Number of features: {feature}; Random Forest Accuracy: {rf_accuracy}")
+```
+
+#### Random Forest Classifier with imputed data:
+
+```{python}
+# Split imputed data 
+X_train, X_test, y_train, y_test = train_test_split(X_knn_impute, y, test_size = 0.3, random_state = 42)
+```
+
+```{python}
+# Number of features to include for tuning
+# Number of features to include for tuning
+num_features = [1,4,7,10,13,16,19,22]
+accuracy = []
+
+for feature in num_features: 
+    rf_classifier = RandomForestClassifier(
+        n_estimators = 50, 
+        max_depth = 3, 
+        random_state = 42, 
+        max_features = feature
+    )
+    
+    # Train model
+    rf_classifier.fit(X_train, y_train)
+    
+    # Predict and evaluate 
+    y_pred = rf_classifier.predict(X_test)
+    rf_accuracy = accuracy_score(y_test, y_pred)
+    accuracy.append(rf_accuracy)
+    print(f"Number of features: {feature}; Random Forest Accuracy: {rf_accuracy}")
 ```

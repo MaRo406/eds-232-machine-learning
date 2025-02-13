@@ -207,7 +207,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#encoding-data" id="toc-encoding-data" class="nav-link" data-scroll-target="#encoding-data">Encoding Data</a></li>
+  <li><a href="#time-to-impute" id="toc-time-to-impute" class="nav-link" data-scroll-target="#time-to-impute">Time to impute!</a></li>
+  <li><a href="#random-forest-classifier-with-original-data" id="toc-random-forest-classifier-with-original-data" class="nav-link" data-scroll-target="#random-forest-classifier-with-original-data">Random Forest Classifier with original data</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -239,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer, KNNImputer</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, accuracy_score</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, accuracy_score, r2_score</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ucimlrepo <span class="im">import</span> fetch_ucirepo </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -420,8 +425,378 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="encoding-data" class="level3">
+<h3 class="anchored" data-anchor-id="encoding-data">Encoding Data</h3>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Factorize all columns</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> X.columns: </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    X.loc[:, col] <span class="op">=</span> pd.factorize(X[col], sort <span class="op">=</span> <span class="va">True</span>)[<span class="dv">0</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># View first few rows of encoded data</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>X.iloc[<span class="dv">0</span>:<span class="dv">5</span>, <span class="dv">0</span>:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
 
 
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">cap-shape</th>
+<th data-quarto-table-cell-role="th">cap-surface</th>
+<th data-quarto-table-cell-role="th">cap-color</th>
+<th data-quarto-table-cell-role="th">bruises</th>
+<th data-quarto-table-cell-role="th">odor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>5</td>
+<td>2</td>
+<td>4</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>5</td>
+<td>2</td>
+<td>9</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0</td>
+<td>2</td>
+<td>8</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>5</td>
+<td>3</td>
+<td>8</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>2</td>
+<td>3</td>
+<td>0</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="time-to-impute" class="level3">
+<h3 class="anchored" data-anchor-id="time-to-impute">Time to impute!</h3>
+<p>Does our dataset have any missing values? Lets check!</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for NAs</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>X.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>cap-shape                   0
+cap-surface                 0
+cap-color                   0
+bruises                     0
+odor                        0
+gill-attachment             0
+gill-spacing                0
+gill-size                   0
+gill-color                  0
+stalk-shape                 0
+stalk-root                  0
+stalk-surface-above-ring    0
+stalk-surface-below-ring    0
+stalk-color-above-ring      0
+stalk-color-below-ring      0
+veil-type                   0
+veil-color                  0
+ring-number                 0
+ring-type                   0
+spore-print-color           0
+population                  0
+habitat                     0
+dtype: int64</code></pre>
+</div>
+</div>
+<p>We are going to randomly assign observations in our dataset to be missing, and then see which imputation methods perform best by comparing their results to our actual dataset. Let’s randomly assign NA observations throughout our dataset. We will create a copy of our dataframe and call it <code>X_Na</code>.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create copy of X variables</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X_Na <span class="op">=</span> X.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 10% of new dataframe with NA values</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> X_Na.columns: </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    X_Na.loc[X_Na.sample(frac <span class="op">=</span> <span class="fl">0.1</span>).index, col] <span class="op">=</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check to make sure there are missing values</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_Na.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>cap-shape                   812
+cap-surface                 812
+cap-color                   812
+bruises                     812
+odor                        812
+gill-attachment             812
+gill-spacing                812
+gill-size                   812
+gill-color                  812
+stalk-shape                 812
+stalk-root                  812
+stalk-surface-above-ring    812
+stalk-surface-below-ring    812
+stalk-color-above-ring      812
+stalk-color-below-ring      812
+veil-type                   812
+veil-color                  812
+ring-number                 812
+ring-type                   812
+spore-print-color           812
+population                  812
+habitat                     812
+dtype: int64</code></pre>
+</div>
+</div>
+<p>Now that we have our dataset with missing values, let’s impute!</p>
+<section id="imputation-method-1-filling-na-values-with-the-mode" class="level5">
+<h5 class="anchored" data-anchor-id="imputation-method-1-filling-na-values-with-the-mode">Imputation method #1: Filling NA values with the mode</h5>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Impute with mode</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X_mode_impute <span class="op">=</span> X_Na.fillna(X_Na.mode().iloc[<span class="dv">0</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check to make sure there are no NAs</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>X_mode_impute.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>cap-shape                   0
+cap-surface                 0
+cap-color                   0
+bruises                     0
+odor                        0
+gill-attachment             0
+gill-spacing                0
+gill-size                   0
+gill-color                  0
+stalk-shape                 0
+stalk-root                  0
+stalk-surface-above-ring    0
+stalk-surface-below-ring    0
+stalk-color-above-ring      0
+stalk-color-below-ring      0
+veil-type                   0
+veil-color                  0
+ring-number                 0
+ring-type                   0
+spore-print-color           0
+population                  0
+habitat                     0
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="imputation-method-2-filling-na-values-with-the-median-using-simpleimputer" class="level5">
+<h5 class="anchored" data-anchor-id="imputation-method-2-filling-na-values-with-the-median-using-simpleimputer">Imputation method #2: Filling NA values with the median using <code>SimpleImputer</code></h5>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Impute with median (using SimpleImputer) </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>median_impute <span class="op">=</span> SimpleImputer(strategy <span class="op">=</span> <span class="st">'median'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X_median_impute <span class="op">=</span> median_impute.fit_transform(X_Na)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>X_median_impute <span class="op">=</span> pd.DataFrame(X_median_impute, columns <span class="op">=</span> X.columns)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check to make sure there are no NAs</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>X_median_impute.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>cap-shape                   0
+cap-surface                 0
+cap-color                   0
+bruises                     0
+odor                        0
+gill-attachment             0
+gill-spacing                0
+gill-size                   0
+gill-color                  0
+stalk-shape                 0
+stalk-root                  0
+stalk-surface-above-ring    0
+stalk-surface-below-ring    0
+stalk-color-above-ring      0
+stalk-color-below-ring      0
+veil-type                   0
+veil-color                  0
+ring-number                 0
+ring-type                   0
+spore-print-color           0
+population                  0
+habitat                     0
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="imputation-method-3-filling-na-values-with-knn-imputer" class="level5">
+<h5 class="anchored" data-anchor-id="imputation-method-3-filling-na-values-with-knn-imputer">Imputation method #3: Filling NA values with KNN Imputer</h5>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Impute with KNN Imputer</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>knn_impute <span class="op">=</span> KNNImputer(n_neighbors <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X_knn_impute <span class="op">=</span> knn_impute.fit_transform(X_Na)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>X_knn_impute <span class="op">=</span> pd.DataFrame(X_knn_impute, columns <span class="op">=</span> X_Na.columns)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check to make sure there are no NAs</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>X_knn_impute.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>cap-shape                   0
+cap-surface                 0
+cap-color                   0
+bruises                     0
+odor                        0
+gill-attachment             0
+gill-spacing                0
+gill-size                   0
+gill-color                  0
+stalk-shape                 0
+stalk-root                  0
+stalk-surface-above-ring    0
+stalk-surface-below-ring    0
+stalk-color-above-ring      0
+stalk-color-below-ring      0
+veil-type                   0
+veil-color                  0
+ring-number                 0
+ring-type                   0
+spore-print-color           0
+population                  0
+habitat                     0
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="now-that-we-have-four-different-dataframes-with-four-different-imputation-methods-lets-see-which-best-captured-our-real-datawe-can-do-this-using-the-mean-squared-error" class="level5">
+<h5 class="anchored" data-anchor-id="now-that-we-have-four-different-dataframes-with-four-different-imputation-methods-lets-see-which-best-captured-our-real-datawe-can-do-this-using-the-mean-squared-error">Now that we have four different dataframes with four different imputation methods, lets see which best captured our real data!We can do this using the mean squared error!</h5>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate imputation accuracy using mean squared error</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mse_mode <span class="op">=</span> mean_squared_error(X, X_mode_impute)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>mse_median <span class="op">=</span> mean_squared_error(X, X_median_impute)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>mse_knn <span class="op">=</span> mean_squared_error(X, X_knn_impute)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Report results</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mode imputation performance: </span><span class="sc">{</span>mse_mode<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median Imputation performance: </span><span class="sc">{</span>mse_median<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KNN Imputation performance: </span><span class="sc">{</span>mse_knn<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mode imputation performance: 0.45315227608432934
+Median Imputation performance: 0.25590282440356293
+KNN Imputation performance: 0.09925160019694731</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate imputation accuracy using R2</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>r2_mode <span class="op">=</span> r2_score(X, X_mode_impute)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>r2_median <span class="op">=</span> r2_score(X, X_median_impute)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>r2_knn <span class="op">=</span> r2_score(X, X_knn_impute)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Report results</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mode imputation performance: </span><span class="sc">{</span>r2_mode<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median Imputation performance: </span><span class="sc">{</span>r2_median<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KNN Imputation performance: </span><span class="sc">{</span>r2_knn<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mode imputation performance: 0.8534959076319336
+Median Imputation performance: 0.8862458082581258
+KNN Imputation performance: 0.968564544258512</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="random-forest-classifier-with-original-data" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest-classifier-with-original-data">Random Forest Classifier with original data</h3>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split actual data</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">0.3</span>, random_state <span class="op">=</span> <span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of features to include for tuning</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>num_features <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">19</span>,<span class="dv">22</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> []</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feature <span class="kw">in</span> num_features: </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    rf_classifier <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        n_estimators <span class="op">=</span> <span class="dv">50</span>, </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        max_depth <span class="op">=</span> <span class="dv">3</span>, </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        random_state <span class="op">=</span> <span class="dv">42</span>, </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        max_features <span class="op">=</span> feature</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train model</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    rf_classifier.fit(X_train, y_train)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Predict and evaluate </span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> rf_classifier.predict(X_test)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    rf_accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    accuracy.append(rf_accuracy)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of features: </span><span class="sc">{</span>feature<span class="sc">}</span><span class="ss">; Random Forest Accuracy: </span><span class="sc">{</span>rf_accuracy<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of features: 1; Random Forest Accuracy: 0.916735028712059
+Number of features: 4; Random Forest Accuracy: 0.9848236259228876
+Number of features: 7; Random Forest Accuracy: 0.9868744872846595
+Number of features: 10; Random Forest Accuracy: 0.9835931091058244
+Number of features: 13; Random Forest Accuracy: 0.9823625922887613
+Number of features: 16; Random Forest Accuracy: 0.9860541427399507
+Number of features: 19; Random Forest Accuracy: 0.9819524200164069
+Number of features: 22; Random Forest Accuracy: 0.9577522559474979</code></pre>
+</div>
+</div>
+<section id="random-forest-classifier-with-imputed-data" class="level4">
+<h4 class="anchored" data-anchor-id="random-forest-classifier-with-imputed-data">Random Forest Classifier with imputed data:</h4>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split imputed data </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_knn_impute, y, test_size <span class="op">=</span> <span class="fl">0.3</span>, random_state <span class="op">=</span> <span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of features to include for tuning</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of features to include for tuning</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>num_features <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">19</span>,<span class="dv">22</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> []</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feature <span class="kw">in</span> num_features: </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    rf_classifier <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        n_estimators <span class="op">=</span> <span class="dv">50</span>, </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        max_depth <span class="op">=</span> <span class="dv">3</span>, </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        random_state <span class="op">=</span> <span class="dv">42</span>, </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        max_features <span class="op">=</span> feature</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train model</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    rf_classifier.fit(X_train, y_train)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Predict and evaluate </span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> rf_classifier.predict(X_test)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    rf_accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    accuracy.append(rf_accuracy)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of features: </span><span class="sc">{</span>feature<span class="sc">}</span><span class="ss">; Random Forest Accuracy: </span><span class="sc">{</span>rf_accuracy<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of features: 1; Random Forest Accuracy: 0.9200164068908941
+Number of features: 4; Random Forest Accuracy: 0.9753896636587367
+Number of features: 7; Random Forest Accuracy: 0.9823625922887613
+Number of features: 10; Random Forest Accuracy: 0.98318293683347
+Number of features: 13; Random Forest Accuracy: 0.9696472518457753
+Number of features: 16; Random Forest Accuracy: 0.9602132895816243
+Number of features: 19; Random Forest Accuracy: 0.9745693191140279
+Number of features: 22; Random Forest Accuracy: 0.9565217391304348</code></pre>
+</div>
+</div>
+
+
+</section>
 </section>
 </section>
 
