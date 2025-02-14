@@ -23,6 +23,8 @@ In this week's discussion section, we will use a data with few NAs and intention
 
 This week, we will be working with mushroom data! This dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/73/mushroom) includes descriptions of hypothetical samples corresponding to 23 species of gilled mushrooms in the Agaricus and Lepiota Family. Our target variable will be, `poisonous`, a categorical outcome variable classifying the mushroom as poisonous or not. We will include 22 features in our dataset that all relate to mushroom characteristics- such as `cap-cut`, `cap-surface`, `bruises`, and `odor`. 
 
+## Excercise
+
 #### Import Libraries
 
 ```{python}
@@ -187,7 +189,7 @@ for feature in num_features:
     print(f"Number of features: {feature}; Random Forest Accuracy: {rf_accuracy}")
 ```
 
-#### Random Forest Classifier with imputed data:
+### Random Forest Classifier with imputed data:
 
 ```{python}
 # Split imputed data 
