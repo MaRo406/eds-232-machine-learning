@@ -140,7 +140,6 @@ mse_knn = mean_squared_error(X, X_knn_impute)
 print(f"Mode imputation performance: {mse_mode}")
 print(f"Median Imputation performance: {mse_median}")
 print(f"KNN Imputation performance: {mse_knn}")
-
 ```
 
 ```{python}
@@ -155,6 +154,8 @@ print(f"Mode imputation performance: {r2_mode}")
 print(f"Median Imputation performance: {r2_median}")
 print(f"KNN Imputation performance: {r2_knn}")
 ```
+
+It looks like our KNN Imputation was the most successfull in imputing NAs! Let's run a random forest with our actual data, and our KNN imputed data to see how/if they differ! 
 
 ### Random Forest Classifier with original data
 

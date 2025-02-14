@@ -693,9 +693,9 @@ dtype: int64</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median Imputation performance: </span><span class="sc">{</span>mse_median<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KNN Imputation performance: </span><span class="sc">{</span>mse_knn<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mode imputation performance: 0.45315227608432934
-Median Imputation performance: 0.25590282440356293
-KNN Imputation performance: 0.09925160019694731</code></pre>
+<pre><code>Mode imputation performance: 0.4573094310908195
+Median Imputation performance: 0.25734076361845937
+KNN Imputation performance: 0.10159671400116377</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="12">
@@ -710,11 +710,12 @@ KNN Imputation performance: 0.09925160019694731</code></pre>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Median Imputation performance: </span><span class="sc">{</span>r2_median<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KNN Imputation performance: </span><span class="sc">{</span>r2_knn<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mode imputation performance: 0.8534959076319336
-Median Imputation performance: 0.8862458082581258
-KNN Imputation performance: 0.968564544258512</code></pre>
+<pre><code>Mode imputation performance: 0.8510881399489741
+Median Imputation performance: 0.8840944414238425
+KNN Imputation performance: 0.9674025475329701</code></pre>
 </div>
 </div>
+<p>It looks like our KNN Imputation was the most successfull in imputing NAs! Let’s run a random forest with our actual data, and our KNN imputed data to see how/if they differ!</p>
 </section>
 </section>
 <section id="random-forest-classifier-with-original-data" class="level3">
@@ -784,14 +785,14 @@ Number of features: 22; Random Forest Accuracy: 0.9577522559474979</code></pre>
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    accuracy.append(rf_accuracy)</span>
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of features: </span><span class="sc">{</span>feature<span class="sc">}</span><span class="ss">; Random Forest Accuracy: </span><span class="sc">{</span>rf_accuracy<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of features: 1; Random Forest Accuracy: 0.9200164068908941
-Number of features: 4; Random Forest Accuracy: 0.9753896636587367
-Number of features: 7; Random Forest Accuracy: 0.9823625922887613
-Number of features: 10; Random Forest Accuracy: 0.98318293683347
-Number of features: 13; Random Forest Accuracy: 0.9696472518457753
-Number of features: 16; Random Forest Accuracy: 0.9602132895816243
-Number of features: 19; Random Forest Accuracy: 0.9745693191140279
-Number of features: 22; Random Forest Accuracy: 0.9565217391304348</code></pre>
+<pre><code>Number of features: 1; Random Forest Accuracy: 0.9105824446267432
+Number of features: 4; Random Forest Accuracy: 0.9794913863822805
+Number of features: 7; Random Forest Accuracy: 0.985233798195242
+Number of features: 10; Random Forest Accuracy: 0.9860541427399507
+Number of features: 13; Random Forest Accuracy: 0.9840032813781788
+Number of features: 16; Random Forest Accuracy: 0.9823625922887613
+Number of features: 19; Random Forest Accuracy: 0.965135356849877
+Number of features: 22; Random Forest Accuracy: 0.9561115668580804</code></pre>
 </div>
 </div>
 
