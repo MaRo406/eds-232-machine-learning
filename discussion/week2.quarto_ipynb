@@ -30,7 +30,7 @@
         "\n",
         "Copy the code below to load the neessary libraries genereate the data we will use. Read the comments to on each feature to get an idea of the relationship between variables. \n"
       ],
-      "id": "07191470"
+      "id": "6fe39542"
     },
     {
       "cell_type": "code",
@@ -58,7 +58,7 @@
         "\n",
         "y = 3 * X[:, 0] + 2 * X[:, 1] + 0.5 * X[:, 2] + np.random.normal(0, 0.1, n_samples) "
       ],
-      "id": "3b922334",
+      "id": "455f7b48",
       "execution_count": null,
       "outputs": []
     },
@@ -72,7 +72,7 @@
         "\n",
         "1. Split your data into training and testing.\n"
       ],
-      "id": "97010cc7"
+      "id": "dad1fe5e"
     },
     {
       "cell_type": "code",
@@ -81,7 +81,7 @@
         "# Split data into training and testing sets\n",
         "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)"
       ],
-      "id": "d64ddc6d",
+      "id": "639b6e2d",
       "execution_count": null,
       "outputs": []
     },
@@ -91,7 +91,7 @@
       "source": [
         "2. Create and fit a ridge regression\n"
       ],
-      "id": "dbba137e"
+      "id": "5ec937b9"
     },
     {
       "cell_type": "code",
@@ -102,7 +102,7 @@
         "ridge_model.fit(X_train, y_train)\n",
         "ridge_predictions = ridge_model.predict(X_test)"
       ],
-      "id": "e012ada5",
+      "id": "71364cae",
       "execution_count": null,
       "outputs": []
     },
@@ -112,7 +112,7 @@
       "source": [
         "3. Calculate the MSE and $R^2$ for your ridge regression.\n"
       ],
-      "id": "d898111c"
+      "id": "f10b7104"
     },
     {
       "cell_type": "code",
@@ -124,7 +124,7 @@
         "print(\"Ridge Regression RMSE:\", ridge_rmse)\n",
         "print(\"Ridge Regression R²:\", ridge_r2)"
       ],
-      "id": "3581945f",
+      "id": "31899dc5",
       "execution_count": null,
       "outputs": []
     },
@@ -134,7 +134,7 @@
       "source": [
         "4. Create and fit a lasso model.\n"
       ],
-      "id": "b1ee1078"
+      "id": "3532ed52"
     },
     {
       "cell_type": "code",
@@ -145,7 +145,7 @@
         "lasso_model.fit(X_train, y_train)\n",
         "lasso_predictions = lasso_model.predict(X_test)"
       ],
-      "id": "cd70cc01",
+      "id": "1306cba1",
       "execution_count": null,
       "outputs": []
     },
@@ -155,7 +155,7 @@
       "source": [
         "5. Calculate the MSE and $R^2$ for your lasso model.\n"
       ],
-      "id": "ed850b9e"
+      "id": "5f24bc6b"
     },
     {
       "cell_type": "code",
@@ -167,7 +167,7 @@
         "print(\"Lasso Regression RMSE:\", lasso_rmse)\n",
         "print(\"Lasso Regression R²:\", lasso_r2)"
       ],
-      "id": "447b04b4",
+      "id": "a37cbcac",
       "execution_count": null,
       "outputs": []
     },
@@ -179,7 +179,7 @@
         "\n",
         "1. Create a plot that looks at the alpha against the MSE for both lasso and ridge regression.\n"
       ],
-      "id": "f49cb7e5"
+      "id": "e6c66d96"
     },
     {
       "cell_type": "code",
@@ -217,7 +217,7 @@
         "plt.legend()\n",
         "plt.show()"
       ],
-      "id": "311f0406",
+      "id": "6c6fb292",
       "execution_count": null,
       "outputs": []
     },
@@ -227,7 +227,7 @@
       "source": [
         "2. Create an interactive plot (for both lasso and ridge) that allows you to adjust alpha to see how the actual vs predicted values are changing.\n"
       ],
-      "id": "08230417"
+      "id": "6061788e"
     },
     {
       "cell_type": "code",
@@ -276,7 +276,7 @@
         "# Combine two widgets with model/plot output\n",
         "interact(update_alphas, alpha=alpha_slider, model_type=model_selector)"
       ],
-      "id": "590b2ea7",
+      "id": "8a1dd9d8",
       "execution_count": null,
       "outputs": []
     },
@@ -289,7 +289,7 @@
         "Each plot should show how both the ridge and lasso model performed\n",
         "The y axis should represent the six different variables: `X1`, `X2`, `X1_corr`, `X2_corr`, `Noise1`, `Noise2`. The y axis should represent the coefficients\n"
       ],
-      "id": "8af3ae63"
+      "id": "e1648e67"
     },
     {
       "cell_type": "code",
@@ -318,7 +318,7 @@
         "    \n",
         "plt.show()"
       ],
-      "id": "8be93531",
+      "id": "6a6907bb",
       "execution_count": null,
       "outputs": []
     }

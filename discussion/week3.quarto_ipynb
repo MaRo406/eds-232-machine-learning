@@ -16,9 +16,9 @@
         "      format_version: '1.0'\n",
         "      jupytext_version: 1.16.4\n",
         "  kernelspec:\n",
-        "    display_name: Python 3 (ipykernel)\n",
+        "    display_name: EDS 232 Environment\n",
         "    language: python\n",
-        "    name: python3\n",
+        "    name: eds232_env\n",
         "---\n",
         "\n",
         "\n",
@@ -30,7 +30,7 @@
         "\n",
         "While our data is synthetic, we will still have it hold an environmnetal value. Our data is going to represent the prescence/absence of the invasive European green crab that is often found in California coastal waters. These crabs prefer warmer water temperatures between 64&deg; F and 79&deg; F and salinity levels between 26 and 39 ppt. The features for our data will be water temperature and salinity, and our target variable will be the presence (1) or absence (0) of green crabs at our different sampling sites. Import the libraries below and copy the function to generate our data below to get started. \n"
       ],
-      "id": "c0dcf5a9"
+      "id": "81ac9bb7"
     },
     {
       "cell_type": "code",
@@ -46,7 +46,7 @@
         "from ipywidgets import interact, FloatSlider\n",
         "import seaborn as sns"
       ],
-      "id": "4e772246",
+      "id": "55162f10",
       "execution_count": null,
       "outputs": []
     },
@@ -62,7 +62,7 @@
         "\n",
         "Create a function that generates the species data. The parameters should be the sample size and the ratio of present green crabs.  \n"
       ],
-      "id": "da175cfe"
+      "id": "f95eb701"
     },
     {
       "cell_type": "code",
@@ -98,7 +98,7 @@
         "    \n",
         "    return X, y"
       ],
-      "id": "940a35d4",
+      "id": "d44914d5",
       "execution_count": null,
       "outputs": []
     },
@@ -110,7 +110,7 @@
         "\n",
         "Create a function that creats a bar plot of species presense distribution based on the ratio selected by the user.\n"
       ],
-      "id": "9eb62103"
+      "id": "1f5f9a12"
     },
     {
       "cell_type": "code",
@@ -134,7 +134,7 @@
         "        plt.text(i, count, f'{percentage:.1f}%', ha = 'center', va = 'bottom')\n",
         "    plt.show()"
       ],
-      "id": "16778d1e",
+      "id": "9fa76a2a",
       "execution_count": null,
       "outputs": []
     },
@@ -146,7 +146,7 @@
         "\n",
         "Create a function that plots a confusion matrix of the predicted y values and true y values.\n"
       ],
-      "id": "8174180c"
+      "id": "8802a784"
     },
     {
       "cell_type": "code",
@@ -189,7 +189,7 @@
         "    print(f\"Sensitivity ( True positive rate): {sensitivity:.3f}\")\n",
         "    print(f\"Specificity ( True negative rate:) {specificity:.3f}\")"
       ],
-      "id": "14f8440a",
+      "id": "3abe2a8f",
       "execution_count": null,
       "outputs": []
     },
@@ -201,7 +201,7 @@
         "\n",
         "Create a function that plots an ROC curve using the predicted y class probabilities and true y values.\n"
       ],
-      "id": "580a9ad9"
+      "id": "c1b27147"
     },
     {
       "cell_type": "code",
@@ -222,9 +222,9 @@
         "    plt.title('ROC curve: Species Presence Prediction')\n",
         "    plt.legend()\n",
         "    plt.grid(True)\n",
-        "    plt.show()\n"
+        "    plt.show()"
       ],
-      "id": "db3bdab3",
+      "id": "3d47f52d",
       "execution_count": null,
       "outputs": []
     },
@@ -236,7 +236,7 @@
         "\n",
         "Create function that runs a logistic regression and outputs the three plots you created above. \n"
       ],
-      "id": "faf43bf9"
+      "id": "0f5a89c4"
     },
     {
       "cell_type": "code",
@@ -270,7 +270,7 @@
         "    print(\"\\nROC Curve:\")\n",
         "    plot_roc_curve(y_test, y_pred_prob)"
       ],
-      "id": "4c4cea25",
+      "id": "617fca30",
       "execution_count": null,
       "outputs": []
     },
@@ -281,7 +281,7 @@
         "### Function 6\n",
         "Create a function that adds interactivity to function 5.\n"
       ],
-      "id": "a4672d59"
+      "id": "f3274a1e"
     },
     {
       "cell_type": "code",
@@ -295,16 +295,16 @@
         "                                        description = \"% Present\"))\n",
         "generate_log_regression()"
       ],
-      "id": "bf46ac56",
+      "id": "1f2e04ee",
       "execution_count": null,
       "outputs": []
     }
   ],
   "metadata": {
     "kernelspec": {
-      "display_name": "Python 3 (ipykernel)",
+      "display_name": "EDS 232 Environment",
       "language": "python",
-      "name": "python3"
+      "name": "eds232_env"
     },
     "kernel": "eds232_env",
     "jupytext": {

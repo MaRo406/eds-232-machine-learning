@@ -48,7 +48,7 @@
         "\n",
         "Read in the national park data and prepare your data from your models. We want our target variable to be `ParkName`, and all other variables in the table above to be our features. Then, split and scale the data. \n"
       ],
-      "id": "acf33d1b"
+      "id": "6e9bbc20"
     },
     {
       "cell_type": "code",
@@ -65,7 +65,7 @@
         "from sklearn.tree import plot_tree\n",
         "from sklearn.preprocessing import StandardScaler"
       ],
-      "id": "d2a014c0",
+      "id": "cdc03bbf",
       "execution_count": null,
       "outputs": []
     },
@@ -79,7 +79,7 @@
         "pd.set_option('display.max_columns', None)\n",
         "np_df.head()"
       ],
-      "id": "deaba310",
+      "id": "983f352d",
       "execution_count": null,
       "outputs": []
     },
@@ -103,7 +103,7 @@
         "X_train_scaled = scaler.fit_transform(X_train)\n",
         "X_test_scaled = scaler.transform(X_test)"
       ],
-      "id": "71183252",
+      "id": "063014e4",
       "execution_count": null,
       "outputs": []
     },
@@ -114,7 +114,7 @@
         "### 2. Create a KNN Classifier \n",
         "After running an untuned model, iterate over different values of K to see which performs best. Then, visualize how your accuracy changes wtih a varying K.\n"
       ],
-      "id": "ff62ddf9"
+      "id": "ff871da9"
     },
     {
       "cell_type": "code",
@@ -125,7 +125,7 @@
         "knn.fit(X_train_scaled, y_train)\n",
         "y_pred = knn.predict(X_test_scaled)"
       ],
-      "id": "e02ee745",
+      "id": "bbcafd81",
       "execution_count": null,
       "outputs": []
     },
@@ -137,7 +137,7 @@
         "accuracy = accuracy_score(y_test, y_pred)\n",
         "print(accuracy)"
       ],
-      "id": "29af17e4",
+      "id": "e3d43245",
       "execution_count": null,
       "outputs": []
     },
@@ -174,7 +174,7 @@
         "\n",
         "knn()"
       ],
-      "id": "81d716d4",
+      "id": "615b0171",
       "execution_count": null,
       "outputs": []
     },
@@ -185,7 +185,7 @@
         "### 3. Create a Decision Tree\n",
         "After running an untuned model, iterate over different max depths for your decision tree to determine which performs best. Then,create a decision tree visual using `plot_tree`. Lastly, find the most important features using `.feature_importances_`.\n"
       ],
-      "id": "7cc514df"
+      "id": "d7a139a3"
     },
     {
       "cell_type": "code",
@@ -200,7 +200,7 @@
         "accuracy = accuracy_score(y_test, y_pred)\n",
         "print(accuracy)"
       ],
-      "id": "00325494",
+      "id": "b55f88a0",
       "execution_count": null,
       "outputs": []
     },
@@ -224,7 +224,7 @@
         "    \n",
         "    print(f\"Max Depth: {depth} - Accuracy: {accuracy:.3f}\")"
       ],
-      "id": "cf427483",
+      "id": "7b6a1609",
       "execution_count": null,
       "outputs": []
     },
@@ -234,7 +234,7 @@
       "source": [
         "#### Visualize Models\n"
       ],
-      "id": "a1c3c132"
+      "id": "6ac886a1"
     },
     {
       "cell_type": "code",
@@ -258,7 +258,7 @@
         "plt.savefig('decision_tree.png') \n",
         "plt.show()"
       ],
-      "id": "775f5b68",
+      "id": "faf3116b",
       "execution_count": null,
       "outputs": []
     },
@@ -268,7 +268,7 @@
       "source": [
         "#### Find important features\n"
       ],
-      "id": "3f5d9744"
+      "id": "bdca56ac"
     },
     {
       "cell_type": "code",
@@ -282,7 +282,7 @@
         "print(\"\\nFeature Importance:\")\n",
         "print(feature_importance)"
       ],
-      "id": "08adbea4",
+      "id": "bd2c158b",
       "execution_count": null,
       "outputs": []
     }
