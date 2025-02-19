@@ -298,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="prepare-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="prepare-the-data">1. Prepare the data</h3>
 <p>Read in the national park data and prepare your data from your models. We want our target variable to be <code>ParkName</code>, and all other variables in the table above to be our features. Then, split and scale the data.</p>
-<div id="66b537a1" class="cell" data-execution_count="1">
+<div id="8c114b28" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -310,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9acbf553" class="cell" data-execution_count="2">
+<div id="954d0c3c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in national park data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>np_df <span class="op">=</span> pd.read_csv(<span class="st">'../data/national_park_species.csv'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>np_df <span class="op">=</span> np_df.drop(np_df.columns[<span class="dv">0</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -510,7 +510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="8f63fec2" class="cell" data-execution_count="3">
+<div id="5ee2dc36" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encode categorical variables</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> [<span class="st">'CategoryName'</span>, <span class="st">'Order'</span>, <span class="st">'Family'</span>, <span class="st">'GRank'</span>, <span class="st">'ParkName'</span>, <span class="st">'Sensitive'</span>, <span class="st">'Nativeness'</span>, <span class="st">'Abundance'</span>,<span class="st">'Observations'</span>, <span class="st">'GRank'</span>]:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    np_df[<span class="ss">f"</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">_cat"</span>] <span class="op">=</span> np_df[col].astype(<span class="st">'category'</span>).cat.codes</span>
@@ -531,13 +531,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="create-a-knn-classifier" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-knn-classifier">2. Create a KNN Classifier</h3>
 <p>After running an untuned model, iterate over different values of K to see which performs best. Then, visualize how your accuracy changes wtih a varying K.</p>
-<div id="6ec3e391" class="cell" data-execution_count="4">
+<div id="779b293a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize KNN classiier</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsClassifier()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_scaled, y_train)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn.predict(X_test_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4a99924e" class="cell" data-execution_count="5">
+<div id="4b7751df" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -545,7 +545,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>0.6029747149231532</code></pre>
 </div>
 </div>
-<div id="bf380e7f" class="cell" data-execution_count="6">
+<div id="6a7ce84a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Tune a KNN Model and Visualize results</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> knn():</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Different k values to iterate over</span></span>
@@ -593,7 +593,7 @@ K=11 - Accuracy: 0.597</code></pre>
 <section id="create-a-decision-tree" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-decision-tree">3. Create a Decision Tree</h3>
 <p>After running an untuned model, iterate over different max depths for your decision tree to determine which performs best. Then,create a decision tree visual using <code>plot_tree</code>. Lastly, find the most important features using <code>.feature_importances_</code>.</p>
-<div id="28b9e444" class="cell" data-execution_count="7">
+<div id="56566302" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize Decision Tree classiier</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> DecisionTreeClassifier()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>dt.fit(X_train_scaled, y_train)</span>
@@ -603,10 +603,10 @@ K=11 - Accuracy: 0.597</code></pre>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.6358948934060485</code></pre>
+<pre><code>0.635746157659891</code></pre>
 </div>
 </div>
-<div id="7e76c09f" class="cell" data-execution_count="8">
+<div id="3db2b21a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Max depths to iterate over</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>max_depths <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>accuracies <span class="op">=</span> []</span>
@@ -631,7 +631,7 @@ Max Depth: 5 - Accuracy: 0.547</code></pre>
 </div>
 <section id="visualize-models" class="level4">
 <h4 class="anchored" data-anchor-id="visualize-models">Visualize Models</h4>
-<div id="1c5e29a8" class="cell" data-execution_count="9">
+<div id="cf1800ac" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and fit model with best depth</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dt_best <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>dt_best.fit(X_train_scaled, y_train)</span>
@@ -660,7 +660,7 @@ Max Depth: 5 - Accuracy: 0.547</code></pre>
 </section>
 <section id="find-important-features" class="level4">
 <h4 class="anchored" data-anchor-id="find-important-features">Find important features</h4>
-<div id="58f20864" class="cell" data-execution_count="10">
+<div id="dc0d85cf" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>feature_importance <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'feature'</span>: X.columns,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'importance'</span>: dt_best.feature_importances_</span>
