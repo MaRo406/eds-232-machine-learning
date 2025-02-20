@@ -47,17 +47,18 @@ disaster = pd.read_csv('../data/disaster.csv')
 ```
 
 #### Clean text data
+Work with a partner and annotate what each line in the code chunk below is doing. 
 
 ```{python}
 # Cleaning text data
 def preprocess(text):
     text = text.lower() 
     text=text.strip()  
-    text=re.compile('<.*?>').sub('', text)
-    text = re.compile('[%s]' % re.escape(string.punctuation)).sub(' ', text)  
+    text=re.sub('<.*?>','', text) 
+    text = re.sub(r'[^\w\s]','',text)  
     text = re.sub(r'\[[0-9]*\]',' ',text) 
-    text=re.sub(r'[^\w\s]', '', str(text).lower().strip())
-    text = re.sub(r'\d',' ',text)
-    text = re.sub('\s+', ' ', text)  
+    text=re.sub(r'[^\w\s]', '', str(text).lower().strip()) 
+    text = re.sub(r'\d',' ',text)  
+    text = re.sub('\s+', ' ', text) 
     return text
 ```
