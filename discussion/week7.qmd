@@ -57,7 +57,6 @@ def preprocess(text):
     text=re.sub('<.*?>','', text) 
     text = re.sub(r'[^\w\s]','',text)  
     text = re.sub(r'\[[0-9]*\]',' ',text) 
-    text=re.sub(r'[^\w\s]', '', str(text).lower().strip()) 
     text = re.sub(r'\d',' ',text)  
     text = re.sub('\s+', ' ', text) 
     return text
