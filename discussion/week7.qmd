@@ -50,14 +50,103 @@ disaster = pd.read_csv('../data/disaster.csv')
 Work with a partner and annotate what each line in the code chunk below is doing. 
 
 ```{python}
-# Cleaning text data
+# Cleaning of text data
 def preprocess(text):
-    text = text.lower() 
-    text=  text.strip()  
-    text=  re.sub(r'<.*?>','', text) 
-    text = re.sub(r'[^\w\s]','',text)  
-    text = re.sub(r'\[[0-9]*\]',' ',text) 
-    text = re.sub(r'\d',' ',text)  
-    text = re.sub(r'\s+', ' ', text) 
+    text = text.lower() # Converts to lowercase
+    text=text.strip()  # Removes leading/ trailing whitespace
+    text=re.sub(r'<.*?>','', text) # Remove html sytax 
+    text = re.sub(r'[^\w\s]','',text)  # removes punctuation
+    text = re.sub(r'\[[0-9]*\]',' ',text)  # removes references
+    text = re.sub(r'\d',' ',text) # removes digits
+    text = re.sub(r'\s+', ' ', text) # collapse multiple spaces into a single space
     return text
+```
+
+```{python}
+# Apply string cleaning to text variable
+disaster['clean_text'] = disaster['text'].apply(preprocess)
+disaster.head()
+```
+
+#### What about stop words?
+
+```{python}
+# Proof that Tfidf veoctorizer excludes stopwords
+stop_words_ex = ["On March 5th, I will crush my capstone presentation with my awesome team!"]
+
+vectorizer_english = TfidfVectorizer(stop_words = "english")
+vectorizer_english.fit_transform(stop_words_ex)
+
+print("Remaining words")
+print(vectorizer_english.get_feature_names_out())
+```
+
+#### Logistic Regression
+
+```{python}
+# Split into test and train
+X_train, X_test, y_train, y_test = train_test_split(disaster["clean_text"], disaster['target'], test_size = 0.3, random_state = 42)
+```
+
+```{python}
+# Vectorize words 
+tfidf_vectorizer = TfidfVectorizer(stop_words = "english")
+X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
+X_test_tfidf = tfidf_vectorizer.transform(X_test)
+```
+
+```{python}
+# Initialize a logistic regression model and fit to vectorized training data
+lr_model = LogisticRegression(random_state = 42)
+lr_model.fit(X_train_tfidf, y_train)
+y_pred = lr_model.predict(X_test_tfidf)
+```
+
+#### Logistic Regression Results
+
+```{python}
+# Calculate LR accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy}")
+
+# Create confusion matrix for correctly/incorrectly predicting outcome variable
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize = (8,6))
+sns.heatmap(cm, annot = True, fmt = 'd', cmap = "GnBu",
+           xticklabels = ["No disaster", "Disaster"],
+           yticklabels = ["No Disaster", 'Disaster'])
+plt.title('Logisitc Regression Model Performance')
+plt.ylabel('True Label')
+plt.xlabel('Predicated Label')
+plt.show()
+```
+
+#### Test model with new data
+
+```{python}
+new_text = [
+    "BREAKING: Massve earthquake hits the coast",
+    "I love watching disaster movies on Netflix",
+    "Thousands evacuated as hurricance approaches",
+    "Theeeesssss is a disassterrrrr",
+    "It's Windy!",
+    "The Palisade fire has damaged over 7,000 structures.",
+    "The Palisade wildfire has damaged over 7,000 structures.",
+ 
+]
+
+# Preprocess new phrases
+cleaned_new_text =[preprocess(text) for text in new_text]
+
+# Transform using TF-IDF vectorizer
+new_features = tfidf_vectorizer.transform(cleaned_new_text)
+
+# Make predictions
+
+predictions = lr_model.predict(new_features)
+
+# Check outcomes
+for text, pred in zip(new_text, predictions):
+    print(f"Text: {text}")
+    print(f"Prediction: {'Real Disaster' if pred == 1 else 'Not a Real Disaster'}\n")
 ```
