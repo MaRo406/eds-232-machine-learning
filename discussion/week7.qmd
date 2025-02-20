@@ -21,7 +21,7 @@ In this week's discussion section, we will use a dataset containing tweets relat
 
 ### Data 
 
-The dataset this week is a commonly used dataset for NLP (Natural Language Processing).  The dataset can be found [here](https://drive.google.com/file/d/1_0e7W2bjkhmiHf71mkuYRUFi46PNog0O/view). `Disasters.csv` includes a `text` variable, which contains the tweet as a string. Our target variable, `target`, is a binary outcome variable with 1 representing the disaster discussed as real, and 0 representing the disaster discussed as not real.  
+The dataset this week is a commonly used dataset for NLP (Natural Language Processing).  The dataset can be found [here](https://docs.google.com/spreadsheets/d/1SILdL2TBuglkZDQgzi7M0RTC4n-WHWOaCqd9hAVKa7c/edit?gid=565296148#gid=565296148). `Disasters.csv` includes a `text` variable, which contains the tweet as a string. Our target variable, `target`, is a binary outcome variable with 1 representing the disaster discussed as real, and 0 representing the disaster discussed as not real.  
 
 ### Excercise
 
