@@ -23,6 +23,8 @@ website:
             href: discussion/week4.qmd
           - text: Week 6
             href: discussion/week6.qmd
+          - text: Week 7
+            href: discussion/week7.qmd
             
       - text: Weekly Labs
         menu:

@@ -1,0 +1,63 @@
+---
+title: Discussion 7
+subtitle: NLP with Logistic Regression
+description: 'Thursday, February 20th, 2025'
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: EDS 232
+    language: python
+    name: eds232-env
+---
+
+### Introduction
+
+In this week's discussion section, we will use a dataset containing tweets related to different disasters. For each observation (tweet), there is an outcome variable that classifies the disasters talked about in the tweet as real (1), or not (0). Rather than having multiple predictors as our `X`, we will have one predictor - the tweet. However, each individual word can be thought of as their own predictor, each contributing to predicting our outcome variable. 
+
+### Data 
+
+The dataset this week is a commonly used dataset for NLP (Natural Language Processing).  The dataset can be found [here](https://drive.google.com/drive/home?dmr=1&ec=wgc-drive-hero-goto). `Disasters.csv` includes a `text` variable, which contains the tweet as a string. Our target variable, `target`, is a binary outcome variable with 1 representing the disaster discussed as real, and 0 representing the disaster discussed as not real.  
+
+### Excercise
+
+#### Load in libraries and data
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix
+from sklearn.metrics import roc_curve, auc, roc_auc_score
+import re
+import string
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+```{python}
+# Read in the data
+disaster = pd.read_csv('../data/disaster.csv')
+```
+
+#### Clean text data
+
+```{python}
+# Cleaning text data
+def preprocess(text):
+    text = text.lower() 
+    text=text.strip()  
+    text=re.compile('<.*?>').sub('', text)
+    text = re.compile('[%s]' % re.escape(string.punctuation)).sub(' ', text)  
+    text = re.sub(r'\[[0-9]*\]',' ',text) 
+    text=re.sub(r'[^\w\s]', '', str(text).lower().strip())
+    text = re.sub(r'\d',' ',text)
+    text = re.sub('\s+', ' ', text)  
+    return text
+```

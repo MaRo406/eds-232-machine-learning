@@ -10,9 +10,9 @@ jupyter:
       format_version: '1.0'
       jupytext_version: 1.16.4
   kernelspec:
-    display_name: EDS 232 Environment
+    display_name: EDS 232
     language: python
-    name: eds232_env
+    name: eds232-env
 ---
 
 ### Introduction
