@@ -15,7 +15,7 @@ jupyter:
   kernelspec:
     display_name: EDS 232
     language: python
-    name: eds232-env
+    name: eds232_env
 ---
 
 ![Image created using the Midjourney image generation tool]
@@ -97,7 +97,7 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 +-------------+------------+----------------------------------------------------------+--------------------------+
 | 7           | 2/18, 2/20 | [Gradient Boosting]                                      | 8.2.3, 8.2.5, 10.7.2     |
 +-------------+------------+----------------------------------------------------------+--------------------------+
-| 8           | 2/25, 2/27 | Clustering                                               | 12.4                     |
+| 8           | 2/25, 2/27 | [Clustering]                                             | 12.4                     |
 +-------------+------------+----------------------------------------------------------+--------------------------+
 | 9           | 3/4, 3/6   | SVM                                                      |                          |
 +-------------+------------+----------------------------------------------------------+--------------------------+
@@ -111,3 +111,4 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
   [K-nearest neighbors, Decision Trees]: https://ucsb.box.com/s/vr9dc4t9llrultj6sgmxceb5yxi84n29
   [Bagging, Random Forest]: https://ucsb.box.com/s/9zti9j0qb53ontnyi80pzmpupcwq5am5
   [Gradient Boosting]: https://ucsb.box.com/s/29xmz1fl3vac53wlqako2v2cbry3mk7s
+  [Clustering]: https://ucsb.box.com/s/65pedl14hkolxakt0c0idngnvlyih0uz
