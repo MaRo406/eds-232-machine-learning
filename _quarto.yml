@@ -25,6 +25,9 @@ website:
             href: discussion/week6.qmd
           - text: Week 7
             href: discussion/week7.qmd
+          - text: Week 8
+            href: discussion/week8.qmd
+            
             
       - text: Weekly Labs
         menu:

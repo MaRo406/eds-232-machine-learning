@@ -1,0 +1,119 @@
+---
+title: Discussion 8
+subtitle: Image Classification with KMeans
+description: 'Thursday, February 27th, 2025'
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: EDS 232
+    language: python
+    name: eds232-env
+---
+
+### Introduction
+
+In this week's discussion section, we will use a dataset containing images of different plant diseases, and classify these images into different clusters. We will create a widget to see how our model classified a few of the images, as well as see how our classification changes when we change the value of K. 
+
+### Data 
+
+The dataset this week is zipped file contain many different folders containg images of plants. Each folder represents a different plant disease, and all images in that folder house pictures representing the corresponding disease.  The dataset can be found [here](https://data.mendeley.com/datasets/tywbtsjrjv/1/files/b4e3a32f-c0bd-4060-81e9-6144231f2520).  
+
+### Excercise
+
+##### Load in libraries and data
+
+```{python}
+import numpy as np
+import os
+from PIL import Image
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from matplotlib.patches import Patch
+from ipywidgets import IntSlider, interact, Layout
+from IPython.display import display
+import zipfile
+```
+
+##### Function to unzip the zipped plant data
+
+```{python}
+def unzip(zip_path, extract_to):
+    # Ensure the extraction directory exists
+    if not os.path.exists(extract_to):
+        os.makedirs(extract_to)
+
+    # Open the zip file
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        # Extract all the contents into the directory
+        zip_ref.extractall(extract_to)
+        print(f"Files extracted to {extract_to}")
+unzip("../data/plant_disease.zip", "../data/plant_disease")
+```
+
+Use the function above to unzip your data folder. The first argument in the function is locating your zip file, and the second is picking a location/ file name for your new folder.
+
+
+`unzip('/path/to/zipped/file.zip', 'path/to/unzipped/folder')`
+
+##### Now that we have our data in the correct format (unzipped!), let's preprocess our data.
+
+### Preprocess data
+
+##### Function to load image data
+
+```{python}
+# Function to open and standardize images used in model
+
+def load_images(base_path, max_per_folder=20):
+    images = [] # Empty list to store images
+    labels = [] # Empty list to store label of each images
+    class_names = [] # Empty list to store the names of the folders for all images
+
+    for i, folder in enumerate(sorted(os.listdir(base_path))):
+        folder_path = os.path.join(base_path, folder) # Join base path with folders to iterate over
+        if not os.path.isdir(folder_path):
+            continue
+
+        class_names.append(folder)
+        print(f"Loading from {folder}...")
+
+        count = 0
+        for img_file in os.listdir(folder_path): # Iterate over each item in each folder
+            if count >= max_per_folder: # Stop when counter gets to 20 images
+                break
+
+            if img_file.lower().endswith(('.png', '.jpg', '.jpeg')): # Ensure file in folder is correct format
+                try:
+                    img_path = os.path.join(folder_path, img_file)
+                    with Image.open(img_path) as img: # Open image
+                        img = img.convert('RGB') # Convert it to RGB to standardize color channels
+                        img = img.resize((100, 100), Image.Resampling.LANCZOS) # Resize image using LANCZOS resampling method
+
+                    images.append(np.array(img)) # Convert image to array and add to image list
+                    labels.append(i) # Add label to label list 
+                    count += 1
+                except Exception as e: # Print error message if error with a file
+                    print(f"Error with {img_file}: {e}")
+
+    return np.array(images), np.array(labels), class_names
+
+data_path = "../data/plant_disease"
+images, labels, class_names = load_images(data_path)
+print(f"Loaded {len(images)} images from {len(class_names)} disease classes")
+```
+
+### More preprocessing ...
+
+##### Extract features from data and perform PCA
+
+
+### Create an interactive widget and visualize clustering
+
+##### Function to run a KMeans model and create a visualization
+
