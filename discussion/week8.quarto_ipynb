@@ -1,0 +1,184 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: Discussion 8\n",
+        "subtitle: Image Classification with KMeans\n",
+        "description: 'Thursday, February 27th, 2025'\n",
+        "jupyter:\n",
+        "  jupytext:\n",
+        "    text_representation:\n",
+        "      extension: .qmd\n",
+        "      format_name: quarto\n",
+        "      format_version: '1.0'\n",
+        "      jupytext_version: 1.16.4\n",
+        "  kernelspec:\n",
+        "    display_name: EDS 232\n",
+        "    language: python\n",
+        "    name: eds232-env\n",
+        "---\n",
+        "\n",
+        "\n",
+        "### Introduction\n",
+        "\n",
+        "In this week's discussion section, we will use a dataset containing images of different plant diseases, and classify these images into different clusters. We will create a widget to see how our model classified a few of the images, as well as see how our classification changes when we change the value of K. \n",
+        "\n",
+        "### Data \n",
+        "\n",
+        "The dataset this week is zipped file contain many different folders containg images of plants. Each folder represents a different plant disease, and all images in that folder house pictures representing the corresponding disease.  The dataset can be found [here](https://data.mendeley.com/datasets/tywbtsjrjv/1/files/b4e3a32f-c0bd-4060-81e9-6144231f2520).  \n",
+        "\n",
+        "### Excercise\n",
+        "\n",
+        "##### Load in libraries and data\n"
+      ],
+      "id": "667a9a47"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "import os\n",
+        "from PIL import Image\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.decomposition import PCA\n",
+        "from sklearn.cluster import KMeans\n",
+        "from matplotlib.patches import Patch\n",
+        "from ipywidgets import IntSlider, interact, Layout\n",
+        "from IPython.display import display\n",
+        "import zipfile"
+      ],
+      "id": "362d27b6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "##### Function to unzip the zipped plant data\n"
+      ],
+      "id": "ae1ce15f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def unzip(zip_path, extract_to):\n",
+        "    # Ensure the extraction directory exists\n",
+        "    if not os.path.exists(extract_to):\n",
+        "        os.makedirs(extract_to)\n",
+        "\n",
+        "    # Open the zip file\n",
+        "    with zipfile.ZipFile(zip_path, 'r') as zip_ref:\n",
+        "        # Extract all the contents into the directory\n",
+        "        zip_ref.extractall(extract_to)\n",
+        "        print(f\"Files extracted to {extract_to}\")\n",
+        "unzip(\"../data/plant_disease.zip\", \"../data/plant_disease\")"
+      ],
+      "id": "01270904",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Use the function above to unzip your data folder. The first argument in the function is locating your zip file, and the second is picking a location/ file name for your new folder.\n",
+        "\n",
+        "\n",
+        "`unzip('/path/to/zipped/file.zip', 'path/to/unzipped/folder')`\n",
+        "\n",
+        "##### Now that we have our data in the correct format (unzipped!), let's preprocess our data.\n",
+        "\n",
+        "### Preprocess data\n",
+        "\n",
+        "##### Function to load image data\n"
+      ],
+      "id": "c207b676"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Function to open and standardize images used in model\n",
+        "\n",
+        "def load_images(base_path, max_per_folder=20):\n",
+        "    images = [] # Empty list to store images\n",
+        "    labels = [] # Empty list to store label of each images\n",
+        "    class_names = [] # Empty list to store the names of the folders for all images\n",
+        "\n",
+        "    for i, folder in enumerate(sorted(os.listdir(base_path))):\n",
+        "        folder_path = os.path.join(base_path, folder) # Join base path with folders to iterate over\n",
+        "        if not os.path.isdir(folder_path):\n",
+        "            continue\n",
+        "\n",
+        "        class_names.append(folder)\n",
+        "        print(f\"Loading from {folder}...\")\n",
+        "\n",
+        "        count = 0\n",
+        "        for img_file in os.listdir(folder_path): # Iterate over each item in each folder\n",
+        "            if count >= max_per_folder: # Stop when counter gets to 20 images\n",
+        "                break\n",
+        "\n",
+        "            if img_file.lower().endswith(('.png', '.jpg', '.jpeg')): # Ensure file in folder is correct format\n",
+        "                try:\n",
+        "                    img_path = os.path.join(folder_path, img_file)\n",
+        "                    with Image.open(img_path) as img: # Open image\n",
+        "                        img = img.convert('RGB') # Convert it to RGB to standardize color channels\n",
+        "                        img = img.resize((100, 100), Image.Resampling.LANCZOS) # Resize image using LANCZOS resampling method\n",
+        "\n",
+        "                    images.append(np.array(img)) # Convert image to array and add to image list\n",
+        "                    labels.append(i) # Add label to label list \n",
+        "                    count += 1\n",
+        "                except Exception as e: # Print error message if error with a file\n",
+        "                    print(f\"Error with {img_file}: {e}\")\n",
+        "\n",
+        "    return np.array(images), np.array(labels), class_names\n",
+        "\n",
+        "data_path = \"../data/plant_disease\"\n",
+        "images, labels, class_names = load_images(data_path)\n",
+        "print(f\"Loaded {len(images)} images from {len(class_names)} disease classes\")"
+      ],
+      "id": "4f1564ae",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### More preprocessing ...\n",
+        "\n",
+        "##### Extract features from data and perform PCA\n",
+        "\n",
+        "\n",
+        "### Create an interactive widget and visualize clustering\n",
+        "\n",
+        "##### Function to run a KMeans model and create a visualization\n"
+      ],
+      "id": "6197b1c7"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "EDS 232",
+      "language": "python",
+      "name": "eds232-env"
+    },
+    "kernel": "eds232_env",
+    "jupytext": {
+      "text_representation": {
+        "extension": ".qmd",
+        "format_name": "quarto",
+        "format_version": "1.0",
+        "jupytext_version": "1.16.4"
+      }
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

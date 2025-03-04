@@ -99,7 +99,7 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 +-------------+------------+----------------------------------------------------------+--------------------------+
 | 8           | 2/25, 2/27 | [Clustering]                                             | 12.4                     |
 +-------------+------------+----------------------------------------------------------+--------------------------+
-| 9           | 3/4, 3/6   | SVM                                                      |                          |
+| 9           | 3/4, 3/6   | [SVM]                                                    | 9.2                      |
 +-------------+------------+----------------------------------------------------------+--------------------------+
 | 10          | 3/11, 3/13 | Kaggle                                                   |                          |
 +-------------+------------+----------------------------------------------------------+--------------------------+
@@ -112,3 +112,4 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
   [Bagging, Random Forest]: https://ucsb.box.com/s/9zti9j0qb53ontnyi80pzmpupcwq5am5
   [Gradient Boosting]: https://ucsb.box.com/s/29xmz1fl3vac53wlqako2v2cbry3mk7s
   [Clustering]: https://ucsb.box.com/s/65pedl14hkolxakt0c0idngnvlyih0uz
+  [SVM]: https://ucsb.box.com/s/kz89ngfgiztgw43kec2qra5j0sjqovmb
