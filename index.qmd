@@ -15,7 +15,7 @@ jupyter:
   kernelspec:
     display_name: EDS 232
     language: python
-    name: eds232-env
+    name: eds232_env
 ---
 
 ![Image created using the Midjourney image generation tool]
