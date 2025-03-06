@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Thursday, March 6th, 2025">
+<meta name="description" content="Thursday, February 27th, 2025">
 
-<title>Discussion 9</title>
+<title>Discussion 8</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -189,11 +189,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-right">
-      <h1 class="title">Discussion 9</h1>
-            <p class="subtitle lead">Support Vector Machines with simulated data</p>
+      <h1 class="title">Discussion 8</h1>
+            <p class="subtitle lead">Image Classification with KMeans</p>
                   <div>
         <div class="description">
-          Thursday, March 6th, 2025
+          Thursday, February 27th, 2025
         </div>
       </div>
                 </div>
@@ -218,6 +218,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#excercise" id="toc-excercise" class="nav-link" data-scroll-target="#excercise">Excercise</a></li>
+  <li><a href="#preprocess-data" id="toc-preprocess-data" class="nav-link" data-scroll-target="#preprocess-data">Preprocess data</a></li>
+  <li><a href="#more-preprocessing" id="toc-more-preprocessing" class="nav-link" data-scroll-target="#more-preprocessing">More preprocessing …</a></li>
+  <li><a href="#create-an-interactive-widget-and-visualize-clustering" id="toc-create-an-interactive-widget-and-visualize-clustering" class="nav-link" data-scroll-target="#create-an-interactive-widget-and-visualize-clustering">Create an interactive widget and visualize clustering</a></li>
   </ul>
 </nav>
 </nav>
@@ -233,84 +236,152 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>In this week’s discussion section, we will use simulated datasets to create a widget that looks at the results of a Support Vector Machine. The simulated datasents represent different relationships within our data. Our widget will allow us to select different kernels, regularization parameters, and methods for calculating gamma, allowing us to see how these changes change the classification of our data. The image below serves as a reminder of a few of the different kernels we can use in a Support Vector Machine.</p>
-<p><img src="svm_kernels.png" class="img-fluid"></p>
+<p>In this week’s discussion section, we will use a dataset containing images of different plant diseases, and classify these images into different clusters. We will create a widget to see how our model classified a few of the images, as well as see how our classification changes when we change the value of K.</p>
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>As mentioned above, the data we will be working with this week is all simulated. Copy the code cell below to obtain the data.</p>
+<p>The dataset this week is zipped file contain many different folders containg images of plants. Each folder represents a different plant disease, and all images in that folder house pictures representing the corresponding disease. The dataset can be found <a href="https://data.mendeley.com/datasets/tywbtsjrjv/1/files/b4e3a32f-c0bd-4060-81e9-6144231f2520">here</a>.</p>
 </section>
 <section id="excercise" class="level3">
 <h3 class="anchored" data-anchor-id="excercise">Excercise</h3>
-<section id="load-in-libraries" class="level4">
-<h4 class="anchored" data-anchor-id="load-in-libraries">Load in libraries</h4>
+<section id="load-in-libraries-and-data" class="level5">
+<h5 class="anchored" data-anchor-id="load-in-libraries-and-data">Load in libraries and data</h5>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets <span class="im">as</span> widgets</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipywidgets <span class="im">import</span> IntSlider, interact, Layout</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-simulated-data" class="level4">
-<h4 class="anchored" data-anchor-id="create-simulated-data">Create simulated data</h4>
+<section id="function-to-unzip-the-zipped-plant-data" class="level5">
+<h5 class="anchored" data-anchor-id="function-to-unzip-the-zipped-plant-data">Function to unzip the zipped plant data</h5>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Linearly Separable Data</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> np.random.randn(<span class="dv">100</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">2</span>, <span class="dv">2</span>]</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> np.random.randn(<span class="dv">100</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">5</span>, <span class="dv">5</span>]</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>X_linear <span class="op">=</span> np.vstack((X1, X2))</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>y_linear <span class="op">=</span> np.array([<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span> <span class="op">+</span> [<span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df_linear <span class="op">=</span> pd.DataFrame(X_linear, columns<span class="op">=</span>[<span class="st">'Temperature'</span>, <span class="st">'Humidity'</span>])</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df_linear[<span class="st">'Pollution_Level'</span>] <span class="op">=</span> y_linear</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Non-linearly Separable Data (Circular Boundaries)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>radius <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> np.pi, length)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>X1_circular <span class="op">=</span> np.vstack((np.sin(angle) <span class="op">*</span> radius, np.cos(angle) <span class="op">*</span> radius)).T <span class="op">+</span> np.random.randn(length, <span class="dv">2</span>) <span class="op">*</span> <span class="fl">0.1</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>X2_circular <span class="op">=</span> np.random.randn(length, <span class="dv">2</span>) <span class="op">*</span> <span class="fl">0.5</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>X_circular <span class="op">=</span> np.vstack((X1_circular, X2_circular))</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>y_circular <span class="op">=</span> np.array([<span class="dv">0</span>] <span class="op">*</span> length <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> length)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>df_circular <span class="op">=</span> pd.DataFrame(X_circular, columns<span class="op">=</span>[<span class="st">'CO2_Emission'</span>, <span class="st">'Water_Usage'</span>])</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df_circular[<span class="st">'Area_Type'</span>] <span class="op">=</span> y_circular</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate XOR-like Data</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>X1_xor <span class="op">=</span> np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">2</span>, <span class="dv">2</span>]</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>X2_xor <span class="op">=</span> np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">2</span>, <span class="dv">5</span>]</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>X3_xor <span class="op">=</span> np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">5</span>, <span class="dv">2</span>]</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>X4_xor <span class="op">=</span> np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">5</span>, <span class="dv">5</span>]</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>X_xor <span class="op">=</span> np.vstack((X1_xor, X2_xor, X3_xor, X4_xor))</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>y_xor <span class="op">=</span> np.array([<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span> <span class="op">+</span> [<span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>df_xor <span class="op">=</span> pd.DataFrame(X_xor, columns<span class="op">=</span>[<span class="st">'Species_Count'</span>, <span class="st">'Toxicity_Level'</span>])</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>df_xor[<span class="st">'Habitat_Damage'</span>] <span class="op">=</span> y_xor</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Overlapping Data</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>X1_overlap <span class="op">=</span> np.random.randn(<span class="dv">100</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">3</span>, <span class="dv">3</span>]</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>X2_overlap <span class="op">=</span> np.random.randn(<span class="dv">100</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">4</span>, <span class="dv">4</span>]</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>X_overlap <span class="op">=</span> np.vstack((X1_overlap, X2_overlap))</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>y_overlap <span class="op">=</span> np.array([<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span> <span class="op">+</span> [<span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>df_overlap <span class="op">=</span> pd.DataFrame(X_overlap, columns<span class="op">=</span>[<span class="st">'Air_Quality'</span>, <span class="st">'Noise_Level'</span>])</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>df_overlap[<span class="st">'Health_Risk'</span>] <span class="op">=</span> y_overlap</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect all datasets in a dictionary for easy access</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> {</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">'linear_data'</span>: df_linear,</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">'circular_data'</span>: df_circular,</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">'xor_data'</span>: df_xor,</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">'overlapping_data'</span>: df_overlap</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unzip(zip_path, extract_to):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure the extraction directory exists</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(extract_to):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        os.makedirs(extract_to)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Open the zip file</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(zip_path, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract all the contents into the directory</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(extract_to)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Files extracted to </span><span class="sc">{</span>extract_to<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>unzip(<span class="st">"../data/plant_disease.zip"</span>, <span class="st">"../data/plant_disease"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Files extracted to ../data/plant_disease</code></pre>
+</div>
+</div>
+<p>Use the function above to unzip your data folder. The first argument in the function is locating your zip file, and the second is picking a location/ file name for your new folder.</p>
+<p><code>unzip('/path/to/zipped/file.zip', 'path/to/unzipped/folder')</code></p>
+</section>
+<section id="now-that-we-have-our-data-in-the-correct-format-unzipped-lets-preprocess-our-data." class="level5">
+<h5 class="anchored" data-anchor-id="now-that-we-have-our-data-in-the-correct-format-unzipped-lets-preprocess-our-data.">Now that we have our data in the correct format (unzipped!), let’s preprocess our data.</h5>
+</section>
+</section>
+<section id="preprocess-data" class="level3">
+<h3 class="anchored" data-anchor-id="preprocess-data">Preprocess data</h3>
+<section id="function-to-load-image-data" class="level5">
+<h5 class="anchored" data-anchor-id="function-to-load-image-data">Function to load image data</h5>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to open and standardize images used in model</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_images(base_path, max_per_folder<span class="op">=</span><span class="dv">20</span>):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    images <span class="op">=</span> [] <span class="co"># Empty list to store images</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [] <span class="co"># Empty list to store label of each images</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    class_names <span class="op">=</span> [] <span class="co"># Empty list to store the names of the folders for all images</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, folder <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">sorted</span>(os.listdir(base_path))):</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        folder_path <span class="op">=</span> os.path.join(base_path, folder) <span class="co"># Join base path with folders to iterate over</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> os.path.isdir(folder_path):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        class_names.append(folder)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Loading from </span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">..."</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> img_file <span class="kw">in</span> os.listdir(folder_path): <span class="co"># Iterate over each item in each folder</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> count <span class="op">&gt;=</span> max_per_folder: <span class="co"># Stop when counter gets to 20 images</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> img_file.lower().endswith((<span class="st">'.png'</span>, <span class="st">'.jpg'</span>, <span class="st">'.jpeg'</span>)): <span class="co"># Ensure file in folder is correct format</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span>:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                    img_path <span class="op">=</span> os.path.join(folder_path, img_file)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">with</span> Image.<span class="bu">open</span>(img_path) <span class="im">as</span> img: <span class="co"># Open image</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                        img <span class="op">=</span> img.convert(<span class="st">'RGB'</span>) <span class="co"># Convert it to RGB to standardize color channels</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                        img <span class="op">=</span> img.resize((<span class="dv">100</span>, <span class="dv">100</span>), Image.Resampling.LANCZOS) <span class="co"># Resize image using LANCZOS resampling method</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                    images.append(np.array(img)) <span class="co"># Convert image to array and add to image list</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                    labels.append(i) <span class="co"># Add label to label list </span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e: <span class="co"># Print error message if error with a file</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="ss">f"Error with </span><span class="sc">{</span>img_file<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(images), np.array(labels), class_names</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> <span class="st">"../data/plant_disease"</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>images, labels, class_names <span class="op">=</span> load_images(data_path)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Loaded </span><span class="sc">{</span><span class="bu">len</span>(images)<span class="sc">}</span><span class="ss"> images from </span><span class="sc">{</span><span class="bu">len</span>(class_names)<span class="sc">}</span><span class="ss"> disease classes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading from Apple___Apple_scab...
+Loading from Apple___Black_rot...
+Loading from Apple___Cedar_apple_rust...
+Loading from Apple___healthy...
+Loading from Background_without_leaves...
+Loading from Blueberry___healthy...
+Loading from Cherry___Powdery_mildew...
+Loading from Cherry___healthy...
+Loading from Corn___Cercospora_leaf_spot Gray_leaf_spot...
+Loading from Corn___Common_rust...
+Loading from Corn___Northern_Leaf_Blight...
+Loading from Corn___healthy...
+Loading from Grape___Black_rot...
+Loading from Grape___Esca_(Black_Measles)...
+Loading from Grape___Leaf_blight_(Isariopsis_Leaf_Spot)...
+Loading from Grape___healthy...
+Loading from Orange___Haunglongbing_(Citrus_greening)...
+Loading from Peach___Bacterial_spot...
+Loading from Peach___healthy...
+Loading from Pepper,_bell___Bacterial_spot...
+Loading from Pepper,_bell___healthy...
+Loading from Potato___Early_blight...
+Loading from Potato___Late_blight...
+Loading from Potato___healthy...
+Loading from Raspberry___healthy...
+Loading from Soybean___healthy...
+Loading from Squash___Powdery_mildew...
+Loading from Strawberry___Leaf_scorch...
+Loading from Strawberry___healthy...
+Loading from Tomato___Bacterial_spot...
+Loading from Tomato___Early_blight...
+Loading from Tomato___Late_blight...
+Loading from Tomato___Leaf_Mold...
+Loading from Tomato___Septoria_leaf_spot...
+Loading from Tomato___Spider_mites Two-spotted_spider_mite...
+Loading from Tomato___Target_Spot...
+Loading from Tomato___Tomato_Yellow_Leaf_Curl_Virus...
+Loading from Tomato___Tomato_mosaic_virus...
+Loading from Tomato___healthy...
+Loaded 780 images from 39 disease classes</code></pre>
+</div>
 </div>
 </section>
-<section id="create-a-svm-widget" class="level4">
-<h4 class="anchored" data-anchor-id="create-a-svm-widget">Create a SVM Widget</h4>
+</section>
+<section id="more-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="more-preprocessing">More preprocessing …</h3>
+<section id="extract-features-from-data-and-perform-pca" class="level5">
+<h5 class="anchored" data-anchor-id="extract-features-from-data-and-perform-pca">Extract features from data and perform PCA</h5>
+</section>
+</section>
+<section id="create-an-interactive-widget-and-visualize-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-interactive-widget-and-visualize-clustering">Create an interactive widget and visualize clustering</h3>
+<section id="function-to-run-a-kmeans-model-and-create-a-visualization" class="level5">
+<h5 class="anchored" data-anchor-id="function-to-run-a-kmeans-model-and-create-a-visualization">Function to run a KMeans model and create a visualization</h5>
 
 
 </section>
