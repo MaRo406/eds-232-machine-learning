@@ -12,7 +12,7 @@ jupyter:
   kernelspec:
     display_name: EDS 232
     language: python
-    name: eds232_env
+    name: eds232-env
 ---
 
 ### Introduction
@@ -116,4 +116,3 @@ print(f"Loaded {len(images)} images from {len(class_names)} disease classes")
 ### Create an interactive widget and visualize clustering
 
 ##### Function to run a KMeans model and create a visualization
-
