@@ -94,4 +94,138 @@ datasets = {
 }
 ```
 
-#### Create a SVM Widget
+#### Create a SVM Widget ( Note that widget does not work in browser, you must run it locally!) 
+
+```{python}
+def interactive_svm(kernel, C, gamma, data_key):
+    """
+    Widget SVM  Function 
+    
+    Parameters:
+    - kernel: SVM kernel type
+    - C: Regularization parameter
+    - gamma: Kernel coefficient (auto/ scale)
+    - data: DataFrame with features and target as the last column
+    """
+    
+    # Separate features and target
+    data = datasets[data_key]
+    X = data.iloc[:, :-1]
+    y = data.iloc[:, -1]
+    feature_names = X.columns # used for plotting axis labels
+    target_name = data.columns[-1] # used for plotting legend 
+    
+    # Preprocess data
+    scaler = StandardScaler()
+    X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=X.columns)
+    
+    # Split the data
+    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=42)
+    
+    # Train SVM model
+    model = SVC(kernel=kernel, C=C, gamma=gamma)
+    model.fit(X_train, y_train)
+    
+    # Evaluate the model
+    predictions = model.predict(X_test)
+
+    # Plot decision boundaries if dataset has 2 features
+    if X.shape[1] == 2:
+        fig, ax = plt.subplots(figsize=(10, 6)) 
+        
+        # Create mesh for decision boundary
+
+         # Get min and max for x1 and x2, extend by one unit for each
+        x1_min, x1_max = X_test.iloc[:, 0].min() - 1, X_test.iloc[:, 0].max() + 1
+        x2_min, x2_max = X_test.iloc[:, 1].min() - 1, X_test.iloc[:, 1].max() + 1
+        
+        # np.meshgrid is a NumPy function that creates a rectangular grid from coordinate arrays
+        xx1, xx2 = np.meshgrid(np.linspace(x1_min, x1_max, 100),
+                             np.linspace(x2_min, x2_max, 100))
+        
+        # Predict for mesh
+        
+        # ravel flattens a 2D array into a 1d array
+        # np.c stacks data side by side, so they are a coordinate
+        y_pred_input = np.c_[xx1.ravel(), xx2.ravel()] 
+        y_pred_input_df = pd.DataFrame(y_pred_input, columns = feature_names[:2]) # make into dataframe to predict
+        y_pred = model.predict(y_pred_input_df) # Predict the class for each point in the meshgrid
+        y_pred = y_pred.reshape(xx1.shape) # Convert back into 2d array that matches shape of mesh grid in order to create contour plot
+        
+        
+        # Print accuracy
+        print("Accuracy Score\n")
+        print(accuracy_score(y_test, predictions))
+        
+        # Plot decision boundary using filled contour plot
+        plt.contourf(xx1, xx2, y_pred, alpha=0.4, cmap=plt.cm.RdYlBu)
+
+        # Plot original X scaled data as a scatter plot on top of contour plot
+        scatter = plt.scatter(X_scaled.iloc[:, 0], X_scaled.iloc[:, 1], 
+                              c=y, cmap=plt.cm.RdYlBu) 
+        
+        # Define the colors you used in your scatter plot
+        colors = [plt.cm.RdYlBu(i) for i in np.linspace(0, 1, len(np.unique(y)))]
+        
+        # Create a list of patches for the legend
+        # [0], [0] are trivial values used for where the line would be drawn in the Line2d function
+        legend_handles = [Line2D([0], [0], marker='o', color='w', label=f'{label}',
+               markerfacecolor=color, markersize=10, linestyle='none') for color, label in zip(colors, np.unique(y))]
+        
+        # Add the custom legend to the plot
+        ax.legend(handles=legend_handles, loc='upper right', title=f'{target_name}')
+
+        # Add legend labels and title
+        plt.xlabel(X.columns[0])
+        plt.ylabel(X.columns[1])
+        plt.title(f'SVM Decision Boundary (Kernel: {kernel})')
+        plt.show()
+    
+    return model
+
+
+
+# Create kernel widget
+kernel_widget = widgets.Dropdown(
+    options=['linear', 'rbf', 'poly'], 
+    value='rbf', 
+    description='Kernel:'
+)
+
+
+# Create regularization parameter widget
+C_widget = widgets.FloatLogSlider(
+    value=1.0, 
+    base=10, 
+    min=-3, 
+    max=3, 
+    description='C (Regularization):'
+)
+
+# Create gamma widget
+gamma_widget = widgets.Dropdown(
+    options=['scale', 'auto'], # scale -> gamma =  1/(n_features * X.var()) , auto -> gamma =  1 / n_features
+    value='scale', 
+    description='Gamma:'
+)
+
+
+# Create dataset widget
+dataset_widget = widgets.Dropdown(
+    options=list(datasets.keys()),  # Dictionary keys as options
+    value='linear_data', 
+    description='Dataset:',
+    disabled=False,
+)
+
+
+
+# Piece together widget function and all input widget components 
+widgets.interactive(
+    interactive_svm, 
+    kernel=kernel_widget, 
+    C=C_widget, 
+    gamma=gamma_widget,
+    data_key=dataset_widget 
+)
+```
