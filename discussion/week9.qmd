@@ -19,7 +19,7 @@ jupyter:
 
 In this week's discussion section, we will use simulated datasets to create a widget that looks at the results of a Support Vector Machine. The simulated datasents represent different relationships within our data. Our widget will allow us to select different kernels, regularization parameters, and methods for calculating gamma, allowing us to see how these changes change the classification of our data. The image below serves as a reminder of a few of the different kernels we can use in a Support Vector Machine. 
 
-![](../data/svm_kernels.png)
+![](svm_kernels.png)
 
 ### Data 
 
