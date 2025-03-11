@@ -12,7 +12,7 @@ jupyter:
   kernelspec:
     display_name: EDS 232
     language: python
-    name: eds232-env
+    name: eds232_env
 ---
 
 ## Introduction

@@ -18,8 +18,10 @@
         "  kernelspec:\n",
         "    display_name: EDS 232\n",
         "    language: python\n",
-        "    name: eds232-env\n",
+        "    name: eds232_env\n",
         "---\n",
+        "\n",
+        "\n",
         "\n",
         "\n",
         "### Introduction\n",
@@ -34,7 +36,7 @@
         "\n",
         "##### Load in libraries and data\n"
       ],
-      "id": "f8fd17d3"
+      "id": "6cc449bb"
     },
     {
       "cell_type": "code",
@@ -51,7 +53,7 @@
         "from IPython.display import display\n",
         "import zipfile"
       ],
-      "id": "9577400a",
+      "id": "d88687e2",
       "execution_count": null,
       "outputs": []
     },
@@ -61,7 +63,7 @@
       "source": [
         "##### Function to unzip the zipped plant data\n"
       ],
-      "id": "bc511d20"
+      "id": "4eec9f70"
     },
     {
       "cell_type": "code",
@@ -79,7 +81,7 @@
         "        print(f\"Files extracted to {extract_to}\")\n",
         "unzip(\"../data/plant_disease.zip\", \"../data/plant_disease\")"
       ],
-      "id": "ede100ff",
+      "id": "5bb936b8",
       "execution_count": null,
       "outputs": []
     },
@@ -98,7 +100,7 @@
         "\n",
         "##### Function to load image data\n"
       ],
-      "id": "39c25806"
+      "id": "24ca366c"
     },
     {
       "cell_type": "code",
@@ -143,7 +145,7 @@
         "images, labels, class_names = load_images(data_path)\n",
         "print(f\"Loaded {len(images)} images from {len(class_names)} disease classes\")"
       ],
-      "id": "fda0b953",
+      "id": "75f623bc",
       "execution_count": null,
       "outputs": []
     },
@@ -160,16 +162,15 @@
         "\n",
         "##### Function to run a KMeans model and create a visualization"
       ],
-      "id": "cb92d63c"
+      "id": "4d365d1b"
     }
   ],
   "metadata": {
     "kernelspec": {
       "display_name": "EDS 232",
       "language": "python",
-      "name": "eds232-env"
+      "name": "eds232_env"
     },
-    "kernel": "eds232_env",
     "jupytext": {
       "text_representation": {
         "extension": ".qmd",
