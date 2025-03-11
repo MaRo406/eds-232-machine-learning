@@ -101,7 +101,7 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
 +-------------+------------+----------------------------------------------------------+--------------------------+
 | 9           | 3/4, 3/6   | [SVM]                                                    | 9.2                      |
 +-------------+------------+----------------------------------------------------------+--------------------------+
-| 10          | 3/11, 3/13 | Kaggle                                                   |                          |
+| 10          | 3/11, 3/13 | [Deep Learning], Kaggle                                  |                          |
 +-------------+------------+----------------------------------------------------------+--------------------------+
 
   [Introduction]: https://ucsb.box.com/s/maqfl2rorjjbekb23ek98b3odshuvcq2
@@ -113,3 +113,4 @@ The goal of EDS 232 is to equip students with a strong foundation in the core co
   [Gradient Boosting]: https://ucsb.box.com/s/29xmz1fl3vac53wlqako2v2cbry3mk7s
   [Clustering]: https://ucsb.box.com/s/65pedl14hkolxakt0c0idngnvlyih0uz
   [SVM]: https://ucsb.box.com/s/kz89ngfgiztgw43kec2qra5j0sjqovmb
+  [Deep Learning]: https://ucsb.box.com/s/regphuofzz57rnnjogojow41dldxbpqn
